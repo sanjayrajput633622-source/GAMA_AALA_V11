@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="20.0dp" android:width="20.0dp" android:viewportWidth="20.0" android:viewportHeight="20.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <path android:fillColor="@drawable/ic_film_lib_selected__0" android:pathData="M10,2C14.418,2 18,5.582 18,10C18,14.418 14.418,18 10,18C5.582,18 2,14.418 2,10C2,5.582 5.582,2 10,2Z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+    <path android:fillColor="#00000000" android:pathData="M6.275,10l2.725,2.725l5.15,-5.15" android:strokeColor="#303030" android:strokeWidth="1.5" android:strokeLineCap="round" android:strokeLineJoin="round" android:fillType="evenOdd" />
+</vector>

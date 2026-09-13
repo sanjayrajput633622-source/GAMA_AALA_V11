@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/ll_like" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:layout_marginBottom="35.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/ll_share" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+                <ImageView android:id="@id/ivDetailLikeImageView" android:layout_width="36.0dp" android:layout_height="36.0dp" android:src="@drawable/ic_detail_will_like" />
+                <com.airbnb.lottie.LottieAnimationView android:layout_gravity="center" android:id="@id/lavDetailLikeAnimationView" android:visibility="gone" android:layout_width="36.0dp" android:layout_height="36.0dp" app:lottie_fileName="good.json" />
+                <TextView android:textSize="10.0sp" android:textColor="@color/sport_video_share" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/detail_like" />
+            </LinearLayout>
+            <LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/ll_share" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="@id/ll_like" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toEndOf="@id/ll_like" app:layout_constraintTop_toTopOf="@id/ll_like">
+                <ImageView android:layout_width="36.0dp" android:layout_height="36.0dp" android:src="@drawable/ic_live_tv_share" />
+                <TextView android:textSize="10.0sp" android:textColor="@color/sport_video_share" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/detail_share" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@id/ctRelate" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/llNewsMore" android:layout_width="match_parent" android:layout_height="wrap_content" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+                <View android:id="@id/vNewsLabel" android:background="@drawable/shape_bg_label" android:layout_width="3.0dp" android:layout_height="16.0dp" />
+                <TextView android:textSize="18.0sp" android:textColor="@color/grey_classification_label_text" android:id="@id/tvNewsLabelTitle" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="@string/sport_video_relation" android:layout_weight="1.0" android:layout_marginStart="9.0dp" />
+                <TextView android:textSize="14.0sp" android:textColor="@color/color_92929b" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/live_tv_detail_more" />
+                <ImageView android:id="@id/ivNewsMore" android:paddingTop="10.0dp" android:paddingBottom="10.0dp" android:visibility="invisible" android:layout_width="35.0dp" android:layout_height="35.0dp" android:src="@drawable/ic_channel_more" android:paddingStart="6.0dp" android:paddingEnd="14.0dp" />
+            </LinearLayout>
+            <com.gxgx.daqiandy.widgets.RecyclerViewAtViewPager2 android:id="@id/rlvNews" android:layout_width="0.0dp" android:layout_height="wrap_content" android:nestedScrollingEnabled="false" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/llNewsMore" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@id/ctPopular" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24.0dp">
+            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/llPopularMore" android:layout_width="match_parent" android:layout_height="wrap_content" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+                <View android:id="@id/vPopularLabel" android:background="@drawable/shape_bg_label" android:layout_width="3.0dp" android:layout_height="16.0dp" />
+                <TextView android:textSize="18.0sp" android:textColor="@color/grey_classification_label_text" android:id="@id/tvPopularLabelTitle" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="@string/sport_video_popular" android:layout_weight="1.0" android:layout_marginStart="9.0dp" />
+            </LinearLayout>
+            <com.gxgx.daqiandy.widgets.RecyclerViewAtViewPager2 android:id="@id/rlvPopular" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:nestedScrollingEnabled="false" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/llPopularMore" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

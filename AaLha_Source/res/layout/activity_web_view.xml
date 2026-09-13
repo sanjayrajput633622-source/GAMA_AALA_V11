@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/llTitle" android:layout_width="match_parent" android:layout_height="39.0dp" app:layout_constraintTop_toTopOf="parent">
+        <ImageView android:id="@id/ivBack" android:paddingTop="12.0dp" android:paddingBottom="12.0dp" android:layout_width="40.0dp" android:layout_height="38.0dp" android:src="@drawable/ic_back" android:paddingStart="16.0dp" android:paddingEnd="16.0dp" android:layout_marginStart="8.0dp" />
+        <TextView android:textSize="16.0sp" android:textColor="@color/web_title" android:ellipsize="end" android:id="@id/tvWebTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:lines="1" android:singleLine="true" android:layout_marginEnd="14.0dp" />
+    </LinearLayout>
+    <ProgressBar android:id="@id/pbSubTitleProgressBar" android:visibility="gone" android:layout_width="match_parent" android:layout_height="2.0dp" android:progressDrawable="@drawable/layer_web_progress_style" style="?android:progressBarStyleHorizontal" />
+    <FrameLayout android:id="@id/webContentContainer" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0">
+        <com.gxgx.base.view.BaseWebView android:id="@id/wvWebView" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <include android:id="@id/layoutErrorView" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" layout="@layout/layout_error_view" />
+    </FrameLayout>
+</LinearLayout>

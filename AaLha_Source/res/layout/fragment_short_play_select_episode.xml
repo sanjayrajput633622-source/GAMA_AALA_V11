@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:background="@drawable/shape_gender_dialog_bg" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_episodes" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="20.0dp" android:layout_below="@id/ct_title" android:overScrollMode="never" />
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@id/ct_title" android:background="@drawable/shape_gender_dialog_bg" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="14.0sp" android:textColor="@color/white" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="18.0dp" android:text="@string/select_episode" android:layout_marginStart="20.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+            <ImageView android:id="@id/sort_list" android:padding="6.0dp" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@drawable/ic_film_sort_list" android:layout_marginStart="6.0dp" android:layout_marginEnd="10.0dp" app:layout_constraintBottom_toBottomOf="@id/title" app:layout_constraintStart_toEndOf="@id/title" app:layout_constraintTop_toTopOf="@id/title" />
+            <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_num" android:background="@color/color_101117" android:layout_width="match_parent" android:layout_height="40.0dp" android:layout_marginTop="16.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

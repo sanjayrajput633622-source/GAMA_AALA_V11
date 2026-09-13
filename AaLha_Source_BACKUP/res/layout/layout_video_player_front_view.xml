@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:gravity="center_vertical" android:id="@id/llReplay" android:background="@drawable/shape_sport_video_replay_bg" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="28.0dp" android:layout_marginTop="89.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginRight="6.0dp" android:src="@drawable/ic_sport_video_replay" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/color_000000" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="16.0dp" android:text="@string/player_replay" />
+    </LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout android:orientation="horizontal" android:id="@id/llViewNowOrCancel" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <ImageView android:id="@id/ivReplayBtn" android:background="@drawable/shape_replay_bg" android:padding="16.0dp" android:layout_width="64.0dp" android:layout_height="64.0dp" android:src="@drawable/ic_replay" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/player_replay_text" android:id="@id/tvReplayBtnText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:text="@string/player_replay" app:layout_constraintEnd_toEndOf="@id/ivReplayBtn" app:layout_constraintStart_toStartOf="@id/ivReplayBtn" app:layout_constraintTop_toBottomOf="@id/ivReplayBtn" />
+        <TextView android:textSize="12.0sp" android:textColor="@color/player_cancel_text" android:gravity="center" android:id="@id/tvCancelViewNow" android:background="@mipmap/ic_replay_bg" android:layout_width="100.0dp" android:layout_height="28.0dp" android:layout_marginTop="16.0dp" android:text="@string/player_cancel" android:layout_marginEnd="20.0dp" app:layout_constraintEnd_toStartOf="@id/rlViewNow" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/tvReplayBtnText" />
+        <RelativeLayout android:id="@id/rlViewNow" android:layout_width="100.0dp" android:layout_height="28.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/tvCancelViewNow" app:layout_constraintTop_toTopOf="@id/tvCancelViewNow">
+            <com.gxgx.daqiandy.widgets.FlatProgressBar android:id="@id/fpbViewNowProgress" android:background="@drawable/shape_flat_progress_bg" android:layout_width="match_parent" android:layout_height="match_parent">
+                <View android:background="@drawable/shape_flat_progress_front" android:layout_width="match_parent" android:layout_height="match_parent" />
+            </com.gxgx.daqiandy.widgets.FlatProgressBar>
+            <TextView android:textSize="12.0sp" android:textColor="@color/black" android:id="@id/tvViewNowTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/sport_video_next" android:layout_centerInParent="true" />
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

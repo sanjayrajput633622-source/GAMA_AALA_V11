@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="44.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:id="@id/ll_back" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginTop="13.0dp" android:layout_marginRight="14.0dp" android:layout_marginBottom="12.0dp" android:src="@drawable/ic_back" />
+    </LinearLayout>
+    <TextView android:textSize="16.0sp" android:textColor="@color/layout_title_text" android:ellipsize="end" android:id="@id/tv_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:lines="1" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/ll_setting" app:layout_constraintStart_toEndOf="@id/ll_back" app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout android:id="@id/ll_setting" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="5.0dp" android:src="@drawable/ic_mine_setting" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

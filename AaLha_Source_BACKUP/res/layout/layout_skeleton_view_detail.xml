@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView android:background="@color/shimmer_view_bg" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:overScrollMode="never"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:paddingBottom="28.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <ImageView android:layout_width="match_parent" android:layout_height="338.0dp" android:src="@drawable/ic_home_banner_empty" android:scaleType="centerCrop" />
+        <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="250.0dp" android:layout_height="28.0dp" android:layout_marginTop="14.0dp" android:layout_marginStart="14.0dp" android:layout_marginEnd="14.0dp" />
+        <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="match_parent" android:layout_height="18.0dp" android:layout_marginTop="20.0dp" android:layout_marginStart="14.0dp" android:layout_marginEnd="14.0dp" />
+        <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="match_parent" android:layout_height="18.0dp" android:layout_marginTop="9.0dp" android:layout_marginStart="14.0dp" android:layout_marginEnd="14.0dp" />
+        <TextView android:textSize="18.0sp" android:textStyle="bold" android:textColor="@color/black" android:gravity="center" android:background="@drawable/selector_start_play_bg" android:layout_width="match_parent" android:layout_height="46.0dp" android:layout_marginTop="24.0dp" android:text="@string/home_play" android:layout_marginStart="18.0dp" android:layout_marginEnd="18.0dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="78.0dp" android:layout_marginTop="14.0dp" android:paddingStart="18.0dp" android:paddingEnd="18.0dp">
+            <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/llSkeletonActionList" android:padding="6.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" app:layout_constraintEnd_toStartOf="@id/llSkeletonActionRate" app:layout_constraintHorizontal_chainStyle="spread_inside" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+                <ImageView android:layout_width="36.0dp" android:layout_height="36.0dp" android:src="@drawable/ic_film_detail_like" />
+                <TextView android:textSize="12.0sp" android:textColor="@color/white" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="1.0dp" android:text="@string/home_add_film_library" />
+            </LinearLayout>
+            <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/llSkeletonActionRate" android:padding="6.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" app:layout_constraintEnd_toStartOf="@id/llSkeletonActionShare" app:layout_constraintStart_toEndOf="@id/llSkeletonActionList" app:layout_constraintTop_toTopOf="@id/llSkeletonActionList">
+                <ImageView android:layout_width="36.0dp" android:layout_height="36.0dp" android:src="@drawable/ic_detail_will_like" />
+                <TextView android:textSize="12.0sp" android:textColor="@color/white" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="1.0dp" android:text="@string/detail_like" />
+            </LinearLayout>
+            <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/llSkeletonActionShare" android:padding="6.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" app:layout_constraintEnd_toStartOf="@id/llSkeletonActionDownload" app:layout_constraintStart_toEndOf="@id/llSkeletonActionRate" app:layout_constraintTop_toTopOf="@id/llSkeletonActionList">
+                <ImageView android:layout_width="36.0dp" android:layout_height="36.0dp" android:src="@drawable/ic_detail_share" />
+                <TextView android:textSize="12.0sp" android:textColor="@color/white" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="1.0dp" android:text="@string/detail_share" />
+            </LinearLayout>
+            <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/llSkeletonActionDownload" android:padding="6.0dp" android:layout_width="0.0dp" android:layout_height="wrap_content" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/llSkeletonActionShare" app:layout_constraintTop_toTopOf="@id/llSkeletonActionList">
+                <ImageView android:layout_width="36.0dp" android:layout_height="36.0dp" android:src="@drawable/ic_detail_downloads" />
+                <TextView android:textSize="12.0sp" android:textColor="@color/white" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="1.0dp" android:text="@string/detail_download" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="match_parent" android:layout_height="96.0dp" android:layout_marginTop="16.0dp" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp" />
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="56.0dp" android:layout_marginTop="6.0dp" android:paddingStart="28.0dp" android:paddingEnd="28.0dp">
+            <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="1.0">
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/detail_nav_similar_recommendations" />
+                <View android:background="@color/yellow_home_text" android:layout_width="20.0dp" android:layout_height="3.0dp" android:layout_marginTop="4.0dp" />
+            </LinearLayout>
+            <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="1.0">
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/detail_nav_film_comment" />
+                <View android:background="@color/yellow_home_text" android:visibility="invisible" android:layout_width="20.0dp" android:layout_height="3.0dp" android:layout_marginTop="4.0dp" />
+            </LinearLayout>
+            <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="1.0">
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/detail_nav_trailer_and_highlights" />
+                <View android:background="@color/yellow_home_text" android:visibility="invisible" android:layout_width="20.0dp" android:layout_height="3.0dp" android:layout_marginTop="4.0dp" />
+            </LinearLayout>
+        </LinearLayout>
+        <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="match_parent" android:layout_height="17.0dp" android:layout_marginTop="16.0dp" android:layout_marginStart="14.0dp" android:layout_marginEnd="14.0dp" />
+        <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="match_parent" android:layout_height="17.0dp" android:layout_marginTop="8.0dp" android:layout_marginStart="14.0dp" android:layout_marginEnd="14.0dp" />
+        <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="320.0dp" android:layout_height="17.0dp" android:layout_marginTop="8.0dp" android:layout_marginStart="14.0dp" />
+        <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="194.0dp" android:layout_height="22.0dp" android:layout_marginTop="28.0dp" android:layout_marginStart="14.0dp" />
+        <HorizontalScrollView android:scrollbars="none" android:layout_width="match_parent" android:layout_height="90.0dp" android:layout_marginTop="16.0dp" android:overScrollMode="never">
+            <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="match_parent" android:paddingStart="14.0dp" android:paddingEnd="14.0dp">
+                <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="150.0dp" android:layout_height="84.0dp" android:layout_marginEnd="8.0dp" />
+                <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="150.0dp" android:layout_height="84.0dp" android:layout_marginEnd="8.0dp" />
+                <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="150.0dp" android:layout_height="84.0dp" android:layout_marginEnd="8.0dp" />
+            </LinearLayout>
+        </HorizontalScrollView>
+        <HorizontalScrollView android:scrollbars="none" android:layout_width="match_parent" android:layout_height="138.0dp" android:layout_marginTop="16.0dp" android:overScrollMode="never">
+            <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="match_parent" android:paddingStart="14.0dp" android:paddingEnd="14.0dp">
+                <include layout="@layout/layout_skeleton_home_avatar_item" />
+                <include layout="@layout/layout_skeleton_home_avatar_item" />
+                <include layout="@layout/layout_skeleton_home_avatar_item" />
+                <include layout="@layout/layout_skeleton_home_avatar_item" />
+                <include layout="@layout/layout_skeleton_home_avatar_item" />
+            </LinearLayout>
+        </HorizontalScrollView>
+        <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="194.0dp" android:layout_height="22.0dp" android:layout_marginTop="22.0dp" android:layout_marginStart="14.0dp" />
+        <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:layout_marginStart="14.0dp" android:layout_marginEnd="14.0dp">
+            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <LinearLayout android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginEnd="8.0dp">
+                    <ImageView android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="match_parent" android:layout_height="156.0dp" android:src="@drawable/app_img_empty" android:scaleType="centerInside" android:alpha="0.45" />
+                    <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="90.0dp" android:layout_height="17.0dp" android:layout_marginTop="10.0dp" android:layout_marginStart="2.0dp" />
+                </LinearLayout>
+                <LinearLayout android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginEnd="8.0dp">
+                    <ImageView android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="match_parent" android:layout_height="156.0dp" android:src="@drawable/app_img_empty" android:scaleType="centerInside" android:alpha="0.45" />
+                    <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="90.0dp" android:layout_height="17.0dp" android:layout_marginTop="10.0dp" android:layout_marginStart="2.0dp" />
+                </LinearLayout>
+                <LinearLayout android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0">
+                    <ImageView android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="match_parent" android:layout_height="156.0dp" android:src="@drawable/app_img_empty" android:scaleType="centerInside" android:alpha="0.45" />
+                    <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="90.0dp" android:layout_height="17.0dp" android:layout_marginTop="10.0dp" android:layout_marginStart="2.0dp" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp">
+                <LinearLayout android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginEnd="8.0dp">
+                    <ImageView android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="match_parent" android:layout_height="156.0dp" android:src="@drawable/app_img_empty" android:scaleType="centerInside" android:alpha="0.45" />
+                    <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="90.0dp" android:layout_height="17.0dp" android:layout_marginTop="10.0dp" android:layout_marginStart="2.0dp" />
+                </LinearLayout>
+                <LinearLayout android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginEnd="8.0dp">
+                    <ImageView android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="match_parent" android:layout_height="156.0dp" android:src="@drawable/app_img_empty" android:scaleType="centerInside" android:alpha="0.45" />
+                    <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="90.0dp" android:layout_height="17.0dp" android:layout_marginTop="10.0dp" android:layout_marginStart="2.0dp" />
+                </LinearLayout>
+                <LinearLayout android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0">
+                    <ImageView android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="match_parent" android:layout_height="156.0dp" android:src="@drawable/app_img_empty" android:scaleType="centerInside" android:alpha="0.45" />
+                    <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="90.0dp" android:layout_height="17.0dp" android:layout_marginTop="10.0dp" android:layout_marginStart="2.0dp" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp">
+                <LinearLayout android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginEnd="8.0dp">
+                    <ImageView android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="match_parent" android:layout_height="156.0dp" android:src="@drawable/app_img_empty" android:scaleType="centerInside" android:alpha="0.45" />
+                    <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="90.0dp" android:layout_height="17.0dp" android:layout_marginTop="10.0dp" android:layout_marginStart="2.0dp" />
+                </LinearLayout>
+                <LinearLayout android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginEnd="8.0dp">
+                    <ImageView android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="match_parent" android:layout_height="156.0dp" android:src="@drawable/app_img_empty" android:scaleType="centerInside" android:alpha="0.45" />
+                    <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="90.0dp" android:layout_height="17.0dp" android:layout_marginTop="10.0dp" android:layout_marginStart="2.0dp" />
+                </LinearLayout>
+                <LinearLayout android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0">
+                    <ImageView android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="match_parent" android:layout_height="156.0dp" android:src="@drawable/app_img_empty" android:scaleType="centerInside" android:alpha="0.45" />
+                    <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="90.0dp" android:layout_height="17.0dp" android:layout_marginTop="10.0dp" android:layout_marginStart="2.0dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="16.0dp" android:width="16.0dp" android:viewportWidth="16.0" android:viewportHeight="16.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <path android:fillColor="#000000" android:pathData="M0,0h16v16h-16z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:strokeAlpha="0.0" android:fillAlpha="0.0" android:fillType="nonZero" />
+    <path android:fillColor="@drawable/$ic_my_watch_list__0" android:pathData="M12.364,1.636C13.067,1.636 13.636,2.206 13.636,2.909L13.636,13.225C13.636,13.928 13.067,14.498 12.364,14.498C12.123,14.498 11.887,14.429 11.683,14.301L8.194,12.093C8.135,12.057 8.061,12.056 8.002,12.092L4.297,14.341C3.696,14.706 2.913,14.514 2.548,13.914C2.428,13.715 2.364,13.486 2.364,13.253L2.364,2.909C2.364,2.206 2.933,1.636 3.636,1.636ZM8,4.364L7.145,6.096L5.233,6.374L6.617,7.722L6.29,9.626L8,8.727L9.71,9.626L9.383,7.722L10.767,6.374L8.855,6.096L8,4.364Z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+</vector>

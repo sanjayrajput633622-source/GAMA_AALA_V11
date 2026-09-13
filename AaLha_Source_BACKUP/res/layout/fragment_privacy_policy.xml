@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:background="@drawable/shape_common_dialog_bg" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="18.0sp" android:textColor="@color/white" android:id="@id/tv_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="22.0dp" android:text="@string/privacy_policy_title" />
+    <TextView android:textSize="15.0sp" android:textColor="@color/color_92929b" android:id="@id/tv_content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="25.0dp" android:layout_marginTop="14.0dp" android:layout_marginRight="25.0dp" />
+    <View android:background="@color/color_a6545458" android:layout_width="match_parent" android:layout_height="0.5dp" android:layout_marginTop="25.0dp" />
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="42.0dp">
+        <TextView android:textSize="15.0sp" android:textColor="@color/color_92929b" android:gravity="center" android:id="@id/tv_cancel" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="1.0" />
+        <View android:background="@color/color_a6545458" android:layout_width="0.5dp" android:layout_height="match_parent" />
+        <TextView android:textSize="15.0sp" android:textColor="@color/color_ffe291" android:gravity="center" android:id="@id/tv_confirm" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="1.0" />
+    </LinearLayout>
+</LinearLayout>

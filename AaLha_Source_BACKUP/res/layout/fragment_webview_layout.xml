@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@id/llWebContent" android:layout_width="match_parent" android:layout_height="match_parent">
+        <ProgressBar android:id="@id/pbSubTitleProgressBar" android:visibility="gone" android:layout_width="match_parent" android:layout_height="2.0dp" android:progressDrawable="@drawable/layer_web_progress_style" style="?android:progressBarStyleHorizontal" />
+        <com.gxgx.base.view.BaseWebView android:id="@id/wvWebView" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="match_parent" android:layout_height="match_parent" />
+    </LinearLayout>
+    <FrameLayout android:id="@id/flFullScreenContainer" android:background="@android:color/black" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+</FrameLayout>

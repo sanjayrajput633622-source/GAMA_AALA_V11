@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:overScrollMode="never">
+        <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+            <include android:id="@id/title" layout="@layout/layout_title" />
+            <TextView android:textSize="16.0sp" android:textColor="@color/color_92929b" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="20.0dp" android:text="" />
+            <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_report" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <TextView android:textSize="16.0sp" android:textColor="@color/color_92929b" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="25.0dp" android:text="" />
+            <androidx.constraintlayout.widget.ConstraintLayout android:background="@drawable/shape_rec_1d1e28_bg" android:layout_width="match_parent" android:layout_height="297.0dp" android:layout_marginLeft="12.0dp" android:layout_marginTop="15.0dp" android:layout_marginRight="12.0dp">
+                <EditText android:textSize="14.0sp" android:textColor="@color/white" android:textColorHint="@color/color_92929B" android:gravity="top" android:id="@id/et_question" android:background="@null" android:focusableInTouchMode="true" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_marginLeft="12.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="12.0dp" android:hint="Please describe the violation and upload up to 3 images of evidence" android:cursorVisible="true" android:textCursorDrawable="@drawable/shape_edit_cursor_bg" app:layout_constraintBottom_toTopOf="@id/rlv_img" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+                <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_img" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="12.0dp" android:layout_marginStart="7.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" />
+                <TextView android:textSize="12.0sp" android:textColor="@color/color_727379" android:id="@id/tv_num" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="8.0dp" android:text="0/300" android:layout_marginEnd="10.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView android:textSize="15.0sp" android:textColor="@color/color_000000" android:gravity="center" android:id="@id/tv_commit" android:background="@drawable/shape_question_btn_bg" android:layout_width="match_parent" android:layout_height="40.0dp" android:layout_marginLeft="12.0dp" android:layout_marginTop="53.0dp" android:layout_marginRight="12.0dp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+    <LinearLayout android:id="@id/ll_img_big" android:background="@color/color_18181A" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent">
+        <ImageView android:id="@id/img_big" android:layout_width="match_parent" android:layout_height="match_parent" />
+    </LinearLayout>
+</FrameLayout>

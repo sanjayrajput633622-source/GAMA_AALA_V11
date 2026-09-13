@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="56.0dp">
+        <TextView android:textSize="15.0sp" android:textColor="@color/search_real_time_text" android:ellipsize="end" android:id="@id/tv_name" android:layout_width="0.0dp" android:layout_height="wrap_content" android:lines="1" android:layout_marginStart="16.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/imageView3" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <ImageView android:id="@id/imageView3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_white_arrow_enter" android:layout_marginEnd="16.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/search_real_time_line" android:visibility="gone" android:layout_width="match_parent" android:layout_height="1.0dp" android:layout_marginLeft="16.0dp" android:layout_marginRight="16.0dp" />
+</LinearLayout>

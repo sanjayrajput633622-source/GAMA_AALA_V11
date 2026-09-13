@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/root" android:background="@drawable/shape_gender_dialog_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="12.0sp" android:textColor="@color/color_92929B" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginTop="11.0dp" android:text="@string/download_select_clarity" />
+    <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_download" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <LinearLayout android:gravity="center" android:id="@id/remain_layout" android:layout_width="match_parent" android:layout_height="32.0dp">
+        <TextView android:textSize="12.0sp" android:textColor="#ff999999" android:id="@id/remain_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/you_have_download_chances_left_today" />
+    </LinearLayout>
+    <LinearLayout android:gravity="center" android:id="@id/ll_download" android:background="@color/film_bottom_download_btn_bg" android:layout_width="match_parent" android:layout_height="56.0dp">
+        <ImageView android:id="@id/img_download" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_download_film" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/film_bottom_download_btn_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="3.0dp" android:text="@string/download_check_cache" />
+    </LinearLayout>
+</LinearLayout>

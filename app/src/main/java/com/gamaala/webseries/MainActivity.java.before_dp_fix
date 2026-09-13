@@ -1,0 +1,1673 @@
+package com.gamaala.webseries;
+
+import android.app.*;
+import android.os.*;
+import android.graphics.*;
+import android.graphics.drawable.GradientDrawable;
+import android.view.*;
+import android.widget.*;
+import android.text.*;
+import android.content.*;
+import java.io.*;
+import java.util.*;
+import org.json.*;
+
+public class MainActivity extends Activity {
+
+    int BG = Color.rgb(9,10,14);
+    int PANEL = Color.rgb(19,21,28);
+    int CARD = Color.rgb(25,27,35);
+    int WHITE = Color.rgb(248,248,250);
+    int MUTED = Color.rgb(155,158,168);
+    int ACCENT = Color.rgb(255,190,55);
+
+    FrameLayout screen;
+    LinearLayout current;
+    ArrayList<Item> data = new ArrayList<>();
+    HashSet<String> myList = new HashSet<>();
+    SharedPreferences prefs;
+
+    static class Item {
+        String title, kind, lang, genre, rating, poster;
+        String year, duration, description, trailer;
+
+        Item(JSONObject o) {
+            title = o.optString("title");
+            kind = o.optString("kind");
+            lang = o.optString("lang");
+            genre = o.optString("genre");
+            rating = o.optString("rating");
+            poster = o.optString("poster");
+            year = o.optString("year");
+            duration = o.optString("duration");
+            description = o.optString("description");
+            trailer = o.optString("trailer");
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle b) {
+        super.onCreate(b);
+
+        // Keep system bars visible and use app colors.
+        getWindow().setStatusBarColor(BG);
+        getWindow().setNavigationBarColor(Color.rgb(18,20,26));
+
+        if (Build.VERSION.SDK_INT >= 30) {
+            getWindow().setDecorFitsSystemWindows(true);
+        }
+
+        setContentView(R.layout.activity_main);
+
+        screen = findViewById(R.id.screen);
+
+        prefs = getSharedPreferences("gama_aala", MODE_PRIVATE);
+
+        load();
+        loadMyList();
+
+        findViewById(R.id.navHome).setOnClickListener(v -> home());
+        findViewById(R.id.navFind).setOnClickListener(v -> find());
+        findViewById(R.id.navTv).setOnClickListener(v -> shows());
+        findViewById(R.id.navDownload).setOnClickListener(v -> downloads());
+        findViewById(R.id.navMe).setOnClickListener(v -> profile());
+
+        home();
+    }
+
+    void load() {
+        try {
+            InputStream in = getAssets().open("catalog.json");
+
+            ByteArrayOutputStream o = new ByteArrayOutputStream();
+
+            byte[] b = new byte[4096];
+            int n;
+
+            while ((n = in.read(b)) > 0) {
+                o.write(b, 0, n);
+            }
+
+            JSONArray a = new JSONObject(
+                o.toString("UTF-8")
+            ).getJSONArray("items");
+
+            for (int i = 0; i < a.length(); i++) {
+                data.add(new Item(a.getJSONObject(i)));
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(
+                this,
+                "Unable to load catalog",
+                Toast.LENGTH_SHORT
+            ).show();
+        }
+    }
+
+    void loadMyList() {
+        Set<String> saved =
+            prefs.getStringSet("my_list", new HashSet<>());
+
+        myList.clear();
+        myList.addAll(saved);
+    }
+
+    void saveMyList() {
+
+        prefs.edit()
+            .putStringSet(
+                "my_list",
+                new HashSet<>(myList)
+            )
+            .apply();
+    }
+
+    int dp(int v) {
+        return (int) (
+            v * getResources()
+                .getDisplayMetrics()
+                .density + 0.5f
+        );
+    }
+
+    GradientDrawable shape(int color, float r) {
+
+        GradientDrawable g =
+            new GradientDrawable();
+
+        g.setColor(color);
+
+        g.setCornerRadius(r);
+
+        return g;
+    }
+
+    TextView tv(
+        String s,
+        float size,
+        int color,
+        boolean bold
+    ) {
+
+        TextView t =
+            new TextView(this);
+
+        t.setText(s);
+
+        t.setTextSize(size);
+
+        t.setTextColor(color);
+
+        t.setGravity(Gravity.CENTER_VERTICAL);
+
+        if (bold) {
+
+            t.setTypeface(
+                Typeface.DEFAULT,
+                Typeface.BOLD
+            );
+        }
+
+        return t;
+    }
+
+    Button btn(String s) {
+
+        Button b =
+            new Button(this);
+
+        b.setText(s);
+
+        b.setAllCaps(false);
+
+        b.setTextColor(WHITE);
+
+        b.setTextSize(13);
+
+        b.setBackgroundColor(
+            Color.TRANSPARENT
+        );
+
+        b.setMinHeight(0);
+
+        b.setMinWidth(0);
+
+        return b;
+    }
+
+    void base() {
+
+        screen.removeAllViews();
+
+        ScrollView sv =
+            new ScrollView(this);
+
+        sv.setFillViewport(true);
+
+        sv.setBackgroundColor(BG);
+
+        LinearLayout page =
+            new LinearLayout(this);
+
+        page.setOrientation(
+            LinearLayout.VERTICAL
+        );
+
+        // Safe top spacing: prevents header from going under
+        // the Android status bar on edge-to-edge devices.
+        page.setPadding(
+            0,dp(22),0,dp(30)
+        );
+
+        sv.addView(page);
+
+        screen.addView(sv);
+
+        current = page;
+    }
+
+    void brandBar() {
+
+        LinearLayout r =
+            new LinearLayout(this);
+
+        r.setPadding(
+            18,14,18,4
+        );
+
+        r.setGravity(
+            Gravity.CENTER_VERTICAL
+        );
+
+        TextView logo =
+            tv(
+                "GAMA AALA",
+                22,
+                WHITE,
+                true
+            );
+
+        r.addView(
+            logo,
+            new LinearLayout.LayoutParams(
+                0,
+                52,
+                1
+            )
+        );
+
+        TextView list =
+            tv(
+                "♥",
+                26,
+                ACCENT,
+                true
+            );
+
+        list.setGravity(
+            Gravity.CENTER
+        );
+
+        list.setOnClickListener(
+            v -> list()
+        );
+
+        r.addView(
+            list,
+            new LinearLayout.LayoutParams(
+                48,
+                52
+            )
+        );
+
+        TextView profile =
+            tv(
+                "●",
+                22,
+                ACCENT,
+                true
+            );
+
+        profile.setGravity(
+            Gravity.CENTER
+        );
+
+        profile.setOnClickListener(
+            v -> profile()
+        );
+
+        r.addView(
+            profile,
+            new LinearLayout.LayoutParams(
+                48,
+                52
+            )
+        );
+
+        current.addView(r);
+    }
+
+    void searchBar() {
+
+        LinearLayout r =
+            new LinearLayout(this);
+
+        r.setPadding(
+            16,4,16,8
+        );
+
+        EditText e =
+            new EditText(this);
+
+        e.setHint(
+            "Search movies, web series..."
+        );
+
+        e.setHintTextColor(
+            Color.rgb(115,118,128)
+        );
+
+        e.setTextColor(WHITE);
+
+        e.setTextSize(15);
+
+        e.setSingleLine(true);
+
+        e.setPadding(
+            18,0,18,0
+        );
+
+        e.setBackground(
+            shape(
+                Color.rgb(28,30,38),
+                55
+            )
+        );
+
+        e.setOnClickListener(
+            v -> find()
+        );
+
+        r.addView(
+            e,
+            new LinearLayout.LayoutParams(
+                -1,
+                54
+            )
+        );
+
+        current.addView(r);
+    }
+
+    void home() {
+
+        base();
+
+        brandBar();
+
+        searchBar();
+
+        quickTabs();
+
+        hero();
+
+        rail(
+            "Popular Movies",
+            0,
+            5
+        );
+
+        rail(
+            "Popular Web Series",
+            3,
+            6
+        );
+
+        rail(
+            "Trending Now",
+            0,
+            10
+        );
+
+        sectionGenres();
+    }
+
+    void quickTabs() {
+
+        LinearLayout r =
+            new LinearLayout(this);
+
+        r.setPadding(
+            12,0,12,2
+        );
+
+        String[] names = {
+            "Home",
+            "Movies",
+            "Series",
+            "My List"
+        };
+
+        for (String n : names) {
+
+            Button b =
+                btn(n);
+
+            b.setTextSize(14);
+
+            b.setTextColor(
+                n.equals("Home")
+                ? ACCENT
+                : MUTED
+            );
+
+            r.addView(
+                b,
+                new LinearLayout.LayoutParams(
+                    0,
+                    46,
+                    1
+                )
+            );
+
+            if (n.equals("Movies")) {
+                b.setOnClickListener(
+                    v -> movies()
+                );
+            }
+
+            if (n.equals("Series")) {
+                b.setOnClickListener(
+                    v -> shows()
+                );
+            }
+
+            if (n.equals("My List")) {
+                b.setOnClickListener(
+                    v -> list()
+                );
+            }
+        }
+
+        current.addView(r);
+    }
+
+    void hero() {
+
+        if (data.size() == 0) {
+            return;
+        }
+
+        Item x = data.get(0);
+
+        LinearLayout h =
+            new LinearLayout(this);
+
+        h.setOrientation(
+            LinearLayout.VERTICAL
+        );
+
+        h.setPadding(
+            22,20,22,18
+        );
+
+        h.setBackground(
+            shape(
+                Color.rgb(34,35,42),
+                24
+            )
+        );
+
+        h.addView(
+            tv(
+                "FEATURED ON GAMA AALA",
+                11,
+                ACCENT,
+                true
+            )
+        );
+
+        h.addView(
+            tv(
+                x.title,
+                29,
+                WHITE,
+                true
+            )
+        );
+
+        h.addView(
+            tv(
+                x.year
+                + " • "
+                + x.lang
+                + " • ★ "
+                + x.rating,
+                13,
+                MUTED,
+                false
+            )
+        );
+
+        TextView desc =
+            tv(
+                x.description,
+                13,
+                MUTED,
+                false
+            );
+
+        desc.setMaxLines(2);
+
+        h.addView(desc);
+
+        LinearLayout buttons =
+            new LinearLayout(this);
+
+        buttons.setPadding(
+            0,10,0,0
+        );
+
+        Button watch =
+            btn(
+                "▶  DETAILS"
+            );
+
+        watch.setTextColor(
+            Color.BLACK
+        );
+
+        watch.setBackground(
+            shape(
+                ACCENT,
+                40
+            )
+        );
+
+        watch.setOnClickListener(
+            v -> details(x)
+        );
+
+        buttons.addView(
+            watch,
+            new LinearLayout.LayoutParams(
+                dp(150),
+                dp(48)
+            )
+        );
+
+        Button add =
+            btn(
+                myList.contains(x.title)
+                ? "♥ Saved"
+                : "＋ My List"
+            );
+
+        add.setOnClickListener(
+            v -> {
+
+                toggleMyList(x);
+
+                add.setText(
+                    myList.contains(x.title)
+                    ? "♥ Saved"
+                    : "＋ My List"
+                );
+            }
+        );
+
+        buttons.addView(
+            add,
+            new LinearLayout.LayoutParams(
+                dp(130),
+                dp(48)
+            )
+        );
+
+        h.addView(buttons);
+
+        LinearLayout.LayoutParams p =
+            new LinearLayout.LayoutParams(
+                -1,
+                dp(230)
+            );
+
+        p.setMargins(
+            12,8,12,12
+        );
+
+        current.addView(h,p);
+    }
+
+    void rail(
+        String title,
+        int start,
+        int count
+    ) {
+
+        LinearLayout head =
+            new LinearLayout(this);
+
+        head.setPadding(
+            18,8,12,4
+        );
+
+        TextView h =
+            tv(
+                title,
+                20,
+                WHITE,
+                true
+            );
+
+        head.addView(
+            h,
+            new LinearLayout.LayoutParams(
+                0,
+                44,
+                1
+            )
+        );
+
+        current.addView(head);
+
+        HorizontalScrollView hs =
+            new HorizontalScrollView(this);
+
+        hs.setHorizontalScrollBarEnabled(false);
+
+        LinearLayout row =
+            new LinearLayout(this);
+
+        row.setPadding(
+            14,0,10,8
+        );
+
+        for (
+            int i = start;
+            i < Math.min(
+                start + count,
+                data.size()
+            );
+            i++
+        ) {
+
+            addPoster(
+                row,
+                data.get(i)
+            );
+        }
+
+        hs.addView(row);
+
+        current.addView(hs);
+    }
+
+    void addPoster(
+        LinearLayout row,
+        Item x
+    ) {
+
+        LinearLayout c =
+            new LinearLayout(this);
+
+        c.setOrientation(
+            LinearLayout.VERTICAL
+        );
+
+        ImageView img =
+            new ImageView(this);
+
+        int id =
+            getResources()
+            .getIdentifier(
+                x.poster,
+                "drawable",
+                getPackageName()
+            );
+
+        img.setImageResource(id);
+
+        img.setScaleType(
+            ImageView.ScaleType.CENTER_CROP
+        );
+
+        c.addView(
+            img,
+            new LinearLayout.LayoutParams(
+                dp(118),
+                dp(168)
+            )
+        );
+
+        TextView name =
+            tv(
+                x.title,
+                14,
+                WHITE,
+                true
+            );
+
+        name.setMaxLines(1);
+
+        name.setEllipsize(
+            TextUtils.TruncateAt.END
+        );
+
+        c.addView(
+            name,
+            new LinearLayout.LayoutParams(
+                -1,
+                dp(28)
+            )
+        );
+
+        c.addView(
+            tv(
+                x.year
+                + "  •  ★ "
+                + x.rating,
+                10,
+                ACCENT,
+                false
+            ),
+            new LinearLayout.LayoutParams(
+                -1,
+                dp(24)
+            )
+        );
+
+        c.setOnClickListener(
+            v -> details(x)
+        );
+
+        LinearLayout.LayoutParams p =
+            new LinearLayout.LayoutParams(
+                dp(126),
+                dp(230)
+            );
+
+        p.setMargins(
+            dp(3),0,dp(6),0
+        );
+
+        row.addView(c,p);
+    }
+
+    void sectionGenres() {
+
+        TextView title =
+            tv(
+                "Browse by Genre",
+                20,
+                WHITE,
+                true
+            );
+
+        title.setPadding(
+            18,10,0,0
+        );
+
+        current.addView(
+            title,
+            new LinearLayout.LayoutParams(
+                -1,
+                56
+            )
+        );
+
+        LinearLayout r =
+            new LinearLayout(this);
+
+        r.setPadding(
+            14,0,14,12
+        );
+
+        String[] genres = {
+            "Drama",
+            "Action",
+            "Comedy",
+            "Thriller",
+            "Family",
+            "Sci-Fi"
+        };
+
+        for (String g : genres) {
+
+            Button b =
+                btn(g);
+
+            b.setTextSize(12);
+
+            b.setTextColor(WHITE);
+
+            b.setBackground(
+                shape(
+                    Color.rgb(31,33,42),
+                    32
+                )
+            );
+
+            LinearLayout.LayoutParams p =
+                new LinearLayout.LayoutParams(
+                    -2,
+                    44
+                );
+
+            p.setMargins(
+                4,2,4,2
+            );
+
+            r.addView(b,p);
+
+            b.setOnClickListener(
+                v -> genre(g)
+            );
+        }
+
+        HorizontalScrollView hs =
+            new HorizontalScrollView(this);
+
+        hs.setHorizontalScrollBarEnabled(false);
+
+        hs.addView(r);
+
+        current.addView(hs);
+    }
+
+    void movies() {
+
+        base();
+
+        brandBar();
+
+        searchBar();
+
+        current.addView(
+            tv(
+                "Movies",
+                25,
+                WHITE,
+                true
+            ),
+            new LinearLayout.LayoutParams(
+                -1,
+                58
+            )
+        );
+
+        for (Item x : data) {
+
+            if (
+                x.kind.equals("Movie")
+            ) {
+
+                full(x);
+            }
+        }
+    }
+
+    void shows() {
+
+        base();
+
+        brandBar();
+
+        searchBar();
+
+        current.addView(
+            tv(
+                "Web Series",
+                25,
+                WHITE,
+                true
+            ),
+            new LinearLayout.LayoutParams(
+                -1,
+                58
+            )
+        );
+
+        for (Item x : data) {
+
+            if (
+                x.kind.equals("Series")
+            ) {
+
+                full(x);
+            }
+        }
+    }
+
+    void genre(String g) {
+
+        base();
+
+        brandBar();
+
+        searchBar();
+
+        current.addView(
+            tv(
+                g,
+                25,
+                WHITE,
+                true
+            ),
+            new LinearLayout.LayoutParams(
+                -1,
+                58
+            )
+        );
+
+        boolean found = false;
+
+        for (Item x : data) {
+
+            if (
+                x.genre.equalsIgnoreCase(g)
+            ) {
+
+                full(x);
+
+                found = true;
+            }
+        }
+
+        if (!found) {
+
+            current.addView(
+                tv(
+                    "No titles found in this genre.",
+                    14,
+                    MUTED,
+                    false
+                )
+            );
+        }
+    }
+
+    void full(Item x) {
+
+        LinearLayout c =
+            new LinearLayout(this);
+
+        c.setOrientation(
+            LinearLayout.HORIZONTAL
+        );
+
+        c.setPadding(
+            10,10,10,10
+        );
+
+        c.setBackground(
+            shape(
+                CARD,
+                18
+            )
+        );
+
+        ImageView img =
+            new ImageView(this);
+
+        int id =
+            getResources()
+            .getIdentifier(
+                x.poster,
+                "drawable",
+                getPackageName()
+            );
+
+        img.setImageResource(id);
+
+        img.setScaleType(
+            ImageView.ScaleType.CENTER_CROP
+        );
+
+        c.addView(
+            img,
+            new LinearLayout.LayoutParams(
+                dp(100),
+                dp(150)
+            )
+        );
+
+        LinearLayout info =
+            new LinearLayout(this);
+
+        info.setOrientation(
+            LinearLayout.VERTICAL
+        );
+
+        info.setPadding(
+            13,0,5,0
+        );
+
+        info.addView(
+            tv(
+                x.lang,
+                10,
+                Color.CYAN,
+                true
+            )
+        );
+
+        info.addView(
+            tv(
+                x.title,
+                18,
+                WHITE,
+                true
+            )
+        );
+
+        info.addView(
+            tv(
+                x.year
+                + " • "
+                + x.genre,
+                12,
+                MUTED,
+                false
+            )
+        );
+
+        info.addView(
+            tv(
+                "★ " + x.rating,
+                12,
+                ACCENT,
+                true
+            )
+        );
+
+        Button b =
+            btn(
+                myList.contains(x.title)
+                ? "♥ Saved"
+                : "＋ My List"
+            );
+
+        b.setOnClickListener(
+            v -> {
+
+                toggleMyList(x);
+
+                b.setText(
+                    myList.contains(x.title)
+                    ? "♥ Saved"
+                    : "＋ My List"
+                );
+            }
+        );
+
+        info.addView(b);
+
+        c.addView(
+            info,
+            new LinearLayout.LayoutParams(
+                0,
+                -1,
+                1
+            )
+        );
+
+        c.setOnClickListener(
+            v -> details(x)
+        );
+
+        LinearLayout.LayoutParams p =
+            new LinearLayout.LayoutParams(
+                -1,
+                dp(170)
+            );
+
+        p.setMargins(
+            12,5,12,5
+        );
+
+        current.addView(c,p);
+    }
+
+    void details(Item x) {
+
+        base();
+
+        brandBar();
+
+        Button back =
+            btn("‹  Back");
+
+        back.setTextColor(ACCENT);
+
+        back.setOnClickListener(
+            v -> home()
+        );
+
+        current.addView(
+            back,
+            new LinearLayout.LayoutParams(
+                -1,
+                dp(48)
+            )
+        );
+
+        ImageView img =
+            new ImageView(this);
+
+        int id =
+            getResources()
+            .getIdentifier(
+                x.poster,
+                "drawable",
+                getPackageName()
+            );
+
+        img.setImageResource(id);
+
+        img.setScaleType(
+            ImageView.ScaleType.CENTER_CROP
+        );
+
+        current.addView(
+            img,
+            new LinearLayout.LayoutParams(
+                -1,
+                dp(300)
+            )
+        );
+
+        TextView title =
+            tv(
+                x.title,
+                28,
+                WHITE,
+                true
+            );
+
+        title.setPadding(
+            18,12,18,0
+        );
+
+        current.addView(title);
+
+        TextView meta =
+            tv(
+                x.year
+                + "  •  "
+                + x.duration
+                + "  •  "
+                + x.kind,
+                13,
+                ACCENT,
+                false
+            );
+
+        meta.setPadding(
+            18,8,18,8
+        );
+
+        current.addView(meta);
+
+        TextView info =
+            tv(
+                x.lang
+                + "  •  "
+                + x.genre
+                + "  •  ★ "
+                + x.rating,
+                13,
+                MUTED,
+                false
+            );
+
+        info.setPadding(
+            18,0,18,8
+        );
+
+        current.addView(info);
+
+        TextView desc =
+            tv(
+                x.description,
+                15,
+                MUTED,
+                false
+            );
+
+        desc.setPadding(
+            18,8,18,18
+        );
+
+        current.addView(desc);
+
+        Button trailer =
+            btn(
+                "▶  WATCH TRAILER"
+            );
+
+        trailer.setTextColor(
+            Color.BLACK
+        );
+
+        trailer.setBackground(
+            shape(
+                ACCENT,
+                38
+            )
+        );
+
+        trailer.setOnClickListener(
+            v -> Toast.makeText(
+                this,
+                "Trailer will be available soon",
+                Toast.LENGTH_SHORT
+            ).show()
+        );
+
+        LinearLayout.LayoutParams tp =
+            new LinearLayout.LayoutParams(
+                -1,
+                dp(54)
+            );
+
+        tp.setMargins(
+            18,8,18,6
+        );
+
+        current.addView(
+            trailer,
+            tp
+        );
+
+        Button save =
+            btn(
+                myList.contains(x.title)
+                ? "♥ Remove from My List"
+                : "＋ Add to My List"
+            );
+
+        save.setTextColor(WHITE);
+
+        save.setBackground(
+            shape(
+                CARD,
+                38
+            )
+        );
+
+        save.setOnClickListener(
+            v -> {
+
+                toggleMyList(x);
+
+                save.setText(
+                    myList.contains(x.title)
+                    ? "♥ Remove from My List"
+                    : "＋ Add to My List"
+                );
+            }
+        );
+
+        LinearLayout.LayoutParams sp =
+            new LinearLayout.LayoutParams(
+                -1,
+                dp(54)
+            );
+
+        sp.setMargins(
+            18,6,18,18
+        );
+
+        current.addView(
+            save,
+            sp
+        );
+    }
+
+    void toggleMyList(Item x) {
+
+        if (
+            myList.contains(x.title)
+        ) {
+
+            myList.remove(x.title);
+
+        } else {
+
+            myList.add(x.title);
+        }
+
+        saveMyList();
+    }
+
+    void find() {
+
+        base();
+
+        brandBar();
+
+        TextView title =
+            tv(
+                "Search",
+                25,
+                WHITE,
+                true
+            );
+
+        title.setPadding(
+            18,0,18,10
+        );
+
+        current.addView(title);
+
+        EditText e =
+            new EditText(this);
+
+        e.setHint(
+            "Search titles, genres, languages..."
+        );
+
+        e.setTextColor(WHITE);
+
+        e.setHintTextColor(
+            Color.GRAY
+        );
+
+        e.setSingleLine(true);
+
+        e.setTextSize(16);
+
+        e.setPadding(
+            18,0,18,0
+        );
+
+        e.setBackground(
+            shape(
+                Color.rgb(28,30,38),
+                45
+            )
+        );
+
+        LinearLayout.LayoutParams ep =
+            new LinearLayout.LayoutParams(
+                -1,
+                56
+            );
+
+        ep.setMargins(
+            14,0,14,12
+        );
+
+        current.addView(e,ep);
+
+        LinearLayout results =
+            new LinearLayout(this);
+
+        results.setOrientation(
+            LinearLayout.VERTICAL
+        );
+
+        current.addView(results);
+
+        TextView hint =
+            tv(
+                "Search movies, series, genres or languages",
+                14,
+                MUTED,
+                false
+            );
+
+        hint.setPadding(
+            18,18,18,18
+        );
+
+        results.addView(hint);
+
+        e.requestFocus();
+
+        e.addTextChangedListener(
+            new TextWatcher() {
+
+                public void beforeTextChanged(
+                    CharSequence s,
+                    int a,
+                    int b,
+                    int c
+                ) {}
+
+                public void onTextChanged(
+                    CharSequence s,
+                    int a,
+                    int b,
+                    int c
+                ) {
+
+                    results.removeAllViews();
+
+                    String q =
+                        s.toString()
+                        .toLowerCase()
+                        .trim();
+
+                    int found = 0;
+
+                    for (Item x : data) {
+
+                        if (
+                            q.isEmpty()
+                            ||
+                            x.title
+                            .toLowerCase()
+                            .contains(q)
+
+                            ||
+                            x.genre
+                            .toLowerCase()
+                            .contains(q)
+
+                            ||
+                            x.lang
+                            .toLowerCase()
+                            .contains(q)
+
+                            ||
+                            x.kind
+                            .toLowerCase()
+                            .contains(q)
+                        ) {
+
+                            LinearLayout old =
+                                current;
+
+                            current =
+                                results;
+
+                            full(x);
+
+                            current =
+                                old;
+
+                            found++;
+                        }
+                    }
+
+                    if (
+                        !q.isEmpty()
+                        &&
+                        found == 0
+                    ) {
+
+                        TextView empty =
+                            tv(
+                                "No results found.",
+                                15,
+                                MUTED
+,
+                                false
+                            );
+
+                        empty.setPadding(
+                            18,20,18,20
+                        );
+
+                        results.addView(empty);
+                    }
+                }
+
+                public void afterTextChanged(
+                    Editable e
+                ) {}
+            }
+        );
+    }
+
+    void list() {
+
+        base();
+
+        brandBar();
+
+        TextView title =
+            tv(
+                "My List",
+                25,
+                WHITE,
+                true
+            );
+
+        title.setPadding(
+            18,0,18,10
+        );
+
+        current.addView(title);
+
+        boolean any = false;
+
+        for (Item x : data) {
+
+            if (
+                myList.contains(x.title)
+            ) {
+
+                full(x);
+
+                any = true;
+            }
+        }
+
+        if (!any) {
+
+            TextView empty =
+                tv(
+                    "Your saved movies and series will appear here.",
+                    14,
+                    MUTED,
+                    false
+                );
+
+            empty.setPadding(
+                18,30,18,30
+            );
+
+            current.addView(empty);
+        }
+    }
+
+    void downloads() {
+
+        base();
+
+        brandBar();
+
+        TextView title =
+            tv(
+                "Downloads",
+                25,
+                WHITE,
+                true
+            );
+
+        title.setPadding(
+            18,0,18,10
+        );
+
+        current.addView(title);
+
+        TextView message =
+            tv(
+                "Downloaded content will appear here when offline viewing is supported by an authorized content provider.",
+                14,
+                MUTED,
+                false
+            );
+
+        message.setPadding(
+            18,30,18,30
+        );
+
+        current.addView(message);
+    }
+
+    void profile() {
+
+        base();
+
+        brandBar();
+
+        TextView title =
+            tv(
+                "Profile",
+                25,
+                WHITE,
+                true
+            );
+
+        title.setPadding(
+            18,0,18,10
+        );
+
+        current.addView(title);
+
+        LinearLayout card =
+            new LinearLayout(this);
+
+        card.setOrientation(
+            LinearLayout.VERTICAL
+        );
+
+        card.setPadding(
+            22,22,22,22
+        );
+
+        card.setBackground(
+            shape(
+                CARD,
+                22
+            )
+        );
+
+        TextView avatar =
+            tv(
+                "●",
+                45,
+                ACCENT,
+                true
+            );
+
+        card.addView(avatar);
+
+        card.addView(
+            tv(
+                "GAMA AALA Viewer",
+                21,
+                WHITE,
+                true
+            )
+        );
+
+        card.addView(
+            tv(
+                "Your entertainment profile",
+                14,
+                MUTED,
+                false
+            )
+        );
+
+        TextView saved =
+            tv(
+                "♥  My List: "
+                + myList.size()
+                + " titles",
+                15,
+                ACCENT,
+                true
+            );
+
+        saved.setPadding(
+            0,18,0,0
+        );
+
+        card.addView(saved);
+
+        LinearLayout.LayoutParams p =
+            new LinearLayout.LayoutParams(
+                -1,
+                -2
+            );
+
+        p.setMargins(
+            14,12,14,12
+        );
+
+        current.addView(card,p);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        home();
+    }
+}

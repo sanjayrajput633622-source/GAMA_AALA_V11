@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.makeramen.roundedimageview.RoundedImageView android:id="@id/film_pic" android:layout_width="110.0dp" android:layout_height="158.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:riv_corner_radius="4.0dp" />
+    <TextView android:textColor="@color/color_DFE4EA" android:ellipsize="end" android:id="@id/film_name" android:layout_width="110.0dp" android:layout_height="wrap_content" android:layout_marginTop="5.0dp" android:singleLine="true" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/film_pic" />
+    <FrameLayout android:id="@id/progress_parent" android:layout_width="45.0dp" android:layout_height="45.0dp" app:layout_constraintBottom_toBottomOf="@id/film_pic" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@id/film_pic">
+        <com.gxgx.daqiandy.widgets.CustomProgressView android:id="@id/progress" android:layout_width="45.0dp" android:layout_height="45.0dp" />
+        <ImageView android:layout_gravity="center" android:layout_width="16.0dp" android:layout_height="20.0dp" android:src="@drawable/ic_mine_downloading" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    </FrameLayout>
+    <ImageView android:id="@id/pause" android:visibility="gone" android:layout_width="30.0dp" android:layout_height="30.0dp" android:src="@drawable/ic_mine_download_pause" app:layout_constraintBottom_toBottomOf="@id/film_pic" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@id/film_pic" />
+</androidx.constraintlayout.widget.ConstraintLayout>

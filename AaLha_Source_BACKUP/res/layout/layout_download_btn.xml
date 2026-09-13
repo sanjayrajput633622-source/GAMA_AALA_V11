@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:gravity="center" android:id="@id/ll_download" android:background="@color/film_bottom_download_btn_bg" android:layout_width="0.0dp" android:layout_height="56.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <ImageView android:id="@id/img_download" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_download_film" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/film_bottom_download_btn_text" android:id="@id/tv_txt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="3.0dp" android:text="@string/download_check_cache" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

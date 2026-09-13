@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include android:id="@id/title" layout="@layout/layout_title" />
+    <androidx.core.widget.NestedScrollView android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView android:id="@id/recycler" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="30.0dp" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" />
+            <TextView android:textSize="16.0sp" android:textColor="@color/select_submit_color_enable" android:gravity="center" android:id="@id/tv_parental_setting" android:background="@drawable/selector_submit_enable_bg" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginTop="40.0dp" android:layout_marginBottom="20.0dp" android:text="@string/confirm" android:fontFamily="sans-serif-medium" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

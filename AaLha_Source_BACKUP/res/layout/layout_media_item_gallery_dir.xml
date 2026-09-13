@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/color_15161D" android:layout_width="100000.0px" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:id="@id/sort_video_layout" android:layout_width="100000.0dp" android:layout_height="wrap_content">
+        <ImageView android:layout_gravity="center_vertical" android:id="@id/thumb_image" android:layout_width="87.0dp" android:layout_height="87.0dp" android:layout_margin="10.0dp" android:scaleType="centerCrop" />
+        <TextView android:textSize="18.0sp" android:textColor="@color/white" android:layout_gravity="center_vertical" android:id="@id/video_dir_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:maxLength="10" />
+        <TextView android:textSize="18.0sp" android:textColor="@color/white" android:layout_gravity="center_vertical" android:id="@id/video_left_brachet" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="5.0dp" android:text="(" />
+        <TextView android:textSize="18.0sp" android:textColor="@color/white" android:layout_gravity="center_vertical" android:id="@id/video_file_count" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <TextView android:textSize="18.0sp" android:textColor="@color/white" android:layout_gravity="center_vertical" android:id="@id/video_right_brachet" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=")" />
+    </LinearLayout>
+</LinearLayout>

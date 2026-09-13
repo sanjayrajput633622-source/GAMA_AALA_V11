@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="112.0dp" android:layout_height="wrap_content" android:layout_marginEnd="8.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:layout_width="112.0dp" android:layout_height="12.0dp">
+        <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="56.0dp" android:layout_height="12.0dp" />
+        <View android:layout_gravity="center_vertical" android:background="@color/shimmer_view_color" android:layout_width="52.0dp" android:layout_height="1.0dp" android:layout_marginStart="4.0dp" />
+    </LinearLayout>
+    <ImageView android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="112.0dp" android:layout_height="156.0dp" android:layout_marginTop="8.0dp" android:src="@drawable/app_img_empty" android:scaleType="centerInside" android:alpha="0.45" />
+    <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="90.0dp" android:layout_height="17.0dp" android:layout_marginTop="10.0dp" />
+    <TextView android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/yellow_home_text" android:gravity="center" android:background="@drawable/shape_skeleton_home_gold_stroke_bg" android:layout_width="72.0dp" android:layout_height="28.0dp" android:layout_marginTop="8.0dp" android:text="+ List" />
+</LinearLayout>

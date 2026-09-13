@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/llCenterInfoOtherNoWifi" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="14.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/tvNoWifiRemindedText" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/player_view_state_no_wifi_consume_data" />
+    <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="19.0dp">
+        <TextView android:textSize="12.0sp" android:textColor="@color/white" android:id="@id/tvNoWifiCancel" android:background="@drawable/shape_toast_bg" android:paddingTop="6.0dp" android:paddingBottom="5.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/dialog_cancel_txt" android:paddingStart="31.0dp" android:paddingEnd="30.0dp" android:layout_marginEnd="15.0dp" />
+        <TextView android:textSize="12.0sp" android:textColor="@color/white" android:id="@id/tvNoWifiContinue" android:background="@drawable/shape_toast_bg" android:paddingTop="6.0dp" android:paddingBottom="5.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/dialog_confirm_txt" android:paddingStart="31.0dp" android:paddingEnd="30.0dp" android:layout_marginStart="16.0dp" />
+    </LinearLayout>
+    <LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@id/ivNoWifiRemindedButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24.0dp">
+        <ImageView android:id="@id/ivNoWifiRemindedIcon" android:visibility="gone" android:layout_width="16.0dp" android:layout_height="16.0dp" android:src="@drawable/select_no_wifi_reminded" />
+        <TextView android:textSize="13.0sp" android:textColor="@color/white" android:id="@id/tvNoWifiNoRemindedText" android:background="@drawable/shape_white_underline" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/player_view_state_no_wifi_reminded" android:layout_marginStart="5.0dp" />
+    </LinearLayout>
+</LinearLayout>

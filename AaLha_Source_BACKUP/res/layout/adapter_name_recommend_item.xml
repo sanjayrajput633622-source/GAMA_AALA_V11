@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@id/item_view" android:background="@drawable/shape_list_item_normal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="5.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView android:textSize="12.0sp" android:textColor="@color/select_language_title_text_color" android:id="@id/report_text" android:padding="12.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <ImageView android:id="@id/select_report" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="17.0dp" android:src="@drawable/ic_selected_view" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

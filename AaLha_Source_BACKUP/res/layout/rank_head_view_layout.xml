@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:background="@drawable/ic_rank_head" android:paddingTop="6.0dp" android:layout_width="match_parent" android:layout_height="296.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="74.0dp" android:layout_marginStart="16.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent">
+        <ImageView android:layout_gravity="center_horizontal" android:id="@id/iv_head2" android:layout_width="92.0dp" android:layout_height="133.0dp" />
+        <ImageView android:id="@id/bg2" android:background="@drawable/ic_rank_head2_bg" android:layout_width="100.0dp" android:layout_height="150.0dp" />
+    </FrameLayout>
+    <FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="14.0dp" android:layout_marginBottom="86.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent">
+        <ImageView android:layout_gravity="center_horizontal" android:id="@id/iv_head1" android:layout_width="110.0dp" android:layout_height="160.0dp" />
+        <ImageView android:background="@drawable/ic_rank_head1_bg" android:layout_width="118.0dp" android:layout_height="170.0dp" />
+    </FrameLayout>
+    <FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="64.0dp" android:layout_marginEnd="16.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent">
+        <ImageView android:layout_gravity="center_horizontal" android:id="@id/iv_head3" android:layout_width="92.0dp" android:layout_height="133.0dp" />
+        <ImageView android:background="@drawable/ic_rank_head3_bg" android:layout_width="100.0dp" android:layout_height="150.0dp" />
+    </FrameLayout>
+    <TextView android:textColor="@color/white" android:ellipsize="end" android:gravity="center" android:id="@id/tv_film_name2" android:layout_width="110.0dp" android:layout_height="20.0dp" android:layout_marginBottom="42.0dp" android:singleLine="true" android:layout_marginStart="8.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" />
+    <TextView android:textColor="@color/white" android:ellipsize="end" android:gravity="center" android:id="@id/tv_film_name1" android:layout_width="118.0dp" android:layout_height="20.0dp" android:layout_marginBottom="56.0dp" android:singleLine="true" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" />
+    <TextView android:textColor="@color/white" android:ellipsize="end" android:gravity="center" android:id="@id/tv_film_name3" android:layout_width="110.0dp" android:layout_height="20.0dp" android:layout_marginBottom="34.0dp" android:singleLine="true" android:layout_marginEnd="8.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

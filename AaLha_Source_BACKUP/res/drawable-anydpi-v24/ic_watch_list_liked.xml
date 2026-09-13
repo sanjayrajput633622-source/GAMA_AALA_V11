@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="18.0dp" android:width="18.0dp" android:viewportWidth="18.0" android:viewportHeight="18.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <path android:fillColor="#000000" android:pathData="M0.3333,0.3333h17.3333v17.3333h-17.3333z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:strokeAlpha="0.0" android:fillAlpha="0.0" android:fillType="nonZero" />
+    <path android:fillColor="@drawable/$ic_watch_list_liked__0" android:pathData="M13.7273,2.1061L4.2727,2.1061C3.5112,2.1061 2.8939,2.7234 2.8939,3.4848L2.8939,14.6909C2.8939,14.9432 2.9632,15.1907 3.0941,15.4064C3.4893,16.0573 4.3373,16.2647 4.9882,15.8695L9.0024,13.4326C9.0664,13.3938 9.1467,13.3946 9.2099,13.4346L12.9902,15.8256C13.2108,15.9651 13.4663,16.0391 13.7273,16.0391C14.4888,16.0391 15.1061,15.4218 15.1061,14.6603L15.1061,3.4848C15.1061,2.7234 14.4888,2.1061 13.7273,2.1061Z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+    <path android:fillColor="#15161d" android:pathData="M9,9.7879l-1.8524,0.9739l0.3538,-2.0627l-1.4986,-1.4608l2.0711,-0.3009l0.9262,-1.8767l0.9262,1.8767l2.0711,0.3009l-1.4986,1.4608l0.3538,2.0627z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+</vector>

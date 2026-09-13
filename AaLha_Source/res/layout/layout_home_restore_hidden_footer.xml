@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:background="@color/color_17171A" android:focusable="true" android:clickable="true" android:layout_width="match_parent" android:layout_height="56.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@id/ll_restore_hidden" android:layout_width="match_parent" android:layout_height="match_parent" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <TextView android:textSize="14.0sp" android:textColor="#9d9da3" android:ellipsize="end" android:id="@id/tv_hidden_count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:lines="1" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/color_FFE291" android:ellipsize="end" android:id="@id/tv_restore" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/home_restore_hidden" android:lines="1" android:layout_marginStart="16.0dp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

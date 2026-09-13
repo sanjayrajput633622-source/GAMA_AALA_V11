@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="49.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="16.0sp" android:textColor="@color/alivc_common_font_black" android:gravity="center" android:id="@id/alivc_tv_name" android:layout_width="match_parent" android:layout_height="match_parent" />
+</LinearLayout>

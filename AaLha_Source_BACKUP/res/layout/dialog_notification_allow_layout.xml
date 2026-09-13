@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:background="@drawable/shape_update_bg" android:layout_width="300.0dp" android:layout_height="wrap_content" android:paddingStart="24.0dp" android:paddingEnd="24.0dp" app:layout_constrainedWidth="true" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <TextView android:textSize="16.0sp" android:textColor="@color/app_language" android:layout_gravity="center_horizontal" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="21.0dp" android:text="@string/allow_push_notification" android:fontFamily="sans-serif-medium" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/app_language" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:text="Never Miss Important Notifications!" />
+        <ImageView android:layout_gravity="center_horizontal" android:id="@id/image" android:layout_width="252.0dp" android:layout_height="142.0dp" android:layout_marginTop="16.0dp" />
+        <TextView android:textColor="@color/black" android:gravity="center" android:id="@id/tv_allow" android:background="@drawable/shape_general_button_lighted" android:layout_width="match_parent" android:layout_height="40.0dp" android:layout_marginTop="24.0dp" android:text="@string/allow" android:fontFamily="sans-serif-medium" />
+        <TextView android:textColor="@color/white" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/tv_not_allow" android:padding="20.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/not_allow" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

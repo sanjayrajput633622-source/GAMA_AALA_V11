@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="44.0dp">
+        <LinearLayout android:id="@id/ll_back" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginTop="13.0dp" android:layout_marginRight="14.0dp" android:layout_marginBottom="12.0dp" android:src="@drawable/ic_back" />
+        </LinearLayout>
+        <TextView android:textSize="16.0sp" android:textColor="@color/layout_title_text" android:id="@id/tv_title" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="@id/ll_back" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout android:id="@id/refreshLayout" android:layout_width="match_parent" android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_channel" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="14.0dp" android:layout_marginTop="14.0dp" android:layout_marginRight="14.0dp" />
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+</LinearLayout>

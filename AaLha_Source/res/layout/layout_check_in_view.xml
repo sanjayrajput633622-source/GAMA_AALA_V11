@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="64.0dp" android:layout_height="64.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.opensource.svgaplayer.SVGAImageView android:id="@id/svga" android:visibility="visible" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitXY" app:clearsAfterDetached="true" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:loopCount="-1" />
+    <TextView android:textSize="12.0sp" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:id="@id/check_in_coins" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="1.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

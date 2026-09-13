@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText android:textSize="14.0sp" android:textColor="@color/edit_comment_edit_text" android:textColorHighlight="@color/color_565664" android:textColorHint="@color/edit_comment_edit_text_hint" android:gravity="top" android:background="@color/edit_comment_edit_text_bg" android:paddingTop="10.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/comment_input_text" android:maxEms="500" android:textCursorDrawable="@drawable/shape_edit_cursor_bg" android:paddingStart="12.0dp" android:paddingEnd="12.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" />

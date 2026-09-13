@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout android:id="@id/refreshLayout" android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:background="@color/film_rank_frg_bg" android:layout_width="match_parent" android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_rank" android:background="@color/color_15161D" android:layout_width="match_parent" android:layout_height="match_parent" />
+        </LinearLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+</FrameLayout>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="32.0dp" android:width="32.0dp" android:viewportWidth="32.0" android:viewportHeight="32.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <path android:fillColor="@drawable/$ic_tv_vip_premium__0" android:pathData="M28.07,4C29.688,4 31,5.312 31,6.93L31,22.574C31,24.192 29.688,25.504 28.07,25.504L25.845,25.503L26.835,27.218C27.137,27.741 26.99,28.4 26.513,28.749L26.406,28.818C25.846,29.142 25.129,28.95 24.805,28.39L23.165,25.548C23.157,25.534 23.149,25.519 23.141,25.504L8.859,25.504C8.851,25.519 8.843,25.534 8.835,25.548L7.195,28.39C6.871,28.95 6.154,29.142 5.594,28.818C5.033,28.495 4.841,27.778 5.165,27.218L6.154,25.503L3.93,25.504C2.312,25.504 1,24.192 1,22.574L1,6.93C1,5.312 2.312,4 3.93,4L28.07,4ZM14.728,10.214L7,10.214L7,12.104L9.772,12.104L9.772,20L11.956,20L11.956,12.104L14.728,12.104L14.728,10.214ZM17.936,10.214L15.57,10.214L19.504,20L21.352,20L25.286,10.214L22.92,10.214L20.428,16.444L17.936,10.214Z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+</vector>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="vertical" android:background="@drawable/bullet_chat_item_bg" android:padding="6.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="24.0dp" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <ImageView android:id="@id/iv_head" android:layout_width="18.0dp" android:layout_height="18.0dp" />
+        <ImageView android:id="@id/iv_vip" android:layout_width="11.0dp" android:layout_height="13.0dp" android:src="@drawable/ic_user_name_premium_vip" android:layout_marginStart="5.0dp" />
+        <TextView android:textSize="12.0sp" android:textColor="@color/color_FFE291" android:id="@id/tv_user_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Username:" android:layout_marginStart="5.0dp" />
+        <TextView android:textSize="12.0sp" android:textColor="@color/yellow_film_library_unselected" android:gravity="center_vertical" android:id="@id/tv_content" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="5.0dp" android:breakStrategy="simple" android:hyphenationFrequency="full" />
+    </LinearLayout>
+    <TextView android:textSize="12.0sp" android:textColor="@color/white" android:gravity="center_vertical" android:id="@id/tv_content2" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+</LinearLayout>

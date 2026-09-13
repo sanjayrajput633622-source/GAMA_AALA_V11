@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include android:id="@id/title" android:layout_width="match_parent" android:layout_height="39.0dp" android:layout_marginTop="44.0dp" layout="@layout/layout_title" />
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="31.0dp">
+        <TextView android:textSize="15.0sp" android:textColor="@color/user_message_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/user_head_img" android:layout_centerVertical="true" android:layout_marginStart="16.0dp" />
+        <ImageView android:id="@id/img_head" android:layout_width="68.0dp" android:layout_height="68.0dp" android:layout_alignParentRight="true" android:layout_marginEnd="16.0dp" />
+        <TextView android:textSize="20.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/tv_head_default" android:background="@drawable/shape_cricle_bg" android:layout_width="68.0dp" android:layout_height="68.0dp" android:layout_marginRight="16.0dp" android:layout_alignParentRight="true" />
+    </RelativeLayout>
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="44.0dp" android:layout_marginTop="10.0dp">
+        <TextView android:textSize="15.0sp" android:textColor="@color/user_message_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/user_nike_name" android:layout_centerVertical="true" android:layout_marginStart="16.0dp" />
+        <LinearLayout android:gravity="center_vertical" android:id="@id/ll_update" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginEnd="16.0dp" android:layout_alignParentEnd="true">
+            <TextView android:textSize="15.0sp" android:textColor="@color/white" android:id="@id/tv_nick_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/user_nike_name_no_set" android:layout_marginEnd="7.0dp" />
+            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_user_msg_edit" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center_vertical" android:id="@id/ll_setting" android:visibility="gone" android:layout_width="160.0dp" android:layout_height="match_parent" android:layout_marginRight="16.0dp" android:layout_alignParentRight="true">
+            <EditText android:textSize="15.0sp" android:textColor="@color/user_message_edit_text" android:textColorHint="@color/user_message_edit_text_hint" android:gravity="right" android:id="@id/ed_nick_name" android:background="@null" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/user_nike_name_hint" android:cursorVisible="true" android:inputType="textMultiLine" android:textCursorDrawable="@drawable/shape_edit_cursor_bg" />
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout android:orientation="vertical" android:id="@id/ll_exist_tip" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <View android:background="@color/color_FF3232" android:layout_width="match_parent" android:layout_height="1.0dp" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" />
+        <TextView android:textSize="12.0sp" android:textColor="@color/color_FF3232" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:layout_marginBottom="8.0dp" android:text="@string/nickname_exist" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" />
+    </LinearLayout>
+    <LinearLayout android:orientation="vertical" android:id="@id/ll_exist_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="12.0sp" android:textColor="@color/white" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8.0dp" android:text="@string/recommended_nicknames" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" />
+        <androidx.recyclerview.widget.RecyclerView android:id="@id/rl_recommend" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" />
+    </LinearLayout>
+    <RelativeLayout android:id="@id/rl_gender" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="15.0sp" android:textColor="@color/user_message_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:text="@string/user_sex" android:layout_centerVertical="true" />
+        <LinearLayout android:gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="16.0dp" android:layout_alignParentRight="true">
+            <ImageView android:id="@id/img_gender" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dp" android:src="@drawable/ic_man" />
+            <TextView android:textSize="15.0sp" android:textColor="@color/white" android:id="@id/tv_gender" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="8.0dp" android:text="@string/user_sex" android:layout_centerVertical="true" />
+            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="23.0dp" android:layout_marginBottom="23.0dp" android:src="@drawable/ic_right_arrow" />
+        </LinearLayout>
+    </RelativeLayout>
+    <TextView android:textSize="15.0sp" android:textColor="@color/select_save_text_color" android:gravity="center" android:id="@id/tv_save" android:background="@drawable/select_save_btn_bg" android:layout_width="match_parent" android:layout_height="40.0dp" android:layout_marginLeft="12.0dp" android:layout_marginTop="31.0dp" android:layout_marginRight="12.0dp" android:text="@string/user_message_save" android:fontFamily="sans-serif-medium" />
+</LinearLayout>

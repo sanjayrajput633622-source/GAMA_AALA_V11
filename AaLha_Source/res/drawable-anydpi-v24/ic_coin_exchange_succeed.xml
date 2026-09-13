@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="30.0dp" android:width="37.0dp" android:viewportWidth="37.0" android:viewportHeight="30.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <path android:fillColor="@drawable/ic_coin_exchange_succeed__0" android:pathData="M17.626,0l10.708,14.229l6.838,-5.704l-3.42,21.475l-28.092,0l-3.658,-21.475l7.161,5.704z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+    <path android:fillColor="#ffffff" android:pathData="M14.773,17.075l-3.989,0l6.852,9l6.75,-9l-3.989,0l0.307,0.818l-3.068,4.193l-3.068,-4.193z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+</vector>

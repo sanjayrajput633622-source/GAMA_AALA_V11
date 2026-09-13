@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@id/ctl_dialog_ads" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/imgEmpty" android:visibility="invisible" android:layout_width="match_parent" android:layout_height="0.0dp" android:src="@drawable/app_img_empty" app:layout_constraintBottom_toBottomOf="@id/adsView" app:layout_constraintDimensionRatio="320:500" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <com.gxgx.daqiandy.widgets.ads.NativeAdsView android:id="@id/adsView" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_marginTop="20.0dp" android:layout_marginEnd="20.0dp" app:layout_constraintDimensionRatio="320:500" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout android:id="@id/ll_close" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="10.0dp" android:src="@drawable/ic_update_close" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

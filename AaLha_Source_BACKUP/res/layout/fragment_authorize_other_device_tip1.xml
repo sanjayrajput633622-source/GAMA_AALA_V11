@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView android:textSize="24.0sp" android:textStyle="bold" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="32.0dp" android:text="@string/step_1" android:layout_marginStart="23.0dp" />
+    <TextView android:textSize="14.0sp" android:textColor="@color/white" android:id="@id/content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="23.0dp" android:layout_marginTop="20.0dp" android:layout_marginRight="23.0dp" android:text="@string/authorize_other_device_step_tip1" android:layout_marginHorizontal="23.0dp" />
+    <TextView android:textSize="15.0sp" android:textStyle="bold" android:textColor="@color/select_authorize_device_text_color" android:gravity="center" android:id="@id/next" android:background="@drawable/select_send_authorize_bg" android:layout_width="match_parent" android:layout_height="40.0dp" android:layout_marginLeft="23.0dp" android:layout_marginTop="40.0dp" android:layout_marginRight="23.0dp" android:text="@string/send" android:layout_marginHorizontal="23.0dp" />
+</LinearLayout>

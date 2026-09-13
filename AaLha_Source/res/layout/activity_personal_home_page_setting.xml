@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include android:id="@id/title" layout="@layout/layout_title" />
+    <RelativeLayout android:id="@id/rl_video_looked" android:background="@color/personal_home_setting_item_bg" android:layout_width="match_parent" android:layout_height="64.0dp" android:layout_marginLeft="12.0dp" android:layout_marginTop="20.0dp" android:layout_marginRight="12.0dp">
+        <TextView android:textSize="15.0sp" android:textColor="@color/personal_home_setting_item_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:text="@string/personal_setting_video_looked" android:layout_centerVertical="true" />
+        <Switch android:id="@id/sw_video_looked" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="16.0dp" android:thumb="@drawable/select_switch_thumb_bg" android:layout_alignParentRight="true" android:layout_centerVertical="true" android:track="@drawable/select_switch_track_bg" />
+    </RelativeLayout>
+    <RelativeLayout android:id="@id/rl_video_like" android:background="@color/personal_home_setting_item_bg" android:layout_width="match_parent" android:layout_height="64.0dp" android:layout_marginLeft="12.0dp" android:layout_marginTop="1.0dp" android:layout_marginRight="12.0dp">
+        <TextView android:textSize="15.0sp" android:textColor="@color/personal_home_setting_item_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:text="@string/personal_setting_video_like" android:layout_centerVertical="true" />
+        <Switch android:id="@id/sw_video_like" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="16.0dp" android:thumb="@drawable/select_switch_thumb_bg" android:layout_alignParentRight="true" android:layout_centerVertical="true" android:track="@drawable/select_switch_track_bg" />
+    </RelativeLayout>
+    <RelativeLayout android:id="@id/rl_video" android:background="@color/personal_home_setting_item_bg" android:layout_width="match_parent" android:layout_height="64.0dp" android:layout_marginLeft="12.0dp" android:layout_marginTop="1.0dp" android:layout_marginRight="12.0dp">
+        <TextView android:textSize="15.0sp" android:textColor="@color/personal_home_setting_item_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:text="@string/personal_setting_video" android:layout_centerVertical="true" />
+        <Switch android:id="@id/sw_video" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="16.0dp" android:thumb="@drawable/select_switch_thumb_bg" android:layout_alignParentRight="true" android:layout_centerVertical="true" android:track="@drawable/select_switch_track_bg" />
+    </RelativeLayout>
+</LinearLayout>

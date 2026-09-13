@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:background="@drawable/shape_gender_dialog_bg" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_episodes" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="20.0dp" android:layout_below="@id/ct_title" android:overScrollMode="never" android:layout_marginStart="8.0dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@id/ct_title" android:background="@drawable/shape_gender_dialog_bg" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="12.0sp" android:textColor="@color/color_92929B" android:id="@id/title" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="@string/download_select_clarity" android:layout_marginStart="23.0dp" app:layout_constrainedWidth="true" app:layout_constraintBottom_toBottomOf="@id/rlv_resolution" app:layout_constraintEnd_toStartOf="@id/rlv_resolution" app:layout_constraintHorizontal_bias="0.0" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintWidth_max="wrap" app:layout_constraintWidth_percent="0.3" />
+            <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_resolution" android:layout_width="0.0dp" android:layout_height="72.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintWidth_max="wrap" app:layout_constraintWidth_percent="0.7" />
+            <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_num" android:layout_width="match_parent" android:layout_height="40.0dp" android:layout_marginTop="25.0dp" android:layout_marginBottom="20.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toBottomOf="@id/title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout android:gravity="center" android:id="@id/remain_layout" android:visibility="gone" android:layout_width="match_parent" android:layout_height="32.0dp" android:layout_below="@id/rlv_episodes">
+            <TextView android:textSize="12.0sp" android:textColor="#ff999999" android:id="@id/remain_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/you_have_download_chances_left_today" />
+        </LinearLayout>
+        <com.gxgx.daqiandy.widgets.ads.NativeAdsView android:id="@id/adsView" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:layout_below="@id/remain_layout" />
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

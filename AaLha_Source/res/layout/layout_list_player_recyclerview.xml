@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+        <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1.0">
+            <com.gxgx.daqiandy.widgets.aliyun.AlivcSwipeRefreshLayout android:id="@id/refresh_view" android:layout_width="match_parent" android:layout_height="match_parent">
+                <com.gxgx.daqiandy.widgets.aliyun.RecyclerViewEmptySupport android:id="@id/list_player_recyclerview" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" />
+            </com.gxgx.daqiandy.widgets.aliyun.AlivcSwipeRefreshLayout>
+            <com.gxgx.daqiandy.widgets.ScrollFrameLayout android:layout_gravity="bottom" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <com.gxgx.daqiandy.widgets.LoadingView android:layout_gravity="bottom" android:id="@id/loadingView" android:layout_width="match_parent" android:layout_height="2.0dp" android:layout_centerInParent="true" app:dq_minHeight="1.0dp" app:dq_minProgressWidth="100.0dp" app:dq_minWidth="300.0dp" app:dq_progressColor="#F9D988" />
+                <LinearLayout android:layout_gravity="bottom" android:id="@id/ll_seek" android:layout_width="match_parent" android:layout_height="35.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent">
+                    <SeekBar android:layout_gravity="bottom" android:id="@id/pb" android:layout_width="match_parent" android:layout_height="2.0dp" android:max="100" android:progress="0" android:progressDrawable="@drawable/seek_bar_bg" android:thumb="@drawable/seek_bar_thumb" android:paddingStart="0.0dp" android:paddingEnd="0.0dp" />
+                </LinearLayout>
+            </com.gxgx.daqiandy.widgets.ScrollFrameLayout>
+        </FrameLayout>
+        <com.github.ybq.android.spinkit.SpinKitView android:layout_gravity="center" android:id="@id/spin_kit" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" app:SpinKit_Color="@color/white" style="@style/SpinKitView.Large.Wave" />
+    </LinearLayout>
+    <RelativeLayout android:id="@id/rl_empty_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent">
+        <TextView android:textColor="@color/white" android:id="@id/tv_refresh" android:background="@color/color_565664" android:padding="15.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:layout_centerHorizontal="true" android:layout_centerVertical="true" />
+    </RelativeLayout>
+</merge>

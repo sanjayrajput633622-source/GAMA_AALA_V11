@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:background="#090A0E" android:layout_width="match_parent" android:layout_height="match_parent">
+ <FrameLayout android:id="@+id/screen" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+ <LinearLayout android:background="#12141A" android:paddingTop="2dp" android:paddingBottom="2dp" android:layout_width="match_parent" android:layout_height="68dp">
+  <Button android:id="@+id/navHome" android:text="⌂\nHome" android:textColor="#FFBE37" android:textSize="11sp" android:backgroundTint="#12141A" android:minHeight="0dp" android:minWidth="0dp" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"/>
+  <Button android:id="@+id/navFind" android:text="⌕\nSearch" android:textColor="#9295A0" android:textSize="11sp" android:backgroundTint="#12141A" android:minHeight="0dp" android:minWidth="0dp" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"/>
+  <Button android:id="@+id/navTv" android:text="▣\nSeries" android:textColor="#9295A0" android:textSize="11sp" android:backgroundTint="#12141A" android:minHeight="0dp" android:minWidth="0dp" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"/>
+  <Button android:id="@+id/navDownload" android:text="⇩\nMy List" android:textColor="#9295A0" android:textSize="11sp" android:backgroundTint="#12141A" android:minHeight="0dp" android:minWidth="0dp" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"/>
+  <Button android:id="@+id/navMe" android:text="●\nProfile" android:textColor="#9295A0" android:textSize="11sp" android:backgroundTint="#12141A" android:minHeight="0dp" android:minWidth="0dp" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"/>
+ </LinearLayout>
+</LinearLayout>

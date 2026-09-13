@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="15.0sp" android:textColor="@color/select_country_item_text" android:id="@id/tv_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:layout_marginBottom="14.0dp" android:text="Afghanistan" android:layout_marginStart="24.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textSize="13.0sp" android:textColor="@color/color_92929b" android:id="@id/tv_code" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+93" android:layout_marginEnd="30.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View android:background="@color/select_country_item_line" android:layout_width="match_parent" android:layout_height="1.0dp" android:layout_marginLeft="21.0dp" />
+</LinearLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:background="@color/theme_color" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/imgEmptyView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_net_error" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <TextView android:textSize="14.0sp" android:textColor="@color/color_B3B3B3" android:id="@id/tvTxt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:text="@string/poor_network_connection" app:layout_constraintEnd_toEndOf="@id/imgEmptyView" app:layout_constraintStart_toStartOf="@id/imgEmptyView" app:layout_constraintTop_toBottomOf="@id/imgEmptyView" />
+    <TextView android:textSize="14.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/tvTry" android:background="@drawable/shape_error_rrefresh" android:layout_width="160.0dp" android:layout_height="44.0dp" android:layout_marginTop="24.0dp" android:text="@string/refresh_txt" app:layout_constraintEnd_toEndOf="@id/imgEmptyView" app:layout_constraintStart_toStartOf="@id/imgEmptyView" app:layout_constraintTop_toBottomOf="@id/tvTxt" />
+</LinearLayout>

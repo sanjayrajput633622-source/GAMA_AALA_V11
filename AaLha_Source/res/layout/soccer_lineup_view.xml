@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView android:id="@id/top" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout android:background="@color/black" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:gravity="bottom" android:orientation="horizontal" android:id="@id/ll_venue" android:background="#338703" android:layout_width="match_parent" android:layout_height="30.0dp" android:paddingStart="14.0dp" android:paddingEnd="14.0dp" app:layout_constraintTop_toTopOf="parent">
+                <LinearLayout android:layout_gravity="bottom" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="4.0">
+                    <ImageView android:layout_gravity="bottom" android:id="@id/iv_referees" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_referees" />
+                    <TextView android:textSize="12.0sp" android:textColor="#b3ffffff" android:gravity="bottom" android:id="@id/tv_referees" android:layout_width="match_parent" android:layout_height="match_parent" android:singleLine="true" android:layout_weight="1.0" android:layout_marginStart="5.0dp" />
+                </LinearLayout>
+                <LinearLayout android:gravity="end|bottom" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="6.0">
+                    <ImageView android:id="@id/iv_venue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_venue" />
+                    <TextView android:textSize="12.0sp" android:textColor="#b3ffffff" android:gravity="bottom" android:id="@id/tv_venue" android:layout_width="wrap_content" android:layout_height="match_parent" android:minWidth="50.0dp" android:singleLine="true" android:layout_marginStart="5.0dp" />
+                </LinearLayout>
+            </LinearLayout>
+            <com.gxgx.daqiandy.widgets.LineupViewGroup android:orientation="vertical" android:id="@id/soccerView" android:layout_width="0.0dp" android:layout_height="0.0dp" app:layout_constraintDimensionRatio="375:691" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toBottomOf="@id/ll_venue" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="42.0dp">
+            <LinearLayout android:gravity="center_vertical" android:background="#eb7536" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="1.0" android:paddingStart="12.0dp">
+                <com.gxgx.daqiandy.widgets.RoundRelativeLayout android:background="@drawable/shape_circle_white_with_stroke_bg" android:layout_width="24.0dp" android:layout_height="24.0dp" app:rnsv_round="12.0dp">
+                    <ImageView android:id="@id/iv_home_team_logo" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_centerInParent="true" />
+                </com.gxgx.daqiandy.widgets.RoundRelativeLayout>
+                <TextView android:textSize="13.0sp" android:textColor="@color/white" android:id="@id/tv_home_team_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:layout_marginStart="10.0dp" />
+            </LinearLayout>
+            <View android:background="@color/color_15161D" android:layout_width="2.0dp" android:layout_height="match_parent" />
+            <LinearLayout android:gravity="center_vertical" android:background="#085ece" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="1.0" android:paddingStart="12.0dp">
+                <com.gxgx.daqiandy.widgets.RoundRelativeLayout android:background="@drawable/shape_circle_white_with_stroke_bg" android:layout_width="24.0dp" android:layout_height="24.0dp" app:rnsv_round="12.0dp">
+                    <ImageView android:id="@id/iv_away_team_logo" android:layout_width="20.0dp" android:layout_height="20.0dp" android:layout_centerInParent="true" />
+                </com.gxgx.daqiandy.widgets.RoundRelativeLayout>
+                <TextView android:textSize="13.0sp" android:textColor="@color/white" android:id="@id/tv_away_team_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:layout_marginStart="10.0dp" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:background="@color/black" android:paddingBottom="40.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <RelativeLayout android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0">
+                <androidx.recyclerview.widget.RecyclerView android:id="@id/rv_home_bench_list" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:nestedScrollingEnabled="false" />
+            </RelativeLayout>
+            <View android:background="@color/color_15161D" android:layout_width="2.0dp" android:layout_height="match_parent" />
+            <RelativeLayout android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0">
+                <androidx.recyclerview.widget.RecyclerView android:id="@id/rv_away_bench_list" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:nestedScrollingEnabled="false" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

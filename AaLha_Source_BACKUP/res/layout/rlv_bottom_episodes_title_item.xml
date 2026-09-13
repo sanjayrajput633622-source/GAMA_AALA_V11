@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15.0dp" android:layout_marginRight="24.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/vip_tip" android:visibility="gone" android:layout_width="16.0dp" android:layout_height="16.0dp" android:src="@drawable/ic_user_name_premium_vip" android:layout_marginEnd="6.0dp" />
+    <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
+        <TextView android:textSize="14.0sp" android:textColor="@color/select_episdes_title_text_color" android:gravity="center" android:id="@id/tv_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="FTP\n720P" />
+        <TextView android:id="@id/tv_indicator" android:background="@drawable/shape_indicator_bg" android:layout_width="16.0dp" android:layout_height="2.0dp" android:layout_marginTop="2.0dp" />
+    </LinearLayout>
+</LinearLayout>

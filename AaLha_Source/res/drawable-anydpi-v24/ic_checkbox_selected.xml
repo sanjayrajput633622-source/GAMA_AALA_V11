@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="16.0dp" android:width="16.0dp" android:viewportWidth="16.0" android:viewportHeight="16.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <path android:fillColor="@drawable/ic_checkbox_selected__0" android:pathData="M2,0L14,0A2,2 0,0 1,16 2L16,14A2,2 0,0 1,14 16L2,16A2,2 0,0 1,0 14L0,2A2,2 0,0 1,2 0z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+    <path android:fillColor="#00000000" android:pathData="M3.785,7.859l3.141,3.141l5.625,-5.625" android:strokeColor="#17171a" android:strokeWidth="1.5" android:strokeLineCap="round" android:strokeLineJoin="round" android:fillType="evenOdd" />
+</vector>

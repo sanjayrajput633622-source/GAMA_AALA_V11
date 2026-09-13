@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/sdvItemFilmStarAvatar" android:layout_width="66.0dp" android:layout_height="88.0dp" />
+    <TextView android:textSize="10.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/tv_director" android:background="@drawable/shape_director_bg" android:visibility="gone" android:layout_width="66.0dp" android:layout_height="wrap_content" android:text="@string/detail_director" android:layout_alignBottom="@id/sdvItemFilmStarAvatar" />
+    <TextView android:textSize="11.0sp" android:textColor="@color/grey_classification_label_text" android:ellipsize="end" android:gravity="center" android:id="@id/tvItemFilmStarName" android:layout_width="66.0dp" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:lines="1" android:singleLine="true" android:layout_below="@id/sdvItemFilmStarAvatar" />
+</RelativeLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout android:id="@id/refreshLayout1" android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:orientation="horizontal" android:id="@id/ll_channel" android:layout_width="match_parent" android:layout_height="match_parent" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+            <com.scwang.smart.refresh.layout.SmartRefreshLayout android:id="@id/refreshLayout" android:layout_width="130.0dp" android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_channel_left" android:layout_width="match_parent" android:layout_height="match_parent" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+            </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+            <FrameLayout android:background="@color/color_21232C" android:layout_width="match_parent" android:layout_height="match_parent">
+                <LinearLayout android:orientation="vertical" android:id="@id/ll_channel_right" android:layout_width="match_parent" android:layout_height="match_parent">
+                    <LinearLayout android:id="@id/ll_channel_right_top" android:background="@color/color_3C372C" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <com.gxgx.daqiandy.widgets.MarqueeTextView android:textSize="10.0sp" android:textColor="@color/color_D7B262" android:ellipsize="marquee" android:gravity="center" android:id="@id/tv_top_tip" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dp" android:layout_marginBottom="4.0dp" android:text="@string/tv_channel_tip" android:scrollHorizontally="true" android:singleLine="true" android:marqueeRepeatLimit="marquee_forever" />
+                    </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_channel_right" android:layout_width="match_parent" android:layout_height="match_parent" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/rlv_channel_left" app:layout_constraintTop_toTopOf="parent" />
+                </LinearLayout>
+                <TextView android:textSize="12.0sp" android:textColor="@color/color_999999" android:gravity="center" android:id="@id/tv_forbidden_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="31.0dp" android:layout_marginTop="50.0dp" android:layout_marginRight="31.0dp" android:text="@string/forbidden_view_tip" />
+                <LinearLayout android:orientation="vertical" android:id="@id/ll_live_tv_right" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent">
+                    <LinearLayout android:gravity="center" android:layout_gravity="center" android:id="@id/ll_matches_all" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dp">
+                        <TextView android:textSize="12.0sp" android:textColor="@color/color_BBBBC3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="5.0dp" android:text="@string/cricket_full_schedule" />
+                        <ImageView android:layout_width="10.0dp" android:layout_height="14.0dp" android:src="@drawable/ic_right_arrow_match" />
+                    </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_live_tv" android:background="@color/color_21232C" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="8.0dp" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+    <include android:id="@id/empty_view" android:visibility="gone" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" layout="@layout/layout_empty_view" />
+</androidx.constraintlayout.widget.ConstraintLayout>

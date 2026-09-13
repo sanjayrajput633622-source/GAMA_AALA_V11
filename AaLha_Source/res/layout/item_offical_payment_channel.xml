@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:background="@drawable/bg_353644_r6" android:layout_width="match_parent" android:layout_height="84.0dp" android:layout_marginLeft="18.0dp" android:layout_marginRight="18.0dp" android:layout_marginHorizontal="18.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/img_county" android:layout_width="18.0dp" android:layout_height="12.0dp" android:layout_marginTop="11.0dp" android:scaleType="centerInside" android:layout_marginStart="9.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <TextView android:textSize="12.0sp" android:textColor="@color/white" android:id="@id/tv_country" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="7.0dp" app:layout_constraintBottom_toBottomOf="@id/img_county" app:layout_constraintStart_toEndOf="@id/img_county" app:layout_constraintTop_toTopOf="@id/img_county" />
+    <TextView android:textSize="10.0sp" android:textColor="@color/white" android:id="@id/activity_rule_tip" android:background="@drawable/bg_0000_5619_lb10_rt6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingStart="15.0dp" android:paddingEnd="10.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <ImageView android:gravity="center" android:id="@id/payment_very_quick" android:layout_width="81.0dp" android:layout_height="13.0dp" android:src="@drawable/ic_very_quick" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout android:gravity="center_horizontal" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="11.0dp" app:layout_constraintBottom_toBottomOf="parent">
+        <ImageView android:gravity="center" android:id="@id/whatsapp" android:layout_width="150.0dp" android:layout_height="34.0dp" android:layout_marginBottom="11.0dp" android:layout_marginEnd="8.0dp" />
+        <ImageView android:id="@id/telegram" android:layout_width="150.0dp" android:layout_height="34.0dp" android:layout_marginStart="8.0dp" />
+    </LinearLayout>
+    <LinearLayout android:gravity="center" android:id="@id/customer_service" android:background="@drawable/bg_3469e4_r17" android:visibility="gone" android:layout_width="match_parent" android:layout_height="34.0dp" android:layout_marginLeft="12.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="11.0dp" android:layout_marginHorizontal="12.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent">
+        <ImageView android:layout_width="18.0dp" android:layout_height="18.0dp" android:src="@drawable/ic_contact_pay_ment" />
+        <TextView android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/customer_service_team" android:layout_marginStart="6.0dp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

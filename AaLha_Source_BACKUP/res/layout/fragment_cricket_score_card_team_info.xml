@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:paddingTop="10.0dp" android:paddingBottom="10.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="10.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/shape_cricket_squads_top_bg" android:layout_width="match_parent" android:layout_height="41.0dp">
+        <View android:layout_gravity="center_vertical" android:background="#ff1212" android:layout_width="2.0dp" android:layout_height="12.0dp" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/white" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="@string/batsman" android:layout_weight="4.0" android:layout_marginStart="10.0dp" />
+        <TextView android:textSize="12.0sp" android:textColor="#7b7c89" android:gravity="center" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="R" android:layout_weight="1.0" />
+        <TextView android:textSize="12.0sp" android:textColor="#7b7c89" android:gravity="center" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="B" android:layout_weight="1.0" />
+        <TextView android:textSize="12.0sp" android:textColor="#7b7c89" android:gravity="center" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="4s" android:layout_weight="1.0" />
+        <TextView android:textSize="12.0sp" android:textColor="#7b7c89" android:gravity="center" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="6s" android:layout_weight="1.0" />
+        <TextView android:textSize="12.0sp" android:textColor="#7b7c89" android:gravity="center" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="SR" android:layout_weight="1.0" />
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView android:id="@id/batsman_recyclerview" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="59.0dp">
+        <TextView android:textSize="12.0sp" android:textColor="@color/white" android:id="@id/text1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/extra" android:layout_marginStart="57.0dp" app:layout_constraintBottom_toTopOf="@id/text2" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textSize="12.0sp" android:textColor="@color/white" android:id="@id/text2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/total1" android:layout_marginStart="57.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/text1" />
+        <TextView android:textSize="12.0sp" android:textColor="@color/white" android:id="@id/estra" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintBottom_toTopOf="@id/total" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/text1" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textSize="12.0sp" android:textColor="@color/white" android:id="@id/total" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/text2" app:layout_constraintTop_toBottomOf="@id/estra" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:background="#ff2c2e3c" android:layout_width="match_parent" android:layout_height="41.0dp">
+        <View android:layout_gravity="center_vertical" android:background="#00abff" android:layout_width="2.0dp" android:layout_height="12.0dp" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/white" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="@string/bowler" android:layout_weight="4.0" android:layout_marginStart="10.0dp" />
+        <TextView android:textSize="12.0sp" android:textColor="#7b7c89" android:gravity="center" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="O" android:layout_weight="1.0" />
+        <TextView android:textSize="12.0sp" android:textColor="#7b7c89" android:gravity="center" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="M" android:layout_weight="1.0" />
+        <TextView android:textSize="12.0sp" android:textColor="#7b7c89" android:gravity="center" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="R" android:layout_weight="1.0" />
+        <TextView android:textSize="12.0sp" android:textColor="#7b7c89" android:gravity="center" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="W" android:layout_weight="1.0" />
+        <TextView android:textSize="12.0sp" android:textColor="#7b7c89" android:gravity="center" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="ECON" android:layout_weight="1.0" android:layout_marginEnd="4.0dp" />
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView android:id="@id/bowler_recyclerview" android:background="@drawable/shape_cricket_squads_bottom_bg" android:layout_width="match_parent" android:layout_height="wrap_content" />
+</LinearLayout>

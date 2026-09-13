@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@drawable/shape_gender_dialog_bg" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="12.0sp" android:textColor="@color/color_92929B" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="11.0dp" android:text="@string/select_gender" />
+    <RelativeLayout android:id="@id/ll_man" android:background="@drawable/shape_list_item_normal" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginTop="16.0dp" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp">
+        <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
+            <TextView android:textSize="15.0sp" android:textColor="@color/gender_select_item" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/gender_man" />
+            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="7.0dp" android:src="@drawable/ic_man" />
+        </LinearLayout>
+        <ImageView android:id="@id/select_iv_man" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="17.0dp" android:src="@drawable/ic_selected_view" android:layout_alignParentBottom="true" android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <View android:layout_width="match_parent" android:layout_height="10.0dp" />
+    <RelativeLayout android:id="@id/ll_women" android:background="@drawable/shape_list_item_normal" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginBottom="32.0dp" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp">
+        <LinearLayout android:gravity="center" android:background="@drawable/shape_list_item_normal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
+            <TextView android:textSize="15.0sp" android:textColor="@color/gender_select_item" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/gender_women" />
+            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="7.0dp" android:src="@drawable/ic_woman" />
+        </LinearLayout>
+        <ImageView android:id="@id/select_iv_women" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="17.0dp" android:src="@drawable/ic_selected_view" android:layout_alignParentBottom="true" android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:id="@id/root" android:background="@drawable/selector_clarity_item_bg" android:layout_width="match_parent" android:layout_height="54.0dp" android:layout_marginBottom="8.0dp" android:paddingStart="14.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="15.0sp" android:textColor="@drawable/selector_track_content_color" android:id="@id/tvContent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" />
+    <TextView android:textSize="11.0sp" android:textColor="@color/white" android:id="@id/tv_ai" android:background="@drawable/shape_ai_tag_bg" android:paddingLeft="6.0dp" android:paddingTop="1.0dp" android:paddingRight="6.0dp" android:paddingBottom="1.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8.0dp" android:text="@string/auto_translation" android:layout_toRightOf="@id/tvContent" android:layout_centerVertical="true" />
+    <ImageView android:id="@id/img_selected" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="17.0dp" android:src="@drawable/ic_select_bottom_tag" android:layout_alignParentRight="true" android:layout_alignParentBottom="true" />
+</RelativeLayout>

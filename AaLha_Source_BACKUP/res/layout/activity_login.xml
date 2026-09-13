@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:id="@id/ll_back" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="44.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginTop="13.0dp" android:layout_marginRight="10.0dp" android:layout_marginBottom="12.0dp" android:src="@drawable/ic_back" />
+    </LinearLayout>
+    <TextView android:textSize="20.0sp" android:textColor="@color/white" android:layout_gravity="center_horizontal" android:id="@id/tv_title" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="36.0dp" android:text="" />
+    <LinearLayout android:gravity="center_vertical" android:background="@drawable/shape_login_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="50.0dp" android:layout_marginLeft="38.0dp" android:layout_marginTop="48.0dp" android:layout_marginRight="37.0dp">
+        <TextView android:textSize="12.0sp" android:textColor="@color/color_E2E2E2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="14.0dp" android:text="+86" />
+        <View android:background="@color/color_4B4D51" android:layout_width="1.0dp" android:layout_height="20.0dp" android:layout_marginLeft="10.0dp" android:layout_marginRight="16.0dp" />
+        <EditText android:textSize="16.0sp" android:textColor="@color/white" android:textColorHint="@color/color_92929B" android:id="@id/ed_phone" android:background="@null" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="wrap_content" android:layout_height="match_parent" android:hint="@string/login_phone_hint" android:cursorVisible="true" android:lines="1" android:maxLength="11" android:layout_weight="1.0" android:inputType="phone" android:textCursorDrawable="@drawable/shape_edit_cursor_bg" />
+    </LinearLayout>
+    <LinearLayout android:gravity="center_vertical" android:background="@drawable/shape_login_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="50.0dp" android:layout_marginLeft="38.0dp" android:layout_marginTop="9.0dp" android:layout_marginRight="37.0dp">
+        <EditText android:textSize="14.0sp" android:textColor="@color/white" android:textColorHint="@color/color_92929B" android:id="@id/ed_code" android:background="@null" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="13.0dp" android:hint="@string/login_code_hint" android:cursorVisible="true" android:layout_weight="1.0" android:inputType="textMultiLine" android:textCursorDrawable="@drawable/shape_edit_cursor_bg" />
+    </LinearLayout>
+    <TextView android:textSize="15.0sp" android:textColor="@color/color_565664" android:gravity="center" android:id="@id/tv_login" android:background="@drawable/select_login_btn_bg" android:visibility="gone" android:layout_width="match_parent" android:layout_height="40.0dp" android:layout_marginLeft="48.0dp" android:layout_marginTop="54.0dp" android:layout_marginRight="47.0dp" android:text="@string/login_get_code" />
+    <TextView android:textSize="12.0sp" android:textColor="@color/color_656971" android:layout_gravity="center_horizontal" android:id="@id/tv_protocol" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:text="" android:drawableLeft="@drawable/select_protocol_bg" android:drawablePadding="4.0dp" />
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:orientation="vertical" android:id="@id/ll_click" android:layout_width="120.0dp" android:layout_height="120.0dp" android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+</LinearLayout>

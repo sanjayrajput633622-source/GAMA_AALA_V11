@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.camera.view.PreviewView android:id="@id/previewView" android:layout_width="match_parent" android:layout_height="match_parent" />
+    <com.king.view.viewfinderview.ViewfinderView android:id="@id/viewfinderView" android:layout_width="match_parent" android:layout_height="match_parent" app:vvLabelText="@string/tips_scan_qr_code" app:vvLabelTextLocation="bottom" app:vvLaserStyle="grid" />
+    <ImageView android:layout_gravity="center" android:id="@id/ivFlashlight" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/camera_scan_flashlight_margin_top" android:src="@drawable/camera_scan_flashlight_selector" android:contentDescription="@null" />
+    <include android:id="@id/title" layout="@layout/layout_title" />
+    <FrameLayout android:layout_gravity="bottom" android:id="@id/flImg" android:background="@drawable/shape_round_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="33.0dp" android:layout_marginBottom="35.0dp">
+        <ImageView android:layout_gravity="center" android:layout_width="36.0dp" android:layout_height="36.0dp" android:src="@drawable/ic_edit_comment_images" />
+    </FrameLayout>
+</FrameLayout>

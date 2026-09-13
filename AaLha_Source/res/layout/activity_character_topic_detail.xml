@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:background="@color/color_15161D" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.gxgx.daqiandy.widgets.HeadZoomScrollView android:id="@id/nestSV" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:overScrollMode="never">
+        <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                <ImageView android:id="@id/img_head" android:layout_width="match_parent" android:layout_height="360.0dp" android:scaleType="centerCrop" />
+                <ImageView android:id="@id/img_head_mask" android:layout_width="match_parent" android:layout_height="360.0dp" android:scaleType="centerCrop" />
+            </FrameLayout>
+            <LinearLayout android:orientation="vertical" android:id="@id/root" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="83.0dp">
+                <TextView android:textSize="28.0sp" android:textColor="@color/white" android:id="@id/tv_zh_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="16.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+                <TextView android:textSize="20.0sp" android:textColor="@color/white" android:id="@id/tv_en_name" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="16.0dp" app:layout_constraintStart_toStartOf="@id/tv_zh_name" app:layout_constraintTop_toBottomOf="@id/tv_zh_name" />
+                <LinearLayout android:id="@id/ll_birthday" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="18.0dp">
+                    <TextView android:textSize="15.0sp" android:textColor="@color/white" android:id="@id/tv_birthday" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/character_topic_birthday" android:layout_marginStart="16.0dp" app:layout_constraintStart_toStartOf="@id/tv_en_name" app:layout_constraintTop_toBottomOf="@id/tv_en_name" />
+                    <TextView android:textSize="15.0sp" android:textColor="@color/white" android:id="@id/tv_birthday_txt" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintStart_toEndOf="@id/tv_birthday" app:layout_constraintTop_toTopOf="@id/tv_birthday" />
+                </LinearLayout>
+                <LinearLayout android:id="@id/ll_birthplace" android:layout_width="match_parent" android:layout_height="wrap_content">
+                    <TextView android:textSize="15.0sp" android:textColor="@color/white" android:id="@id/tv_birthplace" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/character_topic_birthplace" android:layout_marginStart="16.0dp" app:layout_constraintStart_toStartOf="@id/tv_birthday" app:layout_constraintTop_toBottomOf="@id/tv_birthday" />
+                    <TextView android:textSize="15.0sp" android:textColor="@color/white" android:id="@id/tv_birthplace_txt" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintStart_toEndOf="@id/tv_birthplace" app:layout_constraintTop_toTopOf="@id/tv_birthplace" />
+                </LinearLayout>
+                <LinearLayout android:id="@id/ll_family" android:layout_width="match_parent" android:layout_height="wrap_content">
+                    <TextView android:textSize="15.0sp" android:textColor="@color/white" android:id="@id/tv_family" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/character_topic_family_member" android:layout_marginStart="16.0dp" app:layout_constraintStart_toStartOf="@id/tv_birthplace" app:layout_constraintTop_toBottomOf="@id/tv_birthplace" />
+                </LinearLayout>
+                <TextView android:textSize="14.0sp" android:textColor="@color/color_92929B" android:id="@id/tv_des" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="25.0dp" android:layout_marginStart="16.0dp" android:layout_marginEnd="17.0dp" />
+            </LinearLayout>
+        </FrameLayout>
+    </com.gxgx.daqiandy.widgets.HeadZoomScrollView>
+    <LinearLayout android:orientation="horizontal" android:id="@id/ll_title_bg" android:background="@color/color_18181A" android:layout_width="match_parent" android:layout_height="83.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <include android:id="@id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="44.0dp" layout="@layout/layout_title" />
+</FrameLayout>

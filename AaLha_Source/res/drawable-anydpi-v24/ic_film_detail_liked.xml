@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="36.0dp" android:width="36.0dp" android:viewportWidth="36.0" android:viewportHeight="36.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <path android:fillColor="#000000" android:pathData="M5,5h26v26h-26z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:strokeAlpha="0.0" android:fillAlpha="0.0" android:fillType="nonZero" />
+    <path android:fillColor="@drawable/ic_film_detail_liked__0" android:pathData="M25.0909,7.6591L10.9091,7.6591C9.7669,7.6591 8.8409,8.585 8.8409,9.7273L8.8409,26.5364C8.8409,26.9149 8.9448,27.2861 9.1412,27.6096C9.7339,28.586 11.0059,28.897 11.9823,28.3043L18.0036,24.649C18.0995,24.5908 18.2201,24.5919 18.3149,24.6518L23.9854,28.2384C24.3162,28.4476 24.6995,28.5587 25.0909,28.5587C26.2331,28.5587 27.1591,27.6327 27.1591,26.4905L27.1591,9.7273C27.1591,8.585 26.2331,7.6591 25.0909,7.6591Z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+    <path android:fillColor="#15161d" android:pathData="M18,19.1818l-2.7786,1.4608l0.5307,-3.094l-2.248,-2.1912l3.1066,-0.4514l1.3893,-2.8151l1.3893,2.8151l3.1066,0.4514l-2.248,2.1912l0.5307,3.094z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+</vector>

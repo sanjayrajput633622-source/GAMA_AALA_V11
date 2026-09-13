@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/shape_ai_search_bottom_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24.0dp" android:layout_marginBottom="90.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <FrameLayout android:id="@id/flLike" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <ImageView android:id="@id/ivLikeImageView" android:visibility="visible" android:layout_width="28.0dp" android:layout_height="28.0dp" android:layout_marginLeft="12.0dp" android:layout_marginTop="4.0dp" android:layout_marginBottom="4.0dp" android:src="@drawable/ic_ai_like" />
+            <com.airbnb.lottie.LottieAnimationView android:id="@id/lavLikeAnimationView" android:visibility="gone" android:layout_width="28.0dp" android:layout_height="28.0dp" android:layout_marginLeft="12.0dp" android:layout_marginTop="4.0dp" android:layout_marginBottom="4.0dp" app:lottie_fileName="good.json" />
+        </FrameLayout>
+        <View android:background="@color/color_3E3E44" android:layout_width="1.0dp" android:layout_height="16.0dp" android:layout_marginLeft="8.0dp" android:layout_marginRight="8.0dp" />
+        <FrameLayout android:id="@id/flDislike" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <ImageView android:id="@id/ivDislikeImageView" android:layout_width="28.0dp" android:layout_height="28.0dp" android:layout_marginTop="4.0dp" android:layout_marginRight="12.0dp" android:layout_marginBottom="4.0dp" android:src="@drawable/selector_ai_dislike" />
+        </FrameLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

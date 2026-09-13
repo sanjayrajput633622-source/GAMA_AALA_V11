@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include android:id="@id/title" layout="@layout/layout_title" />
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_country" android:layout_width="0.0dp" android:layout_height="0.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <com.gxgx.daqiandy.widgets.SideIndexBar android:id="@id/side_bar" android:layout_width="25.0dp" android:layout_height="match_parent" android:layout_marginEnd="6.0dp" app:cpIndexBarNormalTextColor="@color/select_country_bar_text" app:cpIndexBarSelectedTextColor="@color/color_FFD77A" app:cpIndexBarTextSize="14.0sp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textSize="28.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/cp_overlay" android:background="@color/color_0D0D0D" android:visibility="gone" android:layout_width="100.0dp" android:layout_height="100.0dp" android:layout_centerInParent="true" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

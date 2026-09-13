@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@id/root" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/left_container" android:layout_width="wrap_content" android:layout_height="0.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <ImageView android:id="@id/iv_selected" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_parental_control_selected" />
+        <View android:id="@id/view_line" android:background="@color/color_F3CA79" android:layout_width="1.0dp" android:layout_height="0.0dp" android:layout_weight="1.0" />
+    </LinearLayout>
+    <LinearLayout android:orientation="vertical" android:id="@id/right_container" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginStart="16.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/left_container" app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:textColor="@color/white" android:id="@id/tv_level" android:background="@drawable/shape_parental_level_g" android:paddingTop="6.0dp" android:paddingBottom="6.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="G" android:paddingStart="10.0dp" android:paddingEnd="10.0dp" />
+            <TextView android:textColor="@color/white" android:id="@id/tv_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/filter_all" android:layout_marginStart="8.0dp" />
+        </LinearLayout>
+        <TextView android:textSize="12.0sp" android:textColor="@color/color_cdcdcd" android:id="@id/tv_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:text="@string/parental_detail_g" />
+        <TextView android:textSize="12.0sp" android:textColor="@color/color_FFE291" android:id="@id/tv_content_tip" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="15.0dp" android:text="@string/parental_detail_g" />
+        <View android:layout_width="@dimen/alivc_common_line_1dp" android:layout_height="25.0dp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

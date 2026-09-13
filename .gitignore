@@ -1,0 +1,26 @@
+# Android / Gradle
+.gradle/
+build/
+**/build/
+
+# Local configuration
+local.properties
+
+# Signing keys
+*.keystore
+*.jks
+
+# APK files
+*.apk
+*.apk.idsig
+
+# Logs
+*.log
+*_log.txt
+crash_*.txt
+
+# Backups
+backup/
+*_BACKUP/
+app_V1_BACKUP/
+AaLha_Source_BACKUP/

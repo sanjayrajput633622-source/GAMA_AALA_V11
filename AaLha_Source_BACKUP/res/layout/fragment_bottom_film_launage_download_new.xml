@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:orientation="vertical" android:background="@drawable/shape_gender_dialog_bg" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_download" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:layout_below="@id/ct_title" android:overScrollMode="never" />
+        <LinearLayout android:orientation="vertical" android:id="@id/ct_title" android:background="@drawable/shape_gender_dialog_bg" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="14.0sp" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="11.0dp" android:text="@string/please_select" android:layout_marginStart="16.0dp" />
+            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp">
+                <TextView android:textSize="12.0sp" android:textColor="@color/color_CCCCCC" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cast_screen_change_definition" />
+                <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/ll_quality_selected" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                    <TextView android:textSize="12.0sp" android:textColor="@color/color_FFE291" android:id="@id/tv_quality_selected" android:paddingTop="8.0dp" android:paddingBottom="8.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cast_screen_change_definition" android:paddingStart="8.0dp" android:paddingEnd="2.0dp" />
+                    <ImageView android:id="@id/iv_quality_arrow" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_download_arrow_down" />
+                </LinearLayout>
+                <View android:layout_width="0.0dp" android:layout_height="1.0dp" android:layout_weight="1.0" />
+                <TextView android:textSize="12.0sp" android:textColor="@color/color_CCCCCC" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/language" />
+                <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/ll_audio_selected" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                    <TextView android:textSize="12.0sp" android:textColor="@color/color_FFE291" android:id="@id/tv_audio_selected" android:paddingTop="8.0dp" android:paddingBottom="8.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/language" android:paddingStart="8.0dp" android:paddingEnd="2.0dp" />
+                    <ImageView android:id="@id/iv_audio_arrow" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_download_arrow_down" />
+                </LinearLayout>
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_track" android:background="@color/black" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:paddingStart="10.0dp" android:paddingEnd="10.0dp" />
+            <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_resolution" android:background="@color/black" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:paddingStart="10.0dp" android:paddingEnd="10.0dp" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center" android:id="@id/remain_layout" android:layout_width="match_parent" android:layout_height="32.0dp" android:layout_below="@id/rlv_download">
+            <TextView android:textSize="12.0sp" android:textColor="#ff999999" android:id="@id/remain_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/you_have_download_chances_left_today" />
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

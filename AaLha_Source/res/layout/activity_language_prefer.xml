@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/root" android:background="@color/color_15161D" android:layout_width="match_parent" android:layout_height="match_parent" android:paddingStart="16.0dp" android:paddingEnd="16.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView android:id="@id/svContent" android:scrollbars="none" android:layout_width="match_parent" android:layout_height="0.0dp" android:fillViewport="false" android:layout_weight="1.0" android:overScrollMode="never">
+        <LinearLayout android:orientation="vertical" android:id="@id/llContent" android:paddingBottom="24.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="14.0sp" android:textColor="@color/white" android:gravity="center" android:layout_gravity="end" android:id="@id/tvSkip" android:background="@drawable/shape_language_prefer_skip_bg" android:layout_width="wrap_content" android:layout_height="28.0dp" android:layout_marginTop="42.0dp" android:minWidth="60.0dp" android:text="@string/language_skip_hi" android:paddingStart="12.0dp" android:paddingEnd="12.0dp" />
+            <TextView android:textSize="18.0sp" android:textStyle="bold" android:textColor="@color/white" android:id="@id/tvTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:minHeight="50.0dp" android:text="@string/language_prefer_title_hi" android:includeFontPadding="false" android:lineSpacingExtra="4.0dp" />
+            <TextView android:textSize="14.0sp" android:textColor="#b3b3b3" android:id="@id/tvDesc" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:minHeight="60.0dp" android:text="@string/language_prefer_desc_hi" />
+            <TextView android:textSize="12.0sp" android:textColor="@color/color_FFE291" android:id="@id/tvNotice" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dp" android:minHeight="40.0dp" android:text="@string/language_prefer_notice_hi" android:includeFontPadding="false" />
+            <LinearLayout android:orientation="vertical" android:id="@id/llLanguageGrid" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp">
+                <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+                    <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="160.0dp" android:layout_height="wrap_content">
+                        <FrameLayout android:id="@id/flEnglishHindi" android:layout_width="160.0dp" android:layout_height="160.0dp">
+                            <com.google.android.material.imageview.ShapeableImageView android:id="@id/ivEnglishHindi" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/ic_language_hi" android:scaleType="centerCrop" app:shapeAppearanceOverlay="@style/LanguagePreferCoverShape" />
+                            <View android:id="@id/vEnglishHindiMask" android:background="@drawable/shape_language_prefer_overlay" android:layout_width="match_parent" android:layout_height="match_parent" />
+                            <View android:id="@id/vEnglishHindiBorder" android:background="@drawable/shape_language_prefer_selected_border" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+                            <ImageView android:layout_gravity="end|top" android:id="@id/ivEnglishHindiCheck" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@drawable/ic_language_perfer_checked" />
+                        </FrameLayout>
+                        <TextView android:textSize="14.0sp" android:textColor="@color/color_C2C2CE" android:gravity="center" android:id="@id/tvEnglishHindi" android:layout_width="160.0dp" android:layout_height="wrap_content" android:layout_marginTop="9.0dp" android:text="@string/language_prefer_english_hindi_movies" android:maxLines="1" android:includeFontPadding="false" />
+                    </LinearLayout>
+                    <Space android:layout_width="0.0dp" android:layout_height="1.0dp" android:layout_weight="1.0" />
+                    <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="160.0dp" android:layout_height="wrap_content">
+                        <FrameLayout android:id="@id/flTamil" android:layout_width="160.0dp" android:layout_height="160.0dp">
+                            <com.google.android.material.imageview.ShapeableImageView android:id="@id/ivTamil" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/ic_language_te" android:scaleType="centerCrop" app:shapeAppearanceOverlay="@style/LanguagePreferCoverShape" />
+                            <View android:id="@id/vTamilMask" android:background="@drawable/shape_language_prefer_overlay" android:layout_width="match_parent" android:layout_height="match_parent" />
+                            <View android:id="@id/vTamilBorder" android:background="@drawable/shape_language_prefer_selected_border" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+                            <ImageView android:layout_gravity="end|top" android:id="@id/ivTamilCheck" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@drawable/ic_language_perfer_checked" />
+                        </FrameLayout>
+                        <TextView android:textSize="14.0sp" android:textColor="@color/color_C2C2CE" android:gravity="center" android:id="@id/tvTamil" android:layout_width="160.0dp" android:layout_height="wrap_content" android:layout_marginTop="9.0dp" android:text="@string/language_prefer_telugu_movies" android:maxLines="1" android:includeFontPadding="false" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp">
+                    <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="160.0dp" android:layout_height="wrap_content">
+                        <FrameLayout android:id="@id/flTelugu" android:layout_width="160.0dp" android:layout_height="160.0dp">
+                            <com.google.android.material.imageview.ShapeableImageView android:id="@id/ivTelugu" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/ic_language_ta" android:scaleType="centerCrop" app:shapeAppearanceOverlay="@style/LanguagePreferCoverShape" />
+                            <View android:id="@id/vTeluguMask" android:background="@drawable/shape_language_prefer_overlay" android:layout_width="match_parent" android:layout_height="match_parent" />
+                            <View android:id="@id/vTeluguBorder" android:background="@drawable/shape_language_prefer_selected_border" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+                            <ImageView android:layout_gravity="end|top" android:id="@id/ivTeluguCheck" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@drawable/ic_language_perfer_checked" />
+                        </FrameLayout>
+                        <TextView android:textSize="14.0sp" android:textColor="@color/color_C2C2CE" android:gravity="center" android:id="@id/tvTelugu" android:layout_width="160.0dp" android:layout_height="wrap_content" android:layout_marginTop="9.0dp" android:text="@string/language_prefer_tamil_movies" android:maxLines="1" android:includeFontPadding="false" />
+                    </LinearLayout>
+                    <Space android:layout_width="0.0dp" android:layout_height="1.0dp" android:layout_weight="1.0" />
+                    <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="160.0dp" android:layout_height="wrap_content">
+                        <FrameLayout android:id="@id/flMalayalam" android:layout_width="160.0dp" android:layout_height="160.0dp">
+                            <com.google.android.material.imageview.ShapeableImageView android:id="@id/ivMalayalam" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/ic_language_ml" android:scaleType="centerCrop" app:shapeAppearanceOverlay="@style/LanguagePreferCoverShape" />
+                            <View android:id="@id/vMalayalamMask" android:background="@drawable/shape_language_prefer_overlay" android:layout_width="match_parent" android:layout_height="match_parent" />
+                            <View android:id="@id/vMalayalamBorder" android:background="@drawable/shape_language_prefer_selected_border" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" />
+                            <ImageView android:layout_gravity="end|top" android:id="@id/ivMalayalamCheck" android:visibility="gone" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@drawable/ic_language_perfer_checked" />
+                        </FrameLayout>
+                        <TextView android:textSize="14.0sp" android:textColor="@color/color_C2C2CE" android:gravity="center" android:id="@id/tvMalayalam" android:layout_width="160.0dp" android:layout_height="wrap_content" android:layout_marginTop="9.0dp" android:text="@string/language_prefer_malayalam_movies" android:maxLines="1" android:includeFontPadding="false" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="@color/color_565664" android:gravity="center" android:id="@id/tvContinue" android:background="@drawable/selector_submit_enable_bg" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginBottom="30.0dp" android:text="@string/language_continue_hi" />
+</LinearLayout>

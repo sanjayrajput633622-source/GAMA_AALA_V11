@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/rl_game" android:layout_width="match_parent" android:layout_height="match_parent">
+        <WebView android:id="@id/web_view" android:layout_width="match_parent" android:layout_height="match_parent" />
+        <ImageView android:id="@id/button_in_top_right" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" android:layout_marginRight="20.0dp" android:src="@drawable/ic_game_exit" android:layout_alignParentTop="true" android:layout_alignParentRight="true" />
+    </RelativeLayout>
+    <LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/ll_login" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent">
+        <ImageView android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_page_error" />
+        <TextView android:textSize="15.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/tv_login_tip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="43.0dp" android:layout_marginTop="31.0dp" android:layout_marginRight="43.0dp" android:text="@string/download_login_tip" />
+        <LinearLayout android:gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="25.0dp">
+            <TextView android:textSize="14.0sp" android:textColor="@color/color_FFE694" android:gravity="center" android:id="@id/tv_login_cancel" android:background="@drawable/downlaod_delete_bg" android:layout_width="119.0dp" android:layout_height="36.0dp" android:layout_marginRight="10.0dp" android:text="@string/dialog_cancel_txt" />
+            <TextView android:textSize="15.0sp" android:textColor="@color/color_000000" android:gravity="center" android:id="@id/tv_login_retry" android:background="@drawable/shape_rec_20_bg" android:layout_width="120.0dp" android:layout_height="36.0dp" android:layout_marginLeft="10.0dp" android:text="@string/pay_page_try_again" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

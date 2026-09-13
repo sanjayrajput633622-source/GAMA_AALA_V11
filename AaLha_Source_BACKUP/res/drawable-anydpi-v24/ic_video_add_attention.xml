@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="18.0dp" android:width="18.0dp" android:viewportWidth="18.0" android:viewportHeight="18.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <path android:fillColor="@drawable/$ic_video_add_attention__0" android:pathData="M9,9m-9,0a9,9 0,1 1,18 0a9,9 0,1 1,-18 0" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+    <path android:fillColor="#ffffff" android:pathData="M9,4C9.5523,4 10,4.4477 10,5L10,8L13,8C13.5523,8 14,8.4477 14,9C14,9.5523 13.5523,10 13,10L10,10L10,13C10,13.5523 9.5523,14 9,14C8.4477,14 8,13.5523 8,13L8,10L5,10C4.4477,10 4,9.5523 4,9C4,8.4477 4.4477,8 5,8L8,8L8,5C8,4.4477 8.4477,4 9,4Z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+</vector>

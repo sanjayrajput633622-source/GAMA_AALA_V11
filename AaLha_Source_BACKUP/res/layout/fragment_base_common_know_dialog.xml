@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@drawable/shape_base_common_dialog_bg" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="16.0sp" android:textColor="@color/white" android:layout_gravity="center_horizontal" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:text="" />
+    <TextView android:textSize="16.0sp" android:textColor="@color/white" android:id="@id/tv_content" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="18.0dp" android:layout_marginTop="14.0dp" android:layout_marginRight="18.0dp" android:text="" />
+    <TextView android:textSize="15.0sp" android:textColor="@color/color_000000" android:gravity="center" android:id="@id/tv_know" android:background="@drawable/shape_know_btn_bg" android:layout_width="match_parent" android:layout_height="40.0dp" android:layout_marginLeft="18.0dp" android:layout_marginTop="14.0dp" android:layout_marginRight="18.0dp" android:layout_marginBottom="12.0dp" android:text="@string/base_i_know" />
+</LinearLayout>

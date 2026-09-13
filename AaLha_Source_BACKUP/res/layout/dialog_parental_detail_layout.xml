@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView android:scrollbars="none" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:background="@color/color_2D2D37" android:padding="20.0dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView android:id="@id/recycler" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="center" android:id="@id/tv_parental_setting" android:background="@drawable/shape_general_button_lighted" android:layout_width="match_parent" android:layout_height="48.0dp" android:layout_marginTop="30.0dp" android:text="@string/set_parental_controls" android:fontFamily="sans-serif-medium" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

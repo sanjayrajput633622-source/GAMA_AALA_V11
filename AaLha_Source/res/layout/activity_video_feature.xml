@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:orientation="vertical" android:background="@color/color_15161D" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/fl_root" android:layout_width="match_parent" android:layout_height="0.0dp" app:layout_constraintBottom_toTopOf="@id/adsView" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout android:id="@id/refreshLayout" android:layout_width="match_parent" android:layout_height="match_parent">
+            <com.gxgx.daqiandy.widgets.HeadZoomScrollView android:id="@id/nestSV" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:overScrollMode="never">
+                <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                    <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <ImageView android:id="@id/img_head" android:layout_width="match_parent" android:layout_height="360.0dp" android:scaleType="centerCrop" />
+                        <ImageView android:id="@id/img_head_mask" android:layout_width="match_parent" android:layout_height="360.0dp" android:scaleType="centerCrop" />
+                    </FrameLayout>
+                    <LinearLayout android:orientation="vertical" android:id="@id/ll_content" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="90.0dp">
+                        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="28.0dp">
+                            <TextView android:textSize="25.0sp" android:textColor="@color/white" android:ellipsize="end" android:id="@id/tv_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginRight="11.0dp" android:lines="2" android:layout_toLeftOf="@id/tv_select_type" android:layout_alignParentLeft="true" />
+                            <LinearLayout android:gravity="center" android:id="@id/tv_select_type" android:background="@drawable/shape_rec_fff_13_btn_bg" android:layout_width="wrap_content" android:layout_height="26.0dp" android:layout_marginTop="5.0dp" android:layout_marginRight="16.0dp" android:layout_alignParentRight="true">
+                                <TextView android:textSize="13.0sp" android:textColor="@color/white" android:id="@id/tv_select_type_txt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dp" android:layout_marginTop="4.0dp" android:layout_marginRight="9.0dp" android:layout_marginBottom="4.0dp" android:text="@string/video_feature_select_sort" android:drawableRight="@drawable/ic_video_sort_select" android:drawablePadding="3.0dp" />
+                            </LinearLayout>
+                        </RelativeLayout>
+                        <com.ctetin.expandabletextviewlibrary.ExpandableTextView android:textSize="13.0sp" android:textColor="@color/color_DCDCE9" android:id="@id/tv_des" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dp" android:layout_marginStart="16.0dp" android:layout_marginEnd="16.0dp" android:autoSizeMaxTextSize="4.0dp" android:lineHeight="17.0dp" app:ep_contract_color="@color/white" app:ep_contract_text="@string/detail_film_collect" app:ep_expand_color="@color/white" app:ep_expand_text="@string/more" app:ep_max_line="3" app:ep_need_contract="true" />
+                        <include android:id="@id/ll_num" layout="@layout/layout_total_num_item" />
+                        <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_video" android:paddingLeft="16.0dp" android:paddingRight="16.0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:fadeScrollbars="false" android:nestedScrollingEnabled="false" />
+                    </LinearLayout>
+                </FrameLayout>
+            </com.gxgx.daqiandy.widgets.HeadZoomScrollView>
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+        <include android:id="@id/title" layout="@layout/layout_share_title" />
+    </FrameLayout>
+    <com.gxgx.daqiandy.widgets.ads.NativeAdsView android:id="@id/adsView" android:visibility="gone" android:layout_width="0.0dp" android:layout_height="wrap_content" app:layout_constrainedHeight="true" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHeight_max="120.0dp" app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

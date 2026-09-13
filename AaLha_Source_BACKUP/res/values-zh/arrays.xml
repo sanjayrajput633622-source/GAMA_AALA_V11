@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sdm_random_answers">
+        <item>花店</item>
+        <item>星星</item>
+        <item>动物园</item>
+        <item>长颈鹿</item>
+        <item>无尾熊</item>
+        <item>夹心饼干</item>
+        <item>薯片</item>
+        <item>企鹅</item>
+        <item>停车场</item>
+        <item>零食大礼包</item>
+    </string-array>
+</resources>

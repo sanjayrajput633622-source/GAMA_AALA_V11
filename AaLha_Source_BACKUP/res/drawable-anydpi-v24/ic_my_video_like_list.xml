@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="16.0dp" android:width="16.0dp" android:viewportWidth="16.0" android:viewportHeight="16.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <path android:fillColor="#000000" android:pathData="M0,0h16v16h-16z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:strokeAlpha="0.0" android:fillAlpha="0.0" android:fillType="nonZero" />
+    <path android:fillColor="@drawable/$ic_my_video_like_list__0" android:pathData="M13.622,8.372C13.875,8.038 14,7.645 14,7.089C14,6.533 13.396,6.095 12.516,6.096C11.929,6.096 10.495,6.096 8.215,6.096C8.261,4.696 8.291,3.848 8.305,3.551C8.326,3.105 8.215,2.198 7.387,2.025C6.559,1.851 6.042,2.626 5.835,3.379L4.422,7.805L4.418,7.805L4.418,14.233L11.511,14.233C11.649,14.233 11.784,14.206 11.909,14.152C12.624,13.847 13.085,13.149 13.085,12.374C13.085,12.185 13.058,11.998 13.004,11.818C13.256,11.485 13.396,11.076 13.396,10.651C13.396,10.462 13.369,10.276 13.315,10.096C13.567,9.762 13.707,9.354 13.707,8.929C13.704,8.74 13.676,8.552 13.622,8.372ZM2,8.286L2,13.753C2,14.018 2.215,14.233 2.481,14.233L3.457,14.233L3.457,7.805L2.481,7.805C2.215,7.805 2,8.02 2,8.286Z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+</vector>

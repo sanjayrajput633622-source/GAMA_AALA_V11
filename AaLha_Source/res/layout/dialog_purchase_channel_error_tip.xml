@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="42.0dp" android:layout_marginRight="42.0dp" android:layout_marginHorizontal="42.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:background="@drawable/shape_update_bg" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:layout_marginEnd="10.0dp">
+        <TextView android:textSize="16.0sp" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="22.0dp" android:layout_marginRight="20.0dp" android:text="@string/payment_channel_facing_issues" android:layout_marginHorizontal="20.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <TextView android:textSize="12.0sp" android:textColor="@color/color_999999" android:id="@id/tip2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="8.0dp" android:layout_marginRight="20.0dp" android:text="@string/purchase_error_tip" android:layout_marginHorizontal="20.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <View android:background="@color/color_46474D" android:layout_width="match_parent" android:layout_height="1.0dp" android:layout_marginTop="24.0dp" />
+        <TextView android:textSize="17.0sp" android:textColor="@color/color_FFE291" android:gravity="center" android:id="@id/contact_us" android:layout_width="match_parent" android:layout_height="49.0dp" android:text="@string/contact_us" />
+    </LinearLayout>
+    <ImageView android:layout_gravity="end" android:id="@id/close" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_ad_close" />
+</FrameLayout>

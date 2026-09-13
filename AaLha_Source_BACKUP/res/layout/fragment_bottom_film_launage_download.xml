@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:orientation="vertical" android:background="@drawable/shape_gender_dialog_bg" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_download" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@id/ct_title" android:overScrollMode="never" />
+        <androidx.constraintlayout.widget.ConstraintLayout android:id="@id/ct_title" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView android:textSize="12.0sp" android:textColor="@color/color_92929B" android:id="@id/title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="17.0dp" android:text="@string/download_language" android:layout_marginStart="23.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+            <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_resolution" android:layout_width="0.0dp" android:layout_height="62.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintWidth_max="wrap" app:layout_constraintWidth_percent="0.7" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout android:gravity="center" android:id="@id/remain_layout" android:layout_width="match_parent" android:layout_height="32.0dp" android:layout_below="@id/rlv_download">
+            <TextView android:textSize="12.0sp" android:textColor="#ff999999" android:id="@id/remain_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/you_have_download_chances_left_today" />
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

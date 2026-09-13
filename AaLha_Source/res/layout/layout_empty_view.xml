@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/ivEmpty" android:layout_width="120.0dp" android:layout_height="86.0dp" android:src="@drawable/ic_empty_box" />
+    <TextView android:textSize="15.0sp" android:textColor="@color/color_727379" android:layout_gravity="center" android:id="@id/tvContent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="29.0dp" android:text="@string/empty_view_no_data" />
+    <TextView android:textColor="@color/layout_empty_refresh_txt" android:id="@id/tvRefresh" android:background="@drawable/shape_refresh_btn" android:paddingTop="6.0dp" android:paddingBottom="5.0dp" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="25.0dp" android:text="@string/player_view_refresh1" android:paddingStart="25.0dp" android:paddingEnd="25.0dp" />
+</LinearLayout>

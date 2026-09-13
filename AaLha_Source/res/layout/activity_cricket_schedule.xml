@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include android:id="@id/title" layout="@layout/layout_title" />
+    <net.lucode.hackware.magicindicator.MagicIndicator android:id="@id/miTitleTabs" android:layout_width="match_parent" android:layout_height="50.0dp" />
+    <androidx.viewpager2.widget.ViewPager2 android:id="@id/viewpager2" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1.0" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <FrameLayout android:id="@id/fl_banner" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent">
+        <FrameLayout android:id="@id/fl_container" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <TextView android:textSize="11.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/tv_ad_tag" android:background="@color/color_80000000" android:visibility="gone" android:layout_width="26.0dp" android:layout_height="16.0dp" android:text="@string/tag_ad" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <ImageView android:layout_gravity="right" android:id="@id/img_close_self" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" android:src="@drawable/ic_close_relation" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    </FrameLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

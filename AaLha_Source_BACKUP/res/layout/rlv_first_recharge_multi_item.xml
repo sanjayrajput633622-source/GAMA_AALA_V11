@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_gravity="center" android:id="@id/item_view" android:background="@drawable/selector_recharge_item_bg" android:clipChildren="false" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="140.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_gravity="center" android:id="@id/img" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="4.0dp" />
+    <ImageView android:layout_gravity="end|top" android:id="@id/iv_selected_view" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" android:src="@drawable/ic_selected_view_top" />
+</FrameLayout>

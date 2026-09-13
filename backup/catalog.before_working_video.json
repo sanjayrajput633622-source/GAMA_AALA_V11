@@ -1,0 +1,22 @@
+{
+  "movies": [],
+  "series": [],
+  "live": [
+    {
+      "id": "test_live_1",
+      "title": "GAMA AALA Test Channel",
+      "kind": "Live",
+      "video_url": "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "authorized": true
+    }
+  ],
+  "content": [
+    {
+      "tmdb_id": 0,
+      "title": "GAMA AALA Test Stream",
+      "kind": "Movie",
+      "video_url": "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "authorized": true
+    }
+  ]
+}

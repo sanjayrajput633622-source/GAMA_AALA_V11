@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/item_root" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.gxgx.daqiandy.widgets.MessageItemView android:id="@id/miv_type" android:layout_width="match_parent" android:layout_height="82.0dp" app:msg_arrow_visible="true" app:msg_img="@drawable/ic_message_video_helper" app:msg_type2_left_text="" />
+</LinearLayout>

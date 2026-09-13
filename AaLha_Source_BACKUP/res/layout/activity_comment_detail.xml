@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:id="@id/ll_back" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="44.0dp">
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="13.0dp" android:layout_marginBottom="12.0dp" android:src="@drawable/ic_back" android:layout_marginStart="24.0dp" android:layout_marginEnd="10.0dp" />
+    </LinearLayout>
+    <ImageView android:id="@id/img_report" android:layout_width="22.0dp" android:layout_height="22.0dp" android:layout_marginTop="9.0dp" android:src="@drawable/ic_detail_comment_report" android:layout_alignTop="@id/ll_back" android:layout_marginEnd="24.0dp" android:layout_alignParentEnd="true" />
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout android:id="@id/refreshLayout" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginTop="7.0dp" android:layout_above="@id/llEditBar" android:layout_below="@id/ll_back">
+        <androidx.core.widget.NestedScrollView android:id="@id/nsvNestedScrollView" android:layout_width="match_parent" android:layout_height="match_parent">
+            <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+                    <ImageView android:id="@id/ivUserAvatar" android:layout_width="40.0dp" android:layout_height="40.0dp" android:layout_marginTop="12.0dp" android:layout_marginStart="12.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+                    <TextView android:textSize="20.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/tvHeadDefault" android:background="@drawable/shape_cricle_bg" android:layout_width="40.0dp" android:layout_height="40.0dp" android:layout_marginTop="12.0dp" android:layout_marginStart="12.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+                    <TextView android:textSize="16.0sp" android:textColor="@color/comment_detail_username" android:id="@id/tvUserName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12.0dp" app:layout_constraintStart_toEndOf="@id/ivUserAvatar" app:layout_constraintTop_toTopOf="@id/ivUserAvatar" />
+                    <TextView android:textSize="12.0sp" android:textColor="@color/comment_detail_date" android:id="@id/tvReplayTime" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="@id/ivUserAvatar" app:layout_constraintStart_toStartOf="@id/tvUserName" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView android:textSize="24.0sp" android:textColor="@color/comment_detail_title" android:id="@id/tvCommentTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dp" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp" />
+                <LinearLayout android:orientation="vertical" android:id="@id/llCommentContent" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="28.0dp" android:layout_marginBottom="24.0dp" android:layout_marginStart="12.0dp" android:layout_marginEnd="12.0dp" />
+                <TextView android:textSize="12.0sp" android:textColor="@color/color_656971" android:gravity="center_vertical" android:background="@color/comment_detail_comment_title_bg" android:layout_width="match_parent" android:layout_height="38.0dp" android:text="@string/comment_area" android:paddingStart="12.0dp" />
+                <androidx.recyclerview.widget.RecyclerView android:id="@id/rvReplyRecyclerView" android:layout_width="match_parent" android:layout_height="wrap_content" android:nestedScrollingEnabled="false" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+    <LinearLayout android:gravity="center_vertical" android:id="@id/llEditBar" android:background="@color/comment_detail_btn_bg" android:clickable="true" android:layout_width="match_parent" android:layout_height="58.0dp" android:layout_alignParentBottom="true" app:layout_constraintBottom_toBottomOf="parent">
+        <EditText android:textSize="14.0sp" android:textColor="@color/comment_detail_edit_text" android:textColorHint="@color/comment_detail_edit_text_hint" android:id="@id/etEditReply" android:background="@drawable/shape_replay_edit_text_bg" android:layout_width="0.0dp" android:layout_height="40.0dp" android:lines="1" android:maxLength="500" android:layout_weight="1.0" android:inputType="text" android:imeOptions="actionSend" android:paddingStart="15.0dp" android:paddingEnd="15.0dp" android:layout_marginStart="12.0dp" />
+        <ImageView android:id="@id/ivPraiseBtn" android:padding="5.0dp" android:layout_width="28.0dp" android:layout_height="28.0dp" android:src="@drawable/selector_detail_praise_btn" android:layout_marginStart="13.0dp" />
+        <TextView android:textSize="14.0sp" android:textColor="@drawable/selector_detail_praise_num_text_color" android:id="@id/tvPraiseNum" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:layout_marginEnd="12.0dp" />
+    </LinearLayout>
+</RelativeLayout>

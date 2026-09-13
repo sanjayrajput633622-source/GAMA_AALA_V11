@@ -1,0 +1,84 @@
+{
+  "items": [
+    {
+      "title": "Awaran",
+      "kind": "Movie",
+      "lang": "HINDI",
+      "genre": "Drama",
+      "rating": "8.1",
+      "poster": "poster_1"
+    },
+    {
+      "title": "Jungle Mission",
+      "kind": "Movie",
+      "lang": "HINDI",
+      "genre": "Action",
+      "rating": "8.4",
+      "poster": "poster_2"
+    },
+    {
+      "title": "Red Horizon",
+      "kind": "Movie",
+      "lang": "MULTILINGUAL",
+      "genre": "Thriller",
+      "rating": "9.0",
+      "poster": "poster_3"
+    },
+    {
+      "title": "Safed Sagar",
+      "kind": "Series",
+      "lang": "MULTILINGUAL",
+      "genre": "Action",
+      "rating": "8.7",
+      "poster": "poster_4"
+    },
+    {
+      "title": "Thukra",
+      "kind": "Series",
+      "lang": "MULTILINGUAL",
+      "genre": "Drama",
+      "rating": "6.8",
+      "poster": "poster_5"
+    },
+    {
+      "title": "Reacher-like",
+      "kind": "Series",
+      "lang": "ENGLISH",
+      "genre": "Action",
+      "rating": "8.0",
+      "poster": "poster_6"
+    },
+    {
+      "title": "Neon City",
+      "kind": "Movie",
+      "lang": "ENGLISH",
+      "genre": "Sci-Fi",
+      "rating": "8.3",
+      "poster": "poster_7"
+    },
+    {
+      "title": "The Last Code",
+      "kind": "Series",
+      "lang": "ENGLISH",
+      "genre": "Mystery",
+      "rating": "8.6",
+      "poster": "poster_8"
+    },
+    {
+      "title": "Family Ties",
+      "kind": "Series",
+      "lang": "HINDI",
+      "genre": "Family",
+      "rating": "7.9",
+      "poster": "poster_9"
+    },
+    {
+      "title": "Dark River",
+      "kind": "Movie",
+      "lang": "HINDI",
+      "genre": "Crime",
+      "rating": "8.2",
+      "poster": "poster_10"
+    }
+  ]
+}

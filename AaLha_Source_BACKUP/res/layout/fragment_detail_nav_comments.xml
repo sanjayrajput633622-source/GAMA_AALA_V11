@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:id="@id/rl_root" android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/llCommentsTitleBar" android:background="@color/film_detail_comment_tab_bg" android:layout_width="match_parent" android:layout_height="38.0dp" app:layout_constraintTop_toTopOf="parent">
+            <TextView android:textSize="12.0sp" android:textColor="@color/film_detail_comment_tab_sort" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="@string/detail_film_comment_sort" android:layout_weight="1.0" android:layout_marginStart="12.0dp" />
+            <TextView android:textSize="14.0sp" android:textColor="@drawable/selector_film_comment_sort_type_text_color" android:id="@id/tvCommentHot" android:paddingTop="6.0dp" android:paddingBottom="6.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/detail_film_comment_sort_by_hot" android:paddingStart="11.0dp" android:paddingEnd="11.0dp" />
+            <View android:background="@color/grey_97" android:layout_width="1.0dp" android:layout_height="17.0dp" android:layout_marginStart="3.0dp" />
+            <TextView android:textSize="14.0sp" android:textColor="@drawable/selector_film_comment_sort_type_text_color" android:id="@id/tvCommentNew" android:paddingTop="6.0dp" android:paddingBottom="6.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/detail_film_comment_sort_by_new" android:paddingStart="11.0dp" android:paddingEnd="11.0dp" android:layout_marginEnd="1.0dp" />
+        </LinearLayout>
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout android:id="@id/refreshLayout" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/llCommentsTitleBar">
+            <androidx.recyclerview.widget.RecyclerView android:id="@id/rvCommentList" android:layout_width="match_parent" android:layout_height="match_parent" />
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+    </RelativeLayout>
+    <LinearLayout android:orientation="vertical" android:id="@id/ll_input" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_alignParentBottom="true">
+        <View android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0" />
+        <LinearLayout android:orientation="vertical" android:background="#ff272834" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <EditText android:textSize="14.0sp" android:textColor="@color/film_detail_comment_title" android:textColorHint="@color/film_detail_comment_content" android:gravity="top" android:id="@id/edt_reply" android:background="@drawable/shape_rec_round_8_default_bg" android:padding="6.0dp" android:layout_width="0.0dp" android:layout_height="80.0dp" android:layout_margin="12.0dp" android:layout_weight="1.0" />
+                <TextView android:enabled="false" android:textColor="@color/color_1a1a1a" android:gravity="center" android:id="@id/btn_send" android:background="@drawable/selector_comment_publish_bg" android:layout_width="48.0dp" android:layout_height="28.0dp" android:layout_marginTop="12.0dp" android:text="@string/comment_publish" android:layout_marginEnd="12.0dp" />
+            </LinearLayout>
+            <View android:id="@id/view_keyboard" android:layout_width="match_parent" android:layout_height="0.0dp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

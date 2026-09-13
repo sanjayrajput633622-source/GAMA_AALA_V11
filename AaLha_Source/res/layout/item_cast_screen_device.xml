@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent" android:layout_height="62.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="15.0sp" android:textColor="@color/white" android:id="@id/tvCastScreenDeviceName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true" />
+    <View android:background="@color/color_2C2C2C" android:layout_width="match_parent" android:layout_height="1.0dp" android:layout_alignParentBottom="true" android:layout_marginStart="17.0dp" android:layout_marginEnd="15.0dp" />
+</RelativeLayout>

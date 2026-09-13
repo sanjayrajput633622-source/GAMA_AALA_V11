@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/img_bg" android:layout_width="match_parent" android:layout_height="0.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintDimensionRatio="375:480" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.5" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_chainStyle="packed" />
+    <ImageView android:id="@id/img_close" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_close_cast_screen" android:layout_marginEnd="16.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <ImageView android:id="@id/img_now" android:layout_width="0.0dp" android:layout_height="102.0dp" app:layout_constraintBottom_toBottomOf="@id/img_bg" app:layout_constraintEnd_toEndOf="@id/img_bg" app:layout_constraintStart_toStartOf="@id/img_bg" />
+    <LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@id/ll_time" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintBottom_toTopOf="@id/img_now" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent">
+        <TextView android:textSize="14.0sp" android:textColor="@color/color_ccffffff" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/end_in" />
+        <com.gxgx.daqiandy.widgets.CountDownView android:id="@id/countdownView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="4.0dp" />
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_offers" android:clipChildren="false" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="15.0dp" app:layout_constraintBottom_toTopOf="@id/ll_time" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

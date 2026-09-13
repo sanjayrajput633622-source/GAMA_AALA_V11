@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0">
+        <LinearLayout android:orientation="vertical" android:id="@id/ll_recycler" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent">
+            <TextView android:textColor="@color/white" android:id="@id/tv_open_tip" android:padding="12.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/turn_on_bluetooth_tip" />
+            <androidx.recyclerview.widget.RecyclerView android:id="@id/recycler" android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0" />
+            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="40.0dp" android:layout_marginTop="20.0dp" android:layout_marginBottom="20.0dp">
+                <RelativeLayout android:id="@id/btn_receive" android:background="@drawable/shape_data_free_receive_bg" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="1.0" android:layout_marginStart="16.0dp" android:layout_marginEnd="8.0dp">
+                    <TextView android:textSize="14.0sp" android:textColor="@color/white" android:gravity="center" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="@string/receive" android:drawablePadding="8.0dp" android:layout_centerInParent="true" app:drawableStartCompat="@drawable/ic_receive" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/btn_send" android:background="@drawable/selector_transfer_send_bg" android:layout_width="0.0dp" android:layout_height="match_parent" android:layout_weight="1.0" android:layout_marginStart="8.0dp" android:layout_marginEnd="16.0dp">
+                    <TextView android:textSize="14.0sp" android:textColor="@color/text_send_color" android:gravity="center" android:id="@id/tv_send" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="@string/send" android:drawablePadding="8.0dp" android:layout_centerInParent="true" app:drawableStartCompat="@drawable/ic_send_selector" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/ll_empty" android:visibility="visible" android:layout_width="match_parent" android:layout_height="match_parent">
+            <ImageView android:id="@id/img_empty" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_download_empty" />
+            <TextView android:textSize="15.0sp" android:textColor="#ffc2c2ce" android:gravity="center" android:id="@id/tv_empty_tip2" android:layout_width="wrap_content" android:layout_height="42.0dp" android:layout_marginTop="29.0dp" android:text="@string/share_videos_data_free_empty" />
+            <RelativeLayout android:id="@id/rl_receive" android:background="@drawable/shape_data_free_receive_bg" android:layout_width="150.0dp" android:layout_height="36.0dp" android:layout_marginTop="32.0dp" android:layout_marginBottom="100.0dp">
+                <TextView android:textSize="14.0sp" android:textColor="@color/white" android:gravity="center" android:layout_width="wrap_content" android:layout_height="36.0dp" android:text="@string/receive" android:drawablePadding="8.0dp" android:layout_centerInParent="true" app:drawableStartCompat="@drawable/ic_receive" />
+            </RelativeLayout>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

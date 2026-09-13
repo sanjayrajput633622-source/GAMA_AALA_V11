@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@id/ctl_ads" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.gxgx.daqiandy.widgets.player.AdvertisePlayer android:id="@id/adPlayer" android:layout_width="match_parent" android:layout_height="0.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintDimensionRatio="350:50" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <FrameLayout android:id="@id/flAdsContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:adjustViewBounds="true" android:maxHeight="120.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <TextView android:textSize="11.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/tv_ad_tag" android:background="@color/color_80000000" android:visibility="gone" android:layout_width="26.0dp" android:layout_height="16.0dp" android:text="@string/tag_ad" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@drawable/shape_game_back_dialog_bg" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="14.0sp" android:textColor="@color/white" android:id="@id/tv_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="22.0dp" android:layout_marginRight="20.0dp" android:text="@string/game_back_dialog_txt" />
+    <LinearLayout android:id="@id/tv_confirm" android:background="@drawable/shape_game_back_dialog_btn_bg" android:layout_width="match_parent" android:layout_height="40.0dp" android:layout_marginLeft="20.0dp" android:layout_marginTop="22.0dp" android:layout_marginRight="20.0dp" android:layout_marginBottom="20.0dp">
+        <TextView android:textSize="14.0sp" android:textColor="@color/white" android:gravity="center" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="@string/ok" android:layout_weight="1.0" />
+    </LinearLayout>
+</LinearLayout>

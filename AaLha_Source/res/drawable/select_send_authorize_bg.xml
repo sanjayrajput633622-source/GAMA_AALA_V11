@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true" android:drawable="@drawable/shape_9b7442_d8c18f_20_bg" />
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#ff2c2e3c" />
+            <corners android:radius="20.0dp" />
+        </shape>
+    </item>
+</selector>

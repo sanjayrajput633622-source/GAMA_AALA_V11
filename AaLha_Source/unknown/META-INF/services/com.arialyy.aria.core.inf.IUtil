@@ -1,0 +1,5 @@
+com.arialyy.aria.m3u8.live.M3U8LiveUtil
+com.arialyy.aria.m3u8.vod.M3U8VodUtil
+com.arialyy.aria.http.download.HttpDLoaderUtil
+com.arialyy.aria.http.download.HttpDGLoaderUtil
+com.arialyy.aria.http.upload.HttpULoaderUtil

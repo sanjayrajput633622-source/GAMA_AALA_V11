@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.core.widget.NestedScrollView android:id="@id/nts_search" android:visibility="visible" android:layout_width="0.0dp" android:layout_height="0.0dp" android:fillViewport="true" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.498" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout android:id="@id/ct_ai_top" android:background="@color/color_262B49" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <ImageView android:id="@id/img_ai_top" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="18.0dp" android:src="@drawable/ic_ai_btn1" android:layout_marginStart="18.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+                <TextView android:textSize="15.0sp" android:textColor="@color/color_D4D9E3" android:id="@id/tv_ai_txt_top" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginTop="19.0dp" android:layout_marginStart="8.0dp" android:layout_marginEnd="9.0dp" app:layout_constraintEnd_toStartOf="@id/img_ai_loading_top" app:layout_constraintStart_toEndOf="@id/img_ai_top" app:layout_constraintTop_toTopOf="parent" />
+                <ImageView android:id="@id/img_ai_loading_top" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginTop="10.0dp" android:layout_marginEnd="16.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+                <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_ai_top" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginTop="19.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/img_ai_loading_top" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/tv_ai_txt_top" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_search" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.498" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+            <TextView android:textSize="16.0sp" android:textColor="@color/color_92929B" android:id="@id/tv_recommend_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="16.0dp" android:layout_marginTop="20.0dp" android:layout_marginRight="16.0dp" android:layout_marginBottom="7.0dp" />
+            <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_search_recommend" android:visibility="visible" android:layout_width="match_parent" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.498" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@id/nts" android:visibility="gone" android:layout_width="0.0dp" android:layout_height="0.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.appbar.AppBarLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" app:elevation="0.0dp">
+            <TextView android:textSize="16.0sp" android:textColor="@color/color_92929B" android:id="@id/tv_search" android:paddingTop="4.0dp" android:paddingBottom="4.0dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="13.0dp" app:layout_scrollFlags="scroll" />
+        </com.google.android.material.appbar.AppBarLayout>
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout android:id="@id/refreshLayout" android:layout_width="match_parent" android:layout_height="match_parent" app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_search_result" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="12.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="12.0dp" />
+            </RelativeLayout>
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@id/nts_ai" android:visibility="gone" android:layout_width="0.0dp" android:layout_height="0.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.appbar.AppBarLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" app:elevation="0.0dp">
+            <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                <ImageView android:id="@id/img_ai" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="18.0dp" android:src="@drawable/ic_ai_btn1" android:layout_marginStart="18.0dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+                <TextView android:textSize="15.0sp" android:textColor="@color/color_D4D9E3" android:id="@id/tv_ai_txt" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginTop="19.0dp" android:layout_marginBottom="19.0dp" android:layout_marginStart="8.0dp" android:layout_marginEnd="9.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/img_ai_loading" app:layout_constraintStart_toEndOf="@id/img_ai" app:layout_constraintTop_toTopOf="parent" />
+                <ImageView android:id="@id/img_ai_loading" android:layout_width="36.0dp" android:layout_height="36.0dp" android:layout_marginTop="10.0dp" android:layout_marginEnd="16.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout android:id="@id/refreshLayout1" android:layout_width="match_parent" android:layout_height="match_parent" app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_search_ai" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="12.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="12.0dp" />
+            </RelativeLayout>
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

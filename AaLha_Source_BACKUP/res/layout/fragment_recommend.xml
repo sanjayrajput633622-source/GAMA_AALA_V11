@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.gxgx.daqiandy.widgets.RefreshSlideLayout android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout android:id="@id/refreshLayout" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1.0">
+        <com.gxgx.daqiandy.widgets.VerticalScrollPriorityRecyclerView android:id="@id/rlv_recommend" android:background="@color/frg_recommend_bg" android:layout_width="match_parent" android:layout_height="match_parent" />
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+</com.gxgx.daqiandy.widgets.RefreshSlideLayout>

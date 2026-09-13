@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@id/clPopWindowBg" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View android:background="@drawable/shape_player_pop_bg_end" android:layout_width="0.0dp" android:layout_height="match_parent" app:layout_constraintEnd_toStartOf="@id/llAudio" app:layout_constraintStart_toStartOf="parent" />
+    <View android:background="@drawable/shape_player_pop_bg_start" android:layout_width="0.0dp" android:layout_height="match_parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="@id/llAudio" />
+    <LinearLayout android:orientation="vertical" android:id="@id/llAudio" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginEnd="42.0dp" app:layout_constraintEnd_toStartOf="@id/llSubtitle">
+        <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="30.0dp">
+            <TextView android:textSize="13.0sp" android:textColor="@color/color_92929b" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/player_audio" />
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView android:id="@id/rvSelectAudio" android:layout_width="259.0dp" android:layout_height="match_parent" android:layout_marginTop="11.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+    <LinearLayout android:orientation="vertical" android:id="@id/llSubtitle" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginEnd="20.0dp" app:layout_constraintEnd_toEndOf="parent">
+        <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="30.0dp">
+            <TextView android:textSize="13.0sp" android:textColor="@color/color_92929b" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/player_subtitle" />
+        </LinearLayout>
+        <TextView android:textSize="15.0sp" android:textColor="@color/grey_player_pop_title" android:id="@id/tvNoSubtitle" android:visibility="gone" android:layout_width="236.0dp" android:layout_height="wrap_content" android:layout_marginTop="19.0dp" android:text="@string/player_no_subtitle" android:layout_marginStart="14.0dp" />
+        <androidx.recyclerview.widget.RecyclerView android:id="@id/rvSelectSubtitle" android:layout_width="259.0dp" android:layout_height="match_parent" android:layout_marginTop="11.0dp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

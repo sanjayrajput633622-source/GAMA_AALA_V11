@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="7.0dp" android:width="21.0dp" android:viewportWidth="21.0" android:viewportHeight="7.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <path android:fillColor="@drawable/ic_film_new_tip__0" android:pathData="M0.688,0.062L2.52,0.062L4.609,5.12L4.609,0.062L5.972,0.062L5.972,7L4.141,7L2.041,1.932L2.041,7L0.688,7L0.688,0.062ZM7.339,0.062L11.289,0.062L11.289,1.219L8.931,1.219L8.931,2.879L11.162,2.879L11.162,4.041L8.931,4.041L8.931,5.828L11.401,5.828L11.401,7L7.339,7L7.339,0.062ZM12.002,0.062L13.511,0.062L14.429,5.34L15.22,0.062L17.1,0.062L17.969,5.34L18.853,0.062L20.239,0.062L18.931,7L17.061,7L16.133,1.438L15.278,7L13.398,7L12.002,0.062Z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="nonZero" />
+</vector>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:id="@id/ll_root" android:layout_width="match_parent" android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+            <net.lucode.hackware.magicindicator.MagicIndicator android:id="@id/miTitleTabs" android:layout_width="0.0dp" android:layout_height="39.0dp" app:layout_constrainedWidth="true" app:layout_constraintBottom_toBottomOf="@id/ll_subscribe" app:layout_constraintEnd_toStartOf="@id/ll_subscribe" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="@id/ll_subscribe" />
+            <ImageView android:id="@id/ll_subscribe" android:padding="5.0dp" android:layout_width="32.0dp" android:layout_height="34.0dp" android:layout_marginTop="35.0dp" android:layout_marginBottom="7.0dp" android:src="@drawable/ic_sport_menu" android:layout_marginStart="10.0dp" android:layout_marginEnd="17.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.viewpager2.widget.ViewPager2 android:id="@id/viewpager2" android:layout_width="match_parent" android:layout_height="match_parent" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+</FrameLayout>

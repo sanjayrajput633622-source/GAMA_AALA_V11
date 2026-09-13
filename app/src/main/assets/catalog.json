@@ -1,0 +1,124 @@
+{
+  "items": [
+    {
+      "title": "Awaran",
+      "kind": "Movie",
+      "lang": "HINDI",
+      "genre": "Drama",
+      "rating": "8.1",
+      "year": "2025",
+      "duration": "2h 18m",
+      "description": "A powerful drama about courage, family and the choices that change a life forever.",
+      "poster": "poster_1",
+      "trailer": ""
+    },
+    {
+      "title": "Jungle Mission",
+      "kind": "Movie",
+      "lang": "HINDI",
+      "genre": "Action",
+      "rating": "8.4",
+      "year": "2025",
+      "duration": "2h 06m",
+      "description": "A dangerous mission deep inside the jungle turns into a fight for survival.",
+      "poster": "poster_2",
+      "trailer": ""
+    },
+    {
+      "title": "Red Horizon",
+      "kind": "Movie",
+      "lang": "MULTILINGUAL",
+      "genre": "Thriller",
+      "rating": "9.0",
+      "year": "2026",
+      "duration": "2h 22m",
+      "description": "A high-stakes thriller where one secret can change the future of an entire city.",
+      "poster": "poster_3",
+      "trailer": ""
+    },
+    {
+      "title": "Safed Sagar",
+      "kind": "Series",
+      "lang": "MULTILINGUAL",
+      "genre": "Action",
+      "rating": "8.7",
+      "year": "2026",
+      "duration": "Season 1",
+      "description": "An action-packed series about loyalty, danger and survival against impossible odds.",
+      "poster": "poster_4",
+      "trailer": ""
+    },
+    {
+      "title": "Thukra",
+      "kind": "Series",
+      "lang": "MULTILINGUAL",
+      "genre": "Drama",
+      "rating": "6.8",
+      "year": "2025",
+      "duration": "Season 1",
+      "description": "A dramatic story of relationships, betrayal and the strength to begin again.",
+      "poster": "poster_5",
+      "trailer": ""
+    },
+    {
+      "title": "Reacher-like",
+      "kind": "Series",
+      "lang": "ENGLISH",
+      "genre": "Action",
+      "rating": "8.0",
+      "year": "2025",
+      "duration": "Season 1",
+      "description": "A mysterious stranger arrives in town and uncovers a dangerous conspiracy.",
+      "poster": "poster_6",
+      "trailer": ""
+    },
+    {
+      "title": "Neon City",
+      "kind": "Movie",
+      "lang": "ENGLISH",
+      "genre": "Sci-Fi",
+      "rating": "8.3",
+      "year": "2026",
+      "duration": "1h 58m",
+      "description": "In a futuristic city, technology and humanity collide in an unexpected battle.",
+      "poster": "poster_7",
+      "trailer": ""
+    },
+    {
+      "title": "The Last Code",
+      "kind": "Series",
+      "lang": "ENGLISH",
+      "genre": "Mystery",
+      "rating": "8.6",
+      "year": "2026",
+      "duration": "Season 1",
+      "description": "A hidden code connects a group of strangers to a mystery nobody can escape.",
+      "poster": "poster_8",
+      "trailer": ""
+    },
+    {
+      "title": "Family Ties",
+      "kind": "Series",
+      "lang": "HINDI",
+      "genre": "Family",
+      "rating": "7.9",
+      "year": "2025",
+      "duration": "Season 2",
+      "description": "A heartfelt family story filled with love, laughter and unexpected challenges.",
+      "poster": "poster_9",
+      "trailer": ""
+    },
+    {
+      "title": "Dark River",
+      "kind": "Movie",
+      "lang": "HINDI",
+      "genre": "Crime",
+      "rating": "8.2",
+      "year": "2026",
+      "duration": "2h 11m",
+      "description": "A detective follows a dark trail that leads to secrets buried for years.",
+      "poster": "poster_10",
+      "trailer": ""
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:background="@color/main_sport_live_bg" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:id="@id/ll_banner" android:background="@color/color_000000" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <com.zhpan.bannerview.BannerViewPager android:id="@id/banner" android:layout_width="match_parent" android:layout_height="191.0dp" android:layout_marginTop="12.0dp" android:layout_marginBottom="12.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@id/ct_title" android:layout_width="match_parent" android:layout_height="wrap_content" app:layout_constraintTop_toBottomOf="@id/ll_banner">
+        <net.lucode.hackware.magicindicator.MagicIndicator android:layout_gravity="center_horizontal" android:id="@id/magic_indicator" android:layout_width="wrap_content" android:layout_height="36.0dp" android:layout_marginTop="14.0dp" android:layout_marginBottom="14.0dp" android:layout_marginStart="18.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout android:gravity="center" android:id="@id/ll_schedule" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent">
+            <TextView android:textSize="13.0sp" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="7.0dp" android:text="@string/cricket_full_schedule" />
+            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="7.0dp" android:src="@drawable/ic_right_arrow" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_hot" android:layout_width="0.0dp" android:layout_height="wrap_content" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/ct_title" />
+    <LinearLayout android:orientation="vertical" android:id="@id/ll_stand" android:background="@drawable/shape_cricket_hot_item_bg" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_marginStart="10.0dp" android:layout_marginEnd="10.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/ct_title">
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:gravity="center_vertical" android:id="@id/ll_select_match" android:background="@drawable/shape_year_bg" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dp" android:layout_marginTop="15.0dp">
+                <TextView android:textSize="13.0sp" android:textColor="@color/white" android:ellipsize="end" android:id="@id/tv_match_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="15.0dp" android:layout_marginTop="4.0dp" android:layout_marginBottom="4.0dp" android:maxWidth="144.0dp" android:text="@string/cricket_league" android:lines="1" />
+                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="7.0dp" android:layout_marginRight="14.0dp" android:src="@drawable/ic_cricket_down_arrow" />
+            </LinearLayout>
+            <LinearLayout android:gravity="center_vertical" android:id="@id/ll_select_year" android:background="@drawable/shape_year_bg" android:layout_width="wrap_content" android:layout_height="26.0dp" android:layout_marginTop="12.0dp" android:layout_marginRight="16.0dp" android:layout_alignParentRight="true">
+                <TextView android:textSize="13.0sp" android:textColor="@color/color_ffe291" android:id="@id/tv_year" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="13.0dp" android:text="2023" />
+                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="7.0dp" android:layout_marginRight="10.0dp" android:src="@drawable/ic_cricket_down_arrow" />
+            </LinearLayout>
+        </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_stand" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:layout_marginBottom="6.0dp" />
+    </LinearLayout>
+    <FrameLayout android:id="@id/fl_banner" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/ll_stand">
+        <FrameLayout android:id="@id/fl_container" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <TextView android:textSize="11.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/tv_ad_tag" android:background="@color/color_80000000" android:visibility="gone" android:layout_width="26.0dp" android:layout_height="16.0dp" android:text="@string/tag_ad" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <ImageView android:layout_gravity="right" android:id="@id/img_close_self" android:visibility="gone" android:layout_width="20.0dp" android:layout_height="20.0dp" android:src="@drawable/ic_close_relation" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    </FrameLayout>
+    <androidx.constraintlayout.widget.Barrier android:id="@id/barrierBottomAd" android:layout_width="wrap_content" android:layout_height="wrap_content" app:barrierDirection="bottom" app:constraint_referenced_ids="rlv_hot,fl_banner" />
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@id/ctAds" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/barrierBottomAd">
+        <com.gxgx.daqiandy.widgets.ads.NativeAdsView android:id="@id/adsView" android:layout_width="match_parent" android:layout_height="wrap_content" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

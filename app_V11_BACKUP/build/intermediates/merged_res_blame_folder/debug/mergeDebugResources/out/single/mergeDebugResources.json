@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "com.gamaala.webseries.app-debug-27:/drawable-nodpi_poster_5.png.flat",
+        "source": "com.gamaala.webseries.app-main-29:/drawable-nodpi/poster_5.png"
+    },
+    {
+        "merged": "com.gamaala.webseries.app-debug-27:/drawable-nodpi_poster_1.png.flat",
+        "source": "com.gamaala.webseries.app-main-29:/drawable-nodpi/poster_1.png"
+    },
+    {
+        "merged": "com.gamaala.webseries.app-debug-27:/drawable-nodpi_poster_2.png.flat",
+        "source": "com.gamaala.webseries.app-main-29:/drawable-nodpi/poster_2.png"
+    },
+    {
+        "merged": "com.gamaala.webseries.app-debug-27:/drawable-nodpi_poster_8.png.flat",
+        "source": "com.gamaala.webseries.app-main-29:/drawable-nodpi/poster_8.png"
+    },
+    {
+        "merged": "com.gamaala.webseries.app-debug-27:/layout_activity_main.xml.flat",
+        "source": "com.gamaala.webseries.app-main-29:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.gamaala.webseries.app-debug-27:/drawable-nodpi_poster_3.png.flat",
+        "source": "com.gamaala.webseries.app-main-29:/drawable-nodpi/poster_3.png"
+    },
+    {
+        "merged": "com.gamaala.webseries.app-debug-27:/drawable-nodpi_poster_7.png.flat",
+        "source": "com.gamaala.webseries.app-main-29:/drawable-nodpi/poster_7.png"
+    },
+    {
+        "merged": "com.gamaala.webseries.app-debug-27:/drawable-nodpi_poster_4.png.flat",
+        "source": "com.gamaala.webseries.app-main-29:/drawable-nodpi/poster_4.png"
+    },
+    {
+        "merged": "com.gamaala.webseries.app-debug-27:/drawable-nodpi_poster_10.png.flat",
+        "source": "com.gamaala.webseries.app-main-29:/drawable-nodpi/poster_10.png"
+    },
+    {
+        "merged": "com.gamaala.webseries.app-debug-27:/drawable-nodpi_poster_6.png.flat",
+        "source": "com.gamaala.webseries.app-main-29:/drawable-nodpi/poster_6.png"
+    },
+    {
+        "merged": "com.gamaala.webseries.app-debug-27:/drawable-nodpi_poster_9.png.flat",
+        "source": "com.gamaala.webseries.app-main-29:/drawable-nodpi/poster_9.png"
+    }
+]

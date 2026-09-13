@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="72.0dp" android:width="72.0dp" android:viewportWidth="72.0" android:viewportHeight="72.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <path android:fillColor="@drawable/ic_is_payment_successed__0" android:pathData="M10,19.374L52,12.796C54.209,12.45 56,13.961 56,16.17L56,48.17C56,50.379 54.209,52.45 52,52.796L10,59.374C7.791,59.72 6,58.209 6,56L6,24C6,21.791 7.791,19.72 10,19.374Z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+    <path android:fillColor="@drawable/ic_is_payment_successed__1" android:pathData="M10,20L62,20A4,4 0,0 1,66 24L66,56A4,4 0,0 1,62 60L10,60A4,4 0,0 1,6 56L6,24A4,4 0,0 1,10 20z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+    <path android:fillColor="@drawable/ic_is_payment_successed__2" android:pathData="M51.5,34L66,34C67.105,34 68,34.895 68,36L68,43C68,44.105 67.105,45 66,45L51.5,45C48.462,45 46,42.538 46,39.5C46,36.462 48.462,34 51.5,34Z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+    <path android:fillColor="#777a8e" android:pathData="M52.5,39.5m-2.5,0a2.5,2.5 0,1 1,5 0a2.5,2.5 0,1 1,-5 0" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+</vector>

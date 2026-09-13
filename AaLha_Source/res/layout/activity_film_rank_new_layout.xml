@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.gxgx.daqiandy.widgets.RinkTabLayout android:id="@id/rank_tab" android:layout_width="match_parent" android:layout_height="wrap_content" />
+    <com.google.android.material.tabs.TabLayout android:id="@id/tab_film_tag" android:background="@color/theme_color" android:layout_width="match_parent" android:layout_height="40.0dp" android:layout_marginTop="5.0dp" android:textAllCaps="false" app:tabBackground="@color/theme_color" app:tabGravity="start" app:tabIndicatorColor="@color/color_ff9f2f" app:tabIndicatorFullWidth="false" app:tabIndicatorHeight="0.0dp" app:tabMinWidth="48.0dp" app:tabMode="scrollable" app:tabPaddingEnd="6.0dp" app:tabPaddingStart="6.0dp" app:tabRippleColor="@android:color/transparent" app:tabTextAppearance="@style/TabLayoutTextStyle" app:tabTextColor="@color/select_rank_tab_text" />
+    <FrameLayout android:layout_width="match_parent" android:layout_height="0.0dp" android:layout_weight="1.0">
+        <androidx.viewpager2.widget.ViewPager2 android:id="@id/viewPager" android:layout_width="match_parent" android:layout_height="match_parent" app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        <include android:id="@id/layout_empty" android:visibility="gone" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" layout="@layout/layout_empty_view" />
+    </FrameLayout>
+</LinearLayout>

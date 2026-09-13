@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="44.0dp">
+        <LinearLayout android:id="@id/ll_back" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="24.0dp" android:layout_marginTop="13.0dp" android:layout_marginRight="14.0dp" android:layout_marginBottom="12.0dp" android:src="@drawable/ic_back" />
+        </LinearLayout>
+        <TextView android:textSize="16.0sp" android:textColor="@color/layout_title_text" android:ellipsize="end" android:id="@id/tv_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/short_video_report_title" android:lines="1" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/ll_back" app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView android:textSize="15.0sp" android:textColor="@color/short_video_report_tip_txt" android:background="@color/short_video_report_tip_bg" android:paddingLeft="15.0dp" android:paddingTop="6.0dp" android:paddingRight="15.0dp" android:paddingBottom="6.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/short_video_report_title_tip" />
+    <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1.0" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:layout_marginBottom="25.0dp">
+        <TextView android:textSize="17.0sp" android:textColor="@color/short_video_report_cancel" android:gravity="center" android:id="@id/tvCancel" android:background="@drawable/short_video_report_cancel_bg" android:layout_width="166.0dp" android:layout_height="50.0dp" android:layout_marginLeft="15.0dp" android:text="@string/player_cancel" />
+        <View android:layout_width="wrap_content" android:layout_height="1.0dp" android:layout_weight="1.0" />
+        <TextView android:textSize="17.0sp" android:textColor="@color/short_video_report_submit" android:gravity="center" android:id="@id/tvSubmit" android:background="@drawable/short_video_report_submit_bg" android:layout_width="166.0dp" android:layout_height="50.0dp" android:layout_marginRight="15.0dp" android:text="@string/question_submint" />
+    </LinearLayout>
+</LinearLayout>

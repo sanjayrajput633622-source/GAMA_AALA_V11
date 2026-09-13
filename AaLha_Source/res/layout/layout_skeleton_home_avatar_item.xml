@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="84.0dp" android:layout_height="wrap_content" android:layout_marginEnd="8.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="84.0dp" android:layout_height="104.0dp" android:src="@drawable/ic_actor_empty" android:scaleType="centerInside" />
+    <View android:background="@drawable/shape_sk_rec_4_bg" android:layout_width="64.0dp" android:layout_height="14.0dp" android:layout_marginTop="10.0dp" />
+</LinearLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@id/add_ad_root" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:background="@drawable/shape_reward_tip_bg" android:layout_width="wrap_content" android:layout_height="40.0dp" android:layout_marginRight="40.0dp">
+        <TextView android:textSize="12.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/tv_tip" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="18.0dp" android:text="@string/max_add_view_tip" />
+        <TextView android:textSize="12.0sp" android:textColor="@color/color_FFF4A9" android:gravity="center" android:id="@id/tv_tip_vip" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginLeft="4.0dp" android:layout_marginRight="11.0dp" android:text="@string/max_add_view_tip_vip" />
+    </LinearLayout>
+</LinearLayout>

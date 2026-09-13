@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="32.0dp" android:width="32.0dp" android:viewportWidth="32.0" android:viewportHeight="32.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <path android:fillColor="@drawable/$ic_movie_premium_vip__0" android:pathData="M31,9.954L31,26.214C31,27.226 30.152,28 29.043,28L2.957,28C1.848,28 1,27.226 1,26.214L1,9.954L31,9.954ZM15.958,12.702L12.124,17.916L9.5,15.826L10.84,23.695L21.134,23.695L22.387,15.826L19.882,17.916L15.958,12.702ZM14.913,18.959L14.838,19.259L15.962,20.795L17.087,19.259L16.974,18.959L18.436,18.959L15.962,22.256L13.452,18.959L14.913,18.959ZM10.174,4L14.223,8.763L9.638,8.763L5.589,4L10.174,4ZM22.082,4L26.131,8.763L21.546,8.763L17.497,4L22.082,4ZM16.128,4L20.177,8.763L15.592,8.763L11.543,4L16.128,4ZM29.239,4C30.251,4 31,4.774 31,5.786L31,8.763L27.5,8.763L23.452,4ZM4.219,4L8.268,8.763L1,8.763L1,5.786C1,4.774 1.774,4 2.786,4L4.219,4Z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+</vector>

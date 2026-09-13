@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="40.0dp" android:minWidth="200.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:background="@drawable/shape_player_fast_forward_bg" android:layout_width="wrap_content" android:layout_height="match_parent">
+        <TextView android:textSize="12.0sp" android:textColor="@color/white" android:gravity="center_vertical" android:id="@id/text" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="@string/after_ad_you_can_cast_screen" android:layout_marginStart="12.0dp" android:layout_marginEnd="8.0dp" />
+        <TextView android:textSize="12.0sp" android:textColor="@color/black" android:gravity="center_vertical" android:id="@id/cast_screen_ad_player" android:background="@drawable/shape_bg_cast_player_ad" android:paddingLeft="13.0dp" android:paddingRight="13.0dp" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="28.0dp" android:layout_marginBottom="@dimen/home_page_head_layout_margin_bottom" android:text="@string/play_ad" android:drawablePadding="4.0dp" android:layout_marginEnd="7.0dp" android:paddingHorizontal="13.0dp" app:layout_constraintBottom_toBottomOf="@id/sdvHomeBanner" app:layout_constraintEnd_toStartOf="@id/llGotoDetail" app:layout_constraintStart_toEndOf="@id/llHomeLike" />
+    </LinearLayout>
+    <ImageView android:id="@id/popup_play_ad_close" android:background="@drawable/shape_cast_player_radio_close" android:padding="6.0dp" android:layout_width="24.0dp" android:layout_height="24.0dp" android:src="@drawable/ic_close_cast_ad" android:layout_marginStart="8.0dp" />
+</LinearLayout>

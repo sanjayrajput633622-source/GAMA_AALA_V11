@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="17.0dp" android:width="20.0dp" android:viewportWidth="20.0" android:viewportHeight="17.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
+    <path android:fillColor="#000000" android:pathData="M20,0L19.997,0.011C15.423,0.213 11.428,3.239 10.015,7.631L9.009,10.757C7.812,14.477 4.35,17 0.441,17L-122,16.999L-122,8C-122,3.582 -118.418,0 -114,0L20,0Z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+    <path android:fillColor="@drawable/ic_vip_renew_font__0" android:pathData="M20,0L19.997,0.011C15.423,0.213 11.428,3.239 10.015,7.631L9.009,10.757C7.812,14.477 4.35,17 0.441,17L-122,16.999L-122,8C-122,3.582 -118.418,0 -114,0L20,0Z" android:strokeColor="#00000000" android:strokeWidth="1.0" android:fillType="evenOdd" />
+</vector>

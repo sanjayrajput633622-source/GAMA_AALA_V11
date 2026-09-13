@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_search" android:visibility="visible" android:layout_width="0.0dp" android:layout_height="0.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.498" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@id/nts" android:visibility="gone" android:layout_width="0.0dp" android:layout_height="0.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.appbar.AppBarLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" app:elevation="0.0dp">
+            <TextView android:textSize="16.0sp" android:textColor="@color/color_92929B" android:id="@id/tv_search" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="13.0dp" app:layout_scrollFlags="scroll" />
+        </com.google.android.material.appbar.AppBarLayout>
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout android:id="@id/refreshLayout" android:layout_width="match_parent" android:layout_height="match_parent" app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView android:id="@id/rlv_search_result" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_marginLeft="12.0dp" android:layout_marginTop="10.0dp" android:layout_marginRight="12.0dp" />
+            </RelativeLayout>
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

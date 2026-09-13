@@ -1,0 +1,19 @@
+com.gamaala.webseries
+drawable poster_1
+drawable poster_10
+drawable poster_2
+drawable poster_3
+drawable poster_4
+drawable poster_5
+drawable poster_6
+drawable poster_7
+drawable poster_8
+drawable poster_9
+id navDownload
+id navFind
+id navHome
+id navMe
+id navTv
+id screen
+layout activity_main
+style AppTheme

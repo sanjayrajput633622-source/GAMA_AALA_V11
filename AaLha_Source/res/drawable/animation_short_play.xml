@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list android:oneshot="false"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:duration="40" android:drawable="@drawable/shorts00" />
+    <item android:duration="40" android:drawable="@drawable/shorts01" />
+    <item android:duration="40" android:drawable="@drawable/shorts02" />
+    <item android:duration="40" android:drawable="@drawable/shorts03" />
+    <item android:duration="40" android:drawable="@drawable/shorts04" />
+    <item android:duration="40" android:drawable="@drawable/shorts05" />
+    <item android:duration="40" android:drawable="@drawable/shorts06" />
+    <item android:duration="40" android:drawable="@drawable/shorts07" />
+    <item android:duration="40" android:drawable="@drawable/shorts08" />
+    <item android:duration="40" android:drawable="@drawable/shorts09" />
+    <item android:duration="40" android:drawable="@drawable/shorts10" />
+    <item android:duration="40" android:drawable="@drawable/shorts11" />
+    <item android:duration="40" android:drawable="@drawable/shorts12" />
+    <item android:duration="40" android:drawable="@drawable/shorts13" />
+    <item android:duration="40" android:drawable="@drawable/shorts14" />
+    <item android:duration="40" android:drawable="@drawable/shorts15" />
+    <item android:duration="40" android:drawable="@drawable/shorts16" />
+    <item android:duration="40" android:drawable="@drawable/shorts17" />
+    <item android:duration="40" android:drawable="@drawable/shorts18" />
+    <item android:duration="40" android:drawable="@drawable/shorts19" />
+    <item android:duration="40" android:drawable="@drawable/shorts20" />
+    <item android:duration="40" android:drawable="@drawable/shorts21" />
+    <item android:duration="40" android:drawable="@drawable/shorts22" />
+    <item android:duration="40" android:drawable="@drawable/shorts23" />
+    <item android:duration="40" android:drawable="@drawable/shorts24" />
+    <item android:duration="40" android:drawable="@drawable/shorts25" />
+    <item android:duration="40" android:drawable="@drawable/shorts26" />
+    <item android:duration="40" android:drawable="@drawable/shorts27" />
+    <item android:duration="40" android:drawable="@drawable/shorts28" />
+    <item android:duration="40" android:drawable="@drawable/shorts29" />
+</animation-list>

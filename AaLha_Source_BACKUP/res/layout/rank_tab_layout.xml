@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="125.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:background="@drawable/ic_rink_top_bg" android:layout_width="match_parent" android:layout_height="115.0dp">
+        <ImageView android:id="@id/iv_back" android:padding="12.0dp" android:layout_width="40.0dp" android:layout_height="40.0dp" android:layout_marginTop="45.0dp" android:src="@drawable/ic_arrow_back_white" />
+        <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="40.0dp" android:layout_marginTop="45.0dp" android:layout_centerHorizontal="true">
+            <LinearLayout android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <RelativeLayout android:gravity="center" android:id="@id/rl_download" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginEnd="8.0dp">
+                    <ImageView android:id="@id/iv_wing1" android:layout_width="10.0dp" android:layout_height="14.0dp" android:src="@drawable/ic_wings_left" android:layout_centerVertical="true" />
+                    <TextView android:textColor="@color/color_b1a597" android:gravity="center" android:id="@id/radio1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="120.0dp" android:text="@string/download_rank" android:layout_centerVertical="true" android:layout_marginStart="2.0dp" android:layout_marginEnd="2.0dp" android:layout_toEndOf="@id/iv_wing1" />
+                    <ImageView android:id="@id/iv_wing2" android:layout_width="10.0dp" android:layout_height="14.0dp" android:src="@drawable/ic_wings_right" android:layout_centerVertical="true" android:layout_toEndOf="@id/radio1" />
+                </RelativeLayout>
+                <ImageView android:layout_gravity="center_horizontal" android:id="@id/iv_bottom1" android:background="@drawable/ic_rank_tab_bottom" android:layout_width="78.0dp" android:layout_height="4.0dp" android:layout_marginTop="2.0dp" />
+            </LinearLayout>
+            <LinearLayout android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <RelativeLayout android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/rl_rating" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_marginStart="8.0dp">
+                    <ImageView android:id="@id/iv_wing3" android:visibility="gone" android:layout_width="10.0dp" android:layout_height="14.0dp" android:src="@drawable/ic_wings_left" android:layout_centerVertical="true" />
+                    <TextView android:textColor="@color/color_b1a597" android:gravity="center" android:id="@id/radio2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxWidth="120.0dp" android:text="@string/rating_rank" android:layout_centerVertical="true" android:layout_marginStart="2.0dp" android:layout_marginEnd="2.0dp" android:layout_toEndOf="@id/iv_wing3" />
+                    <ImageView android:id="@id/iv_wing4" android:visibility="gone" android:layout_width="10.0dp" android:layout_height="14.0dp" android:src="@drawable/ic_wings_right" android:layout_centerVertical="true" android:layout_toEndOf="@id/radio2" />
+                </RelativeLayout>
+                <ImageView android:layout_gravity="center_horizontal" android:id="@id/iv_bottom2" android:background="@drawable/ic_rank_tab_bottom" android:visibility="invisible" android:layout_width="78.0dp" android:layout_height="4.0dp" android:layout_marginTop="2.0dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+    <net.lucode.hackware.magicindicator.MagicIndicator android:layout_gravity="bottom" android:id="@id/tab_film_type" android:layout_width="match_parent" android:layout_height="39.0dp" android:layout_marginStart="10.0dp" />
+</FrameLayout>

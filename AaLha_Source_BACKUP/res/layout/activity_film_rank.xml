@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/film_rank_frg_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include android:id="@id/title" layout="@layout/layout_title" />
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <net.lucode.hackware.magicindicator.MagicIndicator android:id="@id/miTitleTabs" android:layout_width="0.0dp" android:layout_height="39.0dp" android:layout_marginTop="10.0dp" android:layout_marginStart="14.0dp" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        <androidx.viewpager2.widget.ViewPager2 android:id="@id/vp" android:layout_width="0.0dp" android:layout_height="0.0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/miTitleTabs" />
+        <include android:id="@id/layout_empty" android:visibility="gone" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" layout="@layout/layout_empty_view" />
+        <androidx.constraintlayout.widget.Group android:id="@id/group" android:layout_width="wrap_content" android:layout_height="wrap_content" app:constraint_referenced_ids="miTitleTabs,vp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

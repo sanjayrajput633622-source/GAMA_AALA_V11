@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="horizontal" android:padding="6.0dp" android:layout_width="wrap_content" android:layout_height="48.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/iv_selected" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_download_item_selected" />
+    <ImageView android:id="@id/iv_vip" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_user_name_premium_vip" android:layout_marginStart="5.0dp" />
+    <TextView android:textColor="@color/select_language_title_text_color" android:id="@id/tv_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="FHD 720p" android:layout_marginStart="5.0dp" />
+</LinearLayout>

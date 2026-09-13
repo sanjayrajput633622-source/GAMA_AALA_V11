@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="100.0dp" android:layout_height="75.0dp"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/app_icon" android:background="@drawable/bg_212329_radio_4" android:padding="7.0dp" android:layout_width="50.0dp" android:layout_height="50.0dp" />
+    <com.gxgx.daqiandy.widgets.MarqueeTextView android:textColor="@color/color_C2C2CE" android:ellipsize="marquee" android:gravity="center" android:id="@id/text_name" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6.0dp" android:singleLine="true" />
+</LinearLayout>

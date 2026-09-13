@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@drawable/shape_gender_dialog_bg1" android:layout_width="match_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="12.0sp" android:textColor="@color/color_92929B" android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="11.0dp" android:text="@string/select_gender" />
+    <LinearLayout android:gravity="center" android:id="@id/ll_man" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dp">
+        <TextView android:textSize="15.0sp" android:textColor="@color/bottom_select_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="18.0dp" android:layout_marginBottom="18.0dp" android:text="@string/gender_man" />
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="7.0dp" android:src="@drawable/ic_man" />
+    </LinearLayout>
+    <View android:background="@color/bottom_select_line" android:layout_width="match_parent" android:layout_height="1.0dp" android:layout_marginLeft="17.0dp" android:layout_marginRight="15.0dp" />
+    <LinearLayout android:gravity="center" android:id="@id/ll_women" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="15.0sp" android:textColor="@color/bottom_select_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="18.0dp" android:layout_marginBottom="18.0dp" android:text="@string/gender_women" />
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="7.0dp" android:src="@drawable/ic_woman" />
+    </LinearLayout>
+    <View android:background="@color/bottom_select_line" android:layout_width="match_parent" android:layout_height="1.0dp" android:layout_marginLeft="17.0dp" android:layout_marginRight="15.0dp" />
+    <LinearLayout android:gravity="center" android:id="@id/ll_other" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="15.0sp" android:textColor="@color/bottom_select_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="18.0dp" android:layout_marginBottom="18.0dp" android:text="@string/gender_other" />
+    </LinearLayout>
+    <TextView android:textSize="16.0sp" android:textColor="@color/bottom_select_btn_text" android:gravity="center" android:id="@id/tv_cancel" android:background="@color/bottom_select_btn_bg" android:layout_width="match_parent" android:layout_height="56.0dp" android:text="@string/short_video_select_action_cancel" />
+</LinearLayout>
