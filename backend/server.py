@@ -41,6 +41,17 @@ def all_content(catalog):
     return items
 
 
+def save_catalog(catalog):
+    CATALOG_FILE.write_text(
+        json.dumps(
+            catalog,
+            ensure_ascii=False,
+            indent=2
+        ),
+        encoding="utf-8"
+    )
+
+
 class Handler(BaseHTTPRequestHandler):
 
     def send_json(self, data, code=200):
@@ -68,6 +79,139 @@ class Handler(BaseHTTPRequestHandler):
 
         self.end_headers()
         self.wfile.write(body)
+
+
+    def read_json_body(self):
+        length = int(
+            self.headers.get(
+                "Content-Length",
+                "0"
+            )
+        )
+
+        if length <= 0:
+            return {}
+
+        body = self.rfile.read(length)
+
+        return json.loads(
+            body.decode("utf-8")
+        )
+
+
+    def do_POST(self):
+
+        parsed = urlparse(self.path)
+        path = parsed.path
+
+        if path != "/api/admin/content":
+            self.send_json(
+                {"error": "Not found"},
+                404
+            )
+            return
+
+        try:
+
+            body = self.read_json_body()
+
+            tmdb_id = int(
+                body.get(
+                    "tmdb_id",
+                    0
+                )
+            )
+
+            video_url = str(
+                body.get(
+                    "video_url",
+                    ""
+                )
+            ).strip()
+
+            title = str(
+                body.get(
+                    "title",
+                    ""
+                )
+            ).strip()
+
+            if tmdb_id <= 0:
+                self.send_json(
+                    {
+                        "success": False,
+                        "error": "Invalid TMDB ID"
+                    },
+                    400
+                )
+                return
+
+            if not video_url:
+                self.send_json(
+                    {
+                        "success": False,
+                        "error": "Video URL required"
+                    },
+                    400
+                )
+                return
+
+            catalog = load_catalog()
+
+            if not isinstance(
+                catalog.get("content"),
+                list
+            ):
+                catalog["content"] = []
+
+            updated = False
+
+            for item in catalog["content"]:
+
+                if str(
+                    item.get(
+                        "tmdb_id",
+                        ""
+                    )
+                ) == str(tmdb_id):
+
+                    item["video_url"] = video_url
+                    item["authorized"] = True
+
+                    if title:
+                        item["title"] = title
+
+                    updated = True
+                    break
+
+            if not updated:
+
+                catalog["content"].append({
+                    "tmdb_id": tmdb_id,
+                    "title": title,
+                    "video_url": video_url,
+                    "authorized": True
+                })
+
+            save_catalog(catalog)
+
+            self.send_json({
+                "success": True,
+                "tmdb_id": tmdb_id,
+                "message": (
+                    "Content updated"
+                    if updated
+                    else
+                    "Content added"
+                )
+            })
+
+        except Exception as e:
+
+            self.send_json({
+                "success": False,
+                "error": str(e)
+            }, 400)
 
 
     def do_GET(self):

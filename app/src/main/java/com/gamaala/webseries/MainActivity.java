@@ -491,7 +491,7 @@ public class MainActivity extends Activity {
             try {
 
                 String apiUrl =
-                    "http://127.0.0.1:8080/api/content";
+                    "https://gama-aala-v11.onrender.com/api/content";
 
                 conn =
                     (HttpURLConnection)
