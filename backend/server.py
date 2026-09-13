@@ -2,8 +2,9 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 import json
 from pathlib import Path
+import os
 
-PORT = 8080
+PORT = int(os.environ.get("PORT", "8080"))
 BASE = Path(__file__).parent
 CATALOG_FILE = BASE / "catalog.json"
 

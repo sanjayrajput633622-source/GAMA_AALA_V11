@@ -24,3 +24,11 @@ backup/
 *_BACKUP/
 app_V1_BACKUP/
 AaLha_Source_BACKUP/
+
+# Python backend
+__pycache__/
+*.pyc
+
+# Backend temporary files
+backend/server.log
+backend/*.backup*
