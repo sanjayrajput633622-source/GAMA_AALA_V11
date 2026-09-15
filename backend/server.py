@@ -135,6 +135,12 @@ class Handler(BaseHTTPRequestHandler):
                 video_url = str(
                     body.get("video_url", "")
                 ).strip()
+                source_type = str(
+                    body.get("source_type", "hls")
+                ).strip().lower()
+                source_url = str(
+                    body.get("source_url", video_url)
+                ).strip()
 
                 title = str(
                     body.get("title", "")
@@ -152,15 +158,34 @@ class Handler(BaseHTTPRequestHandler):
                     return
 
 
-                if not video_url:
+                if source_type not in ("hls", "official_page", "unavailable"):
                     self.send_json(
                         {
                             "success": False,
-                            "error": "Video URL required"
+                            "error": "Invalid source_type"
                         },
                         400
                     )
                     return
+
+                if source_type == "unavailable":
+                    video_url = ""
+                    source_url = ""
+                else:
+                    if not source_url:
+                        self.send_json(
+                            {
+                                "success": False,
+                                "error": "Source URL required"
+                            },
+                            400
+                        )
+                        return
+
+                    if source_type == "hls":
+                        video_url = source_url
+                    else:
+                        video_url = ""
 
 
                 catalog = load_catalog()
@@ -293,6 +318,8 @@ class Handler(BaseHTTPRequestHandler):
                     "id": channel_id,
                     "title": title,
                     "video_url": video_url,
+                    "source_type": source_type,
+                    "source_url": source_url,
                     "lang": lang,
                     "category": category,
                     "poster": poster,

@@ -51,6 +51,7 @@ public class MainActivity extends Activity {
         String title, kind, lang, genre, rating, poster;
         String year, duration, description, trailer;
         String videoUrl;
+        String sourceType, sourceUrl;
 
         String category, backdrop;
         int tmdbId;
@@ -69,6 +70,8 @@ public class MainActivity extends Activity {
             description = o.optString("description");
             trailer = o.optString("trailer");
             videoUrl = o.optString("video_url");
+            sourceType = o.optString("source_type", "hls");
+            sourceUrl = o.optString("source_url", "");
 
             category = o.optString("category");
             backdrop = o.optString("backdrop");
@@ -3072,10 +3075,32 @@ continueWatching();
                     for (int i = 0; i < live.length(); i++) {
                         JSONObject entry = live.getJSONObject(i);
 
-                        String url = entry.optString("video_url", "").trim();
-                        if (url.isEmpty()
-                                || !entry.optBoolean("authorized", false)) {
+                        String sourceType = entry.optString(
+                            "source_type", "hls"
+                        ).trim().toLowerCase();
+
+                        String url = entry.optString(
+                            "video_url", ""
+                        ).trim();
+
+                        String sourceUrl = entry.optString(
+                            "source_url", ""
+                        ).trim();
+
+                        if (!entry.optBoolean("authorized", false)) {
                             continue;
+                        }
+
+                        if ("official_page".equals(sourceType)) {
+                            if (sourceUrl.isEmpty()) {
+                                continue;
+                            }
+                        } else {
+                            if (url.isEmpty()) {
+                                continue;
+                            }
+                            sourceType = "hls";
+                            sourceUrl = url;
                         }
 
                         JSONObject o = new JSONObject();
@@ -3093,6 +3118,8 @@ continueWatching();
                         ));
                         o.put("rating", "LIVE");
                         o.put("video_url", url);
+                        o.put("source_type", sourceType);
+                        o.put("source_url", sourceUrl);
                         o.put("poster", entry.optString("poster", ""));
                         o.put("backdrop", entry.optString("backdrop", ""));
                         o.put("current_program",
@@ -3680,6 +3707,33 @@ continueWatching();
 
     String getVideoSource(Item x) {
 
+        // Official live webpage source
+        if (
+            "official_page".equalsIgnoreCase(x.sourceType)
+        ) {
+            if (
+                x.sourceUrl != null &&
+                !x.sourceUrl.trim().isEmpty()
+            ) {
+                return x.sourceUrl.trim();
+            }
+            return null;
+        }
+
+        // Live HLS must use only the supplied authorized source.
+        if (
+            "Live".equalsIgnoreCase(x.kind) ||
+            "Live TV".equalsIgnoreCase(x.kind)
+        ) {
+            if (
+                x.videoUrl != null &&
+                !x.videoUrl.trim().isEmpty()
+            ) {
+                return x.videoUrl.trim();
+            }
+            return null;
+        }
+
         // Agar custom videoUrl diya hai toh use karo
         if (
             x.videoUrl != null &&
@@ -3850,6 +3904,21 @@ continueWatching();
             return;
         }
 
+        // Official channel page: open the channel's official webpage.
+        if ("official_page".equalsIgnoreCase(x.sourceType)) {
+            watchMovieWebView(x);
+            return;
+        }
+
+        if ("unavailable".equalsIgnoreCase(x.sourceType)) {
+            Toast.makeText(
+                this,
+                "Live source is currently unavailable for this channel",
+                Toast.LENGTH_LONG
+            ).show();
+            return;
+        }
+
         String sourceUrl = getVideoSource(x);
 
         if (
@@ -3942,6 +4011,37 @@ continueWatching();
 
         playerView.setUseController(true);
 
+        // LIVE TV: use a true live-player UI instead of normal VOD controls.
+        // Movies/Series keep the normal seek, rewind and fast-forward controls.
+        final boolean isLiveTv =
+            "Live".equalsIgnoreCase(x.kind) ||
+            "Live TV".equalsIgnoreCase(x.kind);
+
+        if (isLiveTv) {
+            playerView.setShowRewindButton(false);
+            playerView.setShowFastForwardButton(false);
+            playerView.setShowPreviousButton(false);
+            playerView.setShowNextButton(false);
+
+            android.view.View liveProgress =
+                playerView.findViewById(androidx.media3.ui.R.id.exo_progress);
+            if (liveProgress != null) {
+                liveProgress.setVisibility(android.view.View.GONE);
+            }
+
+            android.view.View livePosition =
+                playerView.findViewById(androidx.media3.ui.R.id.exo_position);
+            if (livePosition != null) {
+                livePosition.setVisibility(android.view.View.GONE);
+            }
+
+            android.view.View liveDuration =
+                playerView.findViewById(androidx.media3.ui.R.id.exo_duration);
+            if (liveDuration != null) {
+                liveDuration.setVisibility(android.view.View.GONE);
+            }
+        }
+
         // Default: show complete video
         playerView.setResizeMode(
             androidx.media3.ui.AspectRatioFrameLayout
@@ -3954,6 +4054,33 @@ continueWatching();
         );
 
         playerView.setBackgroundColor(Color.BLACK);
+        // LIVE badge for Live TV only.
+        if (isLiveTv) {
+            TextView liveBadge = new TextView(this);
+            liveBadge.setText("🔴 LIVE");
+            liveBadge.setTextColor(Color.WHITE);
+            liveBadge.setTextSize(13);
+            liveBadge.setTypeface(
+                android.graphics.Typeface.DEFAULT,
+                android.graphics.Typeface.BOLD
+            );
+            liveBadge.setGravity(Gravity.CENTER);
+            liveBadge.setPadding(dp(10), dp(4), dp(10), dp(4));
+
+            android.graphics.drawable.GradientDrawable liveBg =
+                new android.graphics.drawable.GradientDrawable();
+            liveBg.setColor(Color.parseColor("#E60000"));
+            liveBg.setCornerRadius(dp(8));
+            liveBadge.setBackground(liveBg);
+
+            android.widget.FrameLayout.LayoutParams liveParams =
+                new android.widget.FrameLayout.LayoutParams(-2, dp(32));
+            liveParams.gravity = Gravity.TOP | Gravity.START;
+            liveParams.setMargins(dp(12), dp(12), 0, 0);
+
+            playerView.addView(liveBadge, liveParams);
+        }
+
 
         playerContainer.addView(
             playerView,
