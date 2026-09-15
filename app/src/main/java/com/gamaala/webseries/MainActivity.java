@@ -4414,130 +4414,16 @@ continueWatching();
             android.net.Uri mediaUri =
                 android.net.Uri.parse(sourceUrl);
 
-            androidx.media3.common.MediaItem mediaItem =
-                androidx.media3.common.MediaItem
-                    .fromUri(mediaUri);
-
-            String lowerSource = sourceUrl.toLowerCase(Locale.ROOT);
-
-            if (lowerSource.contains(".m3u8")) {
-                mediaItem =
-                    new androidx.media3.common.MediaItem.Builder()
-                        .setUri(mediaUri)
-                        .setMimeType(
-                            androidx.media3.common.MimeTypes.APPLICATION_M3U8
-                        )
-                        .build();
-            }
-
-            player.setMediaItem(mediaItem);
-
-            if (savedPosition > 5000) {
-                player.seekTo(savedPosition);
-                status.setText("Resuming video...");
-            }
-
-            player.addListener(
-                new androidx.media3.common.Player.Listener() {
-
-                    @Override
-                    public void onPlaybackStateChanged(
-                        int playbackState
-                    ) {
-
-                        if (
-                            playbackState ==
-                            androidx.media3.common.Player.STATE_BUFFERING
-                        ) {
-                            status.setText("Buffering...");
-                        }
-
-                        if (
-                            playbackState ==
-                            androidx.media3.common.Player.STATE_READY
-                        ) {
-                            status.setText("Playing");
-                        }
-
-                        if (
-                            playbackState ==
-                            androidx.media3.common.Player.STATE_ENDED
-                        ) {
-                            status.setText("Video finished");
-
-                            if (activeVideoKey != null) {
-                                prefs.edit()
-                                    .remove(
-                                        "resume_" +
-                                        activeVideoKey
-                                    )
-                                    .apply();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onPlayerError(
-                        androidx.media3.common.PlaybackException error
-                    ) {
-
-                        android.util.Log.e(
-                            "GAMA_PLAYER",
-                            "VIDEO ERROR: "
-                            + sourceUrl,
-                            error
-                        );
-
-                        status.setText(
-                            "Video error: "
-                            + error.getErrorCodeName()
-                        );
-                    }
-                }
-            );
-
-            resumeSaver =
-                new Runnable() {
-
-                    @Override
-                    public void run() {
-
-                        if (
-                            activePlayer != null &&
-                            activeVideoKey != null
-                        ) {
-
-                            long position =
-                                activePlayer
-                                    .getCurrentPosition();
-
-                            if (position > 5000) {
-
-                                prefs.edit()
-                                    .putLong(
-                                        "resume_" +
-                                        activeVideoKey,
-                                        position
-                                    )
-                                    .apply();
-                            }
-
-                            resumeHandler.postDelayed(
-                                this,
-                                5000
-                            );
-                        }
-                    }
-                };
-
-            resumeHandler.postDelayed(
-                resumeSaver,
-                5000
-            );
-
-            player.prepare();
-
-            player.play();
+            androidx.media3.datasource.DefaultHttpDataSource.Factory httpFactory =
+                new androidx.media3.datasource.DefaultHttpDataSource.Factory()
+                        .setAllowCrossProtocolRedirects(true)
+                        .setUserAgent("GAMA-AALA/1.0");
+        androidx.media3.exoplayer.hls.HlsMediaSource hlsSource = new androidx.media3.exoplayer.hls.HlsMediaSource.Factory(httpFactory)
+                .setAllowChunklessPreparation(false)
+                .createMediaSource(androidx.media3.common.MediaItem.fromUri(sourceUrl));
+        player.setMediaSource(hlsSource);
+        player.prepare();
+        player.play();
 
         } catch (Exception e) {
 
