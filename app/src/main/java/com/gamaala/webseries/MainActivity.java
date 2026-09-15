@@ -18,6 +18,7 @@ import org.json.*;
 public class MainActivity extends Activity {
 
     androidx.media3.exoplayer.ExoPlayer activePlayer;
+    WebView activeWebPlayer = null;
 
     // Continue Watching / Resume system
     android.os.Handler resumeHandler =
@@ -542,6 +543,8 @@ public class MainActivity extends Activity {
 
                 synchronized (data) {
 
+                    liveChannels.clear();
+
                     if (live != null) {
 
                         for (
@@ -581,6 +584,14 @@ public class MainActivity extends Activity {
                             );
 
                             liveItem.put(
+                                "id",
+                                entry.optString(
+                                    "id",
+                                    "live_" + i
+                                )
+                            );
+
+                            liveItem.put(
                                 "title",
                                 entry.optString(
                                     "title",
@@ -595,7 +606,10 @@ public class MainActivity extends Activity {
 
                             liveItem.put(
                                 "category",
-                                "Live TV"
+                                entry.optString(
+                                    "category",
+                                    "Live TV"
+                                )
                             );
 
                             liveItem.put(
@@ -610,17 +624,42 @@ public class MainActivity extends Activity {
 
                             liveItem.put(
                                 "poster",
-                                ""
+                                entry.optString(
+                                    "poster",
+                                    ""
+                                )
                             );
 
                             liveItem.put(
                                 "backdrop",
-                                ""
+                                entry.optString(
+                                    "backdrop",
+                                    ""
+                                )
                             );
 
                             liveItem.put(
                                 "lang",
-                                ""
+                                entry.optString(
+                                    "lang",
+                                    "Live"
+                                )
+                            );
+
+                            liveItem.put(
+                                "current_program",
+                                entry.optString(
+                                    "current_program",
+                                    ""
+                                )
+                            );
+
+                            liveItem.put(
+                                "next_program",
+                                entry.optString(
+                                    "next_program",
+                                    ""
+                                )
                             );
 
                             liveItem.put(
@@ -643,9 +682,10 @@ public class MainActivity extends Activity {
                                 ""
                             );
 
-                            data.add(
-                                new Item(liveItem)
-                            );
+                            Item liveChannel = new Item(liveItem);
+
+                            liveChannels.add(liveChannel);
+                            data.add(liveChannel);
 
                             android.util.Log.d(
                                 "GAMA_LIVE",
@@ -819,120 +859,91 @@ public class MainActivity extends Activity {
         String name,
         String streamUrl
     ) {
-        if (
-            name == null ||
-            name.trim().isEmpty() ||
-            streamUrl == null ||
-            streamUrl.trim().isEmpty()
-        ) {
+        if (name == null || name.trim().isEmpty()
+                || streamUrl == null || streamUrl.trim().isEmpty()) {
             return;
         }
 
-        Set<String> channels =
-            new HashSet<>(
-                prefs.getStringSet(
-                    "live_channels",
-                    new HashSet<>()
-                )
-            );
+        String cleanName = name.trim();
+        String cleanUrl = streamUrl.trim();
 
-        channels.add(
-            name.trim() + "||" +
-            streamUrl.trim()
+        Set<String> channels = new HashSet<>(
+            prefs.getStringSet(
+                "live_channels",
+                new HashSet<>()
+            )
         );
 
+        channels.add(cleanName + "||" + cleanUrl);
+
         prefs.edit()
-            .putStringSet(
-                "live_channels",
-                channels
-            )
+            .putStringSet("live_channels", channels)
             .apply();
     }
 
     void loadLiveChannels() {
-
         liveChannels.clear();
 
-        Set<String> channels =
+        Set<String> savedChannels = new HashSet<>(
             prefs.getStringSet(
                 "live_channels",
                 new HashSet<>()
-            );
+            )
+        );
 
-        for (String entry : channels) {
+        Set<String> validChannels = new HashSet<>();
 
-            // Reject old demo/test channels
-            String lowerEntry = entry.toLowerCase();
-
-            if (
-                lowerEntry.contains("test channel") ||
-                lowerEntry.contains("bigbuckbunny") ||
-                lowerEntry.contains("exoplayer-test-media") ||
-                lowerEntry.contains("storage.googleapis.com/exoplayer")
-            ) {
-                channels.remove(entry);
-                prefs.edit()
-                    .putStringSet(
-                        "live_channels",
-                        new HashSet<>(channels)
-                    )
-                    .apply();
+        for (String entry : savedChannels) {
+            if (entry == null || entry.trim().isEmpty()) {
                 continue;
             }
 
-            String[] parts =
-                entry.split(
-                    "\\|\\|",
-                    2
-                );
+            String lowerEntry = entry.toLowerCase(Locale.ROOT);
+
+            if (lowerEntry.contains("test channel")
+                    || lowerEntry.contains("bigbuckbunny")
+                    || lowerEntry.contains("exoplayer-test-media")
+                    || lowerEntry.contains("storage.googleapis.com/exoplayer")) {
+                continue;
+            }
+
+            String[] parts = entry.split("\\|\\|", 2);
 
             if (parts.length < 2) {
                 continue;
             }
 
+            String channelName = parts[0].trim();
+            String streamUrl = parts[1].trim();
+
+            if (channelName.isEmpty() || streamUrl.isEmpty()) {
+                continue;
+            }
+
             try {
+                JSONObject o = new JSONObject();
 
-                JSONObject o =
-                    new JSONObject();
+                o.put("id", "local_" + Math.abs(
+                    (channelName + "||" + streamUrl).hashCode()
+                ));
+                o.put("title", channelName);
+                o.put("kind", "Live");
+                o.put("lang", "Live");
+                o.put("genre", "Live TV");
+                o.put("category", "Live TV");
+                o.put("rating", "LIVE");
+                o.put("video_url", streamUrl);
+                o.put("authorized", true);
 
-                o.put(
-                    "title",
-                    parts[0]
-                );
-
-                o.put(
-                    "kind",
-                    "Live TV"
-                );
-
-                o.put(
-                    "lang",
-                    "Live"
-                );
-
-                o.put(
-                    "genre",
-                    "Live TV"
-                );
-
-                o.put(
-                    "rating",
-                    "LIVE"
-                );
-
-                o.put(
-                    "video_url",
-                    parts[1]
-                );
-
-                Item channel =
-                    new Item(o);
-
-                liveChannels.add(channel);
-
-            } catch (Exception e) {
+                liveChannels.add(new Item(o));
+                validChannels.add(entry);
+            } catch (Exception ignored) {
             }
         }
+
+        prefs.edit()
+            .putStringSet("live_channels", validChannels)
+            .apply();
     }
 
     void loadMyList() {
@@ -1270,10 +1281,14 @@ continueWatching();
 
 
     void liveTvRail() {
-
         if (liveChannels.size() == 0) {
             return;
         }
+
+        LinearLayout header = new LinearLayout(this);
+        header.setOrientation(LinearLayout.HORIZONTAL);
+        header.setGravity(Gravity.CENTER_VERTICAL);
+        header.setPadding(18, 18, 12, 8);
 
         TextView heading = tv(
             "🔴 Live TV",
@@ -1282,112 +1297,79 @@ continueWatching();
             true
         );
 
-        heading.setPadding(
-            18,
-            20,
-            18,
-            10
+        header.addView(
+            heading,
+            new LinearLayout.LayoutParams(0, -2, 1)
         );
 
-        current.addView(heading);
+        Button all = btn("VIEW ALL");
+        all.setOnClickListener(v -> liveTvManager());
+        header.addView(all);
 
-        HorizontalScrollView scroll =
-            new HorizontalScrollView(this);
+        current.addView(header);
 
+        HorizontalScrollView scroll = new HorizontalScrollView(this);
         scroll.setHorizontalScrollBarEnabled(false);
 
-        LinearLayout row =
-            new LinearLayout(this);
-
-        row.setOrientation(
-            LinearLayout.HORIZONTAL
-        );
-
-        row.setPadding(
-            12,
-            0,
-            12,
-            15
-        );
-
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setPadding(12, 0, 12, 15);
         scroll.addView(row);
 
         for (Item x : liveChannels) {
+            LinearLayout card = new LinearLayout(this);
+            card.setOrientation(LinearLayout.VERTICAL);
+            card.setPadding(6, 0, 6, 0);
+            card.setBackgroundColor(CARD);
 
-            LinearLayout card =
-                new LinearLayout(this);
-
-            card.setOrientation(
-                LinearLayout.VERTICAL
-            );
-
-            card.setPadding(
-                6,
-                0,
-                6,
-                0
-            );
-
-            ImageView poster =
-                new ImageView(this);
-
-            loadPoster(
-                poster,
-                x.poster,
-                x.backdrop
-            );
-
-            poster.setScaleType(
-                ImageView.ScaleType.CENTER_CROP
-            );
+            ImageView poster = new ImageView(this);
+            loadPoster(poster, x.poster, x.backdrop);
+            poster.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
             card.addView(
                 poster,
-                new LinearLayout.LayoutParams(
-                    dp(120),
-                    dp(150)
-                )
+                new LinearLayout.LayoutParams(dp(132), dp(92))
             );
 
-            TextView name =
-                tv(
-                    "🔴 " + x.title,
-                    12,
-                    WHITE,
-                    true
-                );
-
-            name.setPadding(
-                4,
-                6,
-                4,
-                0
+            TextView name = tv(
+                "🔴 " + x.title,
+                13,
+                WHITE,
+                true
             );
+            name.setSingleLine(true);
+            name.setEllipsize(TextUtils.TruncateAt.END);
+            name.setPadding(6, 7, 6, 2);
 
             card.addView(
                 name,
-                new LinearLayout.LayoutParams(
-                    dp(120),
-                    dp(35)
-                )
+                new LinearLayout.LayoutParams(dp(132), dp(34))
             );
 
-            card.setOnClickListener(
-                v -> watchMovie(x)
+            TextView meta = tv(
+                x.lang == null || x.lang.trim().isEmpty()
+                    ? "LIVE NOW"
+                    : "LIVE • " + x.lang,
+                10,
+                MUTED,
+                false
             );
+            meta.setPadding(6, 0, 6, 6);
+            card.addView(
+                meta,
+                new LinearLayout.LayoutParams(dp(132), dp(25))
+            );
+
+            card.setOnClickListener(v -> watchMovie(x));
 
             row.addView(card);
         }
 
         current.addView(
             scroll,
-            new LinearLayout.LayoutParams(
-                -1,
-                dp(210)
-            )
+            new LinearLayout.LayoutParams(-1, dp(170))
         );
     }
-
 
     void continueWatching() {
 
@@ -2170,82 +2152,546 @@ continueWatching();
 
         brandBar();
 
-        searchBar();
-
-        current.addView(
+        TextView heading =
             tv(
-                "Web Series",
-                25,
+                "🔴 LIVE TV",
+                26,
                 WHITE,
                 true
-            ),
+            );
+
+        heading.setPadding(
+            dp(16),
+            dp(16),
+            dp(16),
+            dp(8)
+        );
+
+        current.addView(heading);
+
+        TextView sub =
+            tv(
+                "Watch your authorized live channels",
+                14,
+                MUTED,
+                false
+            );
+
+        sub.setPadding(
+            dp(16),
+            0,
+            dp(16),
+            dp(16)
+        );
+
+        current.addView(sub);
+
+        EditText search =
+            new EditText(this);
+
+        search.setHint(
+            "Search live channels..."
+        );
+
+        search.setTextColor(WHITE);
+
+        search.setHintTextColor(MUTED);
+
+        search.setSingleLine(true);
+
+        search.setPadding(
+            dp(16),
+            0,
+            dp(16),
+            0
+        );
+
+        current.addView(
+            search,
             new LinearLayout.LayoutParams(
                 -1,
-                58
+                dp(55)
+            )
+        );
+
+        LinearLayout channelContainer =
+            new LinearLayout(this);
+
+        channelContainer.setOrientation(
+            LinearLayout.VERTICAL
+        );
+
+        current.addView(
+            channelContainer,
+            new LinearLayout.LayoutParams(
+                -1,
+                -2
+            )
+        );
+
+        ArrayList<Item> liveItems =
+            new ArrayList<>();
+
+        synchronized (data) {
+
+            for (Item x : data) {
+
+                if (
+                    "Live".equals(x.kind)
+                ) {
+
+                    liveItems.add(x);
+
+                }
+            }
+        }
+
+        LinearLayout categories =
+            new LinearLayout(this);
+
+        categories.setOrientation(
+            LinearLayout.HORIZONTAL
+        );
+
+        categories.setPadding(
+            dp(12),
+            dp(12),
+            dp(12),
+            dp(12)
+        );
+
+        Button allBtn =
+            btn("ALL");
+
+        Button hindiBtn =
+            btn("HINDI");
+
+        Button englishBtn =
+            btn("ENGLISH");
+
+        Button regionalBtn =
+            btn("REGIONAL");
+
+        categories.addView(
+            allBtn,
+            new LinearLayout.LayoutParams(
+                0,
+                dp(48),
+                1
+            )
+        );
+
+        categories.addView(
+            hindiBtn,
+            new LinearLayout.LayoutParams(
+                0,
+                dp(48),
+                1
+            )
+        );
+
+        categories.addView(
+            englishBtn,
+            new LinearLayout.LayoutParams(
+                0,
+                dp(48),
+                1
+            )
+        );
+
+        categories.addView(
+            regionalBtn,
+            new LinearLayout.LayoutParams(
+                0,
+                dp(48),
+                1
             )
         );
 
         current.addView(
+            categories
+        );
+
+        final String[] selectedCategory =
+            {"ALL"};
+
+        Runnable renderChannels =
+            new Runnable() {
+
+                @Override
+                public void run() {
+
+                    channelContainer.removeAllViews();
+
+                    String query =
+                        search.getText()
+                        .toString()
+                        .trim()
+                        .toLowerCase();
+
+                    boolean found = false;
+
+                    for (Item x : liveItems) {
+
+                        String lang =
+                            x.lang == null
+                            ? ""
+                            : x.lang;
+
+                        String category =
+                            x.category == null
+                            ? ""
+                            : x.category;
+
+                        String title =
+                            x.title == null
+                            ? ""
+                            : x.title;
+
+                        boolean categoryMatch =
+                            selectedCategory[0]
+                            .equals("ALL");
+
+                        if (
+                            selectedCategory[0]
+                            .equals("HINDI")
+                        ) {
+
+                            categoryMatch =
+                                lang.toLowerCase()
+                                .contains("hindi")
+                                ||
+                                category.toLowerCase()
+                                .contains("hindi");
+
+                        }
+
+                        if (
+                            selectedCategory[0]
+                            .equals("ENGLISH")
+                        ) {
+
+                            categoryMatch =
+                                lang.toLowerCase()
+                                .contains("english")
+                                ||
+                                category.toLowerCase()
+                                .contains("english");
+
+                        }
+
+                        if (
+                            selectedCategory[0]
+                            .equals("REGIONAL")
+                        ) {
+
+                            categoryMatch =
+                                !lang.toLowerCase()
+                                .contains("hindi")
+                                &&
+                                !lang.toLowerCase()
+                                .contains("english");
+
+                        }
+
+                        boolean searchMatch =
+                            query.isEmpty()
+                            ||
+                            title.toLowerCase()
+                            .contains(query)
+                            ||
+                            lang.toLowerCase()
+                            .contains(query)
+                            ||
+                            category.toLowerCase()
+                            .contains(query);
+
+                        if (
+                            categoryMatch &&
+                            searchMatch
+                        ) {
+
+                            liveChannelCard(
+                                channelContainer,
+                                x
+                            );
+
+                            found = true;
+
+                        }
+                    }
+
+                    if (!found) {
+
+                        TextView empty =
+                            tv(
+                                "No live channels available",
+                                16,
+                                MUTED,
+                                false
+                            );
+
+                        empty.setPadding(
+                            dp(20),
+                            dp(30),
+                            dp(20),
+                            dp(30)
+                        );
+
+                        channelContainer.addView(
+                            empty
+                        );
+
+                    }
+                }
+            };
+
+        renderChannels.run();
+
+        allBtn.setOnClickListener(v -> {
+
+            selectedCategory[0] = "ALL";
+
+            renderChannels.run();
+
+        });
+
+        hindiBtn.setOnClickListener(v -> {
+
+            selectedCategory[0] = "HINDI";
+
+            renderChannels.run();
+
+        });
+
+        englishBtn.setOnClickListener(v -> {
+
+            selectedCategory[0] = "ENGLISH";
+
+            renderChannels.run();
+
+        });
+
+        regionalBtn.setOnClickListener(v -> {
+
+            selectedCategory[0] = "REGIONAL";
+
+            renderChannels.run();
+
+        });
+
+        search.addTextChangedListener(
+            new TextWatcher() {
+
+                @Override
+                public void beforeTextChanged(
+                    CharSequence s,
+                    int start,
+                    int count,
+                    int after
+                ) {
+                }
+
+                @Override
+                public void onTextChanged(
+                    CharSequence s,
+                    int start,
+                    int before,
+                    int count
+                ) {
+
+                    renderChannels.run();
+
+                }
+
+                @Override
+                public void afterTextChanged(
+                    Editable s
+                ) {
+                }
+            }
+        );
+    }
+
+
+    void liveChannelCard(
+        LinearLayout parent,
+        Item x
+    ) {
+
+        LinearLayout card =
+            new LinearLayout(this);
+
+        card.setOrientation(
+            LinearLayout.HORIZONTAL
+        );
+
+        card.setGravity(
+            Gravity.CENTER_VERTICAL
+        );
+
+        card.setPadding(
+            dp(12),
+            dp(12),
+            dp(12),
+            dp(12)
+        );
+
+        card.setBackground(
+            shape(
+                CARD,
+                18
+            )
+        );
+
+        LinearLayout.LayoutParams cardParams =
+            new LinearLayout.LayoutParams(
+                -1,
+                dp(90)
+            );
+
+        cardParams.setMargins(
+            dp(12),
+            dp(6),
+            dp(12),
+            dp(6)
+        );
+
+        ImageView logo =
+            new ImageView(this);
+
+        loadPoster(
+            logo,
+            x.poster,
+            x.backdrop
+        );
+
+        logo.setScaleType(
+            ImageView.ScaleType.CENTER_CROP
+        );
+
+        card.addView(
+            logo,
+            new LinearLayout.LayoutParams(
+                dp(110),
+                dp(66)
+            )
+        );
+
+        LinearLayout info =
+            new LinearLayout(this);
+
+        info.setOrientation(
+            LinearLayout.VERTICAL
+        );
+
+        info.setPadding(
+            dp(14),
+            0,
+            dp(8),
+            0
+        );
+
+        TextView live =
             tv(
-                "🔴 Live TV Channels",
-                22,
+                "🔴 LIVE",
+                11,
                 Color.RED,
                 true
-            ),
-            new LinearLayout.LayoutParams(
-                -1,
-                58
-            )
-        );
-
-        boolean liveFound = false;
-
-        for (Item x : data) {
-
-            if (
-                x.kind.equals("Live")
-            ) {
-
-                full(x);
-                liveFound = true;
-            }
-        }
-
-        if (!liveFound) {
-
-            current.addView(
-                tv(
-                    "No live channels available.",
-                    14,
-                    MUTED,
-                    false
-                )
             );
-        }
 
-        current.addView(
+        info.addView(live);
+
+        TextView title =
             tv(
-                "Web Series",
-                25,
+                x.title,
+                18,
                 WHITE,
                 true
-            ),
-            new LinearLayout.LayoutParams(
-                -1,
-                58
+            );
+
+        title.setSingleLine(true);
+
+        title.setEllipsize(
+            TextUtils.TruncateAt.END
+        );
+
+        info.addView(title);
+
+        String channelInfo = "";
+
+        if (
+            x.lang != null &&
+            !x.lang.trim().isEmpty()
+        ) {
+
+            channelInfo = x.lang;
+
+        }
+
+        if (
+            x.category != null &&
+            !x.category.trim().isEmpty()
+        ) {
+
+            if (
+                !channelInfo.isEmpty()
+            ) {
+
+                channelInfo += " • ";
+
+            }
+
+            channelInfo += x.category;
+
+        }
+
+        info.addView(
+            tv(
+                channelInfo,
+                12,
+                MUTED,
+                false
             )
         );
 
-        for (Item x : data) {
+        card.addView(
+            info,
+            new LinearLayout.LayoutParams(
+                0,
+                -1,
+                1
+            )
+        );
 
-            if (
-                x.kind.equals("Series")
-            ) {
+        TextView play =
+            tv(
+                "▶",
+                28,
+                ACCENT,
+                true
+            );
 
-                full(x);
-            }
-        }
+        card.addView(
+            play,
+            new LinearLayout.LayoutParams(
+                dp(50),
+                -1
+            )
+        );
+
+        card.setOnClickListener(v -> {
+
+            watchMovie(x);
+
+        });
+
+        parent.addView(
+            card,
+            cardParams
+        );
     }
+
 
     void genre(String g) {
 
@@ -2436,179 +2882,261 @@ continueWatching();
 
 
     void liveTvManager() {
-
         base();
 
-        TextView title = tv(
-            "Live TV Manager",
-            22,
-            WHITE,
-            true
-        );
+        LinearLayout header = new LinearLayout(this);
+        header.setOrientation(LinearLayout.HORIZONTAL);
+        header.setGravity(Gravity.CENTER_VERTICAL);
+        header.setPadding(18, 16, 12, 8);
 
-        title.setPadding(
-            20, 20, 20, 20
-        );
+        TextView title = tv("🔴 Live TV", 22, WHITE, true);
+        header.addView(title, new LinearLayout.LayoutParams(0, -2, 1));
 
-        current.addView(title);
+        Button refresh = btn("REFRESH");
+        refresh.setOnClickListener(v -> {
+            Toast.makeText(
+                this,
+                "Refreshing Live TV...",
+                Toast.LENGTH_SHORT
+            ).show();
+            loadLiveFromApi(true);
+        });
+        header.addView(refresh);
+
+        current.addView(header);
 
         TextView help = tv(
-            "Add your authorized Live TV stream URL",
+            "Authorized Live TV channels • tap a channel to play",
             14,
             MUTED,
             false
         );
-
-        help.setPadding(
-            20, 0, 20, 20
-        );
-
+        help.setPadding(20, 0, 20, 16);
         current.addView(help);
 
-        EditText nameInput =
-            new EditText(this);
-
-        nameInput.setHint(
-            "Channel Name"
-        );
-
+        EditText nameInput = new EditText(this);
+        nameInput.setHint("Channel Name");
         current.addView(nameInput);
 
-        EditText urlInput =
-            new EditText(this);
-
-        urlInput.setHint(
-            "Live Stream URL"
-        );
-
-        urlInput.setSingleLine(false);
-
+        EditText urlInput = new EditText(this);
+        urlInput.setHint("Authorized Live Stream URL");
+        urlInput.setSingleLine(true);
         current.addView(urlInput);
 
-        Button saveButton =
-            btn("SAVE LIVE CHANNEL");
-
+        Button saveButton = btn("SAVE LOCAL CHANNEL");
         saveButton.setOnClickListener(v -> {
+            String name = nameInput.getText().toString().trim();
+            String url = urlInput.getText().toString().trim();
 
-            String name =
-                nameInput.getText()
-                    .toString()
-                    .trim();
-
-            String url =
-                urlInput.getText()
-                    .toString()
-                    .trim();
-
-            if (
-                name.isEmpty() ||
-                url.isEmpty()
-            ) {
-
+            if (name.isEmpty() || url.isEmpty()) {
                 Toast.makeText(
                     this,
                     "Enter channel name and stream URL",
                     Toast.LENGTH_SHORT
                 ).show();
-
                 return;
             }
 
-            addLiveChannel(
-                name,
-                url
-            );
-
+            addLiveChannel(name, url);
             loadLiveChannels();
-
+            nameInput.setText("");
+            urlInput.setText("");
             Toast.makeText(
                 this,
                 "Live channel saved",
-                Toast.LENGTH_LONG
+                Toast.LENGTH_SHORT
             ).show();
-
-            nameInput.setText("");
-            urlInput.setText("");
+            liveTvManager();
         });
 
         current.addView(saveButton);
 
-        loadLiveChannels();
-
         TextView savedTitle = tv(
-            "SAVED LIVE CHANNELS",
+            "AVAILABLE LIVE CHANNELS",
             18,
             WHITE,
             true
         );
-
-        savedTitle.setPadding(
-            20, 30, 20, 15
-        );
-
+        savedTitle.setPadding(20, 28, 20, 12);
         current.addView(savedTitle);
 
         if (liveChannels.size() == 0) {
+            loadLiveChannels();
+        }
 
+        if (liveChannels.size() == 0) {
             TextView empty = tv(
-                "No Live TV channels saved",
+                "No authorized Live TV channels available. Tap REFRESH.",
                 14,
                 MUTED,
                 false
             );
-
-            empty.setPadding(
-                20, 10, 20, 20
-            );
-
+            empty.setPadding(20, 10, 20, 20);
             current.addView(empty);
-
         } else {
-
             for (Item x : liveChannels) {
+                LinearLayout row = new LinearLayout(this);
+                row.setOrientation(LinearLayout.HORIZONTAL);
+                row.setGravity(Gravity.CENTER_VERTICAL);
+                row.setPadding(16, 10, 16, 10);
+                row.setBackgroundColor(PANEL);
 
-                LinearLayout row =
-                    new LinearLayout(this);
-
-                row.setOrientation(
-                    LinearLayout.HORIZONTAL
+                ImageView logo = new ImageView(this);
+                loadPoster(logo, x.poster, x.backdrop);
+                logo.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                row.addView(
+                    logo,
+                    new LinearLayout.LayoutParams(dp(76), dp(54))
                 );
 
-                row.setPadding(
-                    20, 10, 20, 10
-                );
+                LinearLayout info = new LinearLayout(this);
+                info.setOrientation(LinearLayout.VERTICAL);
+                info.setPadding(12, 0, 8, 0);
 
-                TextView channelName =
-                    tv(
-                        "📺 " + x.title,
-                        16,
-                        WHITE,
-                        true
-                    );
+                TextView channelName = tv(
+                    "🔴 " + x.title,
+                    16,
+                    WHITE,
+                    true
+                );
+                info.addView(channelName);
+
+                String metaText =
+                    (x.lang == null || x.lang.isEmpty() ? "LIVE" : x.lang)
+                    + " • "
+                    + (x.category == null || x.category.isEmpty()
+                        ? "Live TV" : x.category);
+
+                info.addView(
+                    tv(metaText, 12, MUTED, false)
+                );
 
                 row.addView(
-                    channelName,
-                    new LinearLayout.LayoutParams(
-                        0,
-                        -2,
-                        1
-                    )
+                    info,
+                    new LinearLayout.LayoutParams(0, -2, 1)
                 );
 
-                Button play =
-                    btn("PLAY");
-
-                play.setOnClickListener(
-                    v -> watchMovie(x)
-                );
-
+                Button play = btn("PLAY");
+                play.setOnClickListener(v -> watchMovie(x));
                 row.addView(play);
 
-                current.addView(row);
+                row.setOnClickListener(v -> watchMovie(x));
+
+                LinearLayout.LayoutParams rp =
+                    new LinearLayout.LayoutParams(-1, dp(76));
+                rp.setMargins(10, 4, 10, 4);
+                current.addView(row, rp);
             }
+        }
+
+        // If there are no local channels, fetch the server catalog automatically.
+        if (liveChannels.size() == 0) {
+            loadLiveFromApi(true);
         }
     }
 
+    void loadLiveFromApi(boolean returnToLiveScreen) {
+        new Thread(() -> {
+            HttpURLConnection conn = null;
+
+            try {
+                String apiUrl =
+                    "https://gama-aala-v11.onrender.com/api/live";
+
+                conn = (HttpURLConnection)
+                    new URL(apiUrl).openConnection();
+
+                conn.setRequestMethod("GET");
+                conn.setConnectTimeout(10000);
+                conn.setReadTimeout(15000);
+
+                InputStream input = conn.getInputStream();
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+                byte[] buffer = new byte[4096];
+                int count;
+
+                while ((count = input.read(buffer)) != -1) {
+                    output.write(buffer, 0, count);
+                }
+
+                input.close();
+
+                JSONObject root =
+                    new JSONObject(output.toString("UTF-8"));
+                JSONArray live = root.optJSONArray("live");
+
+                ArrayList<Item> remote = new ArrayList<>();
+
+                if (live != null) {
+                    for (int i = 0; i < live.length(); i++) {
+                        JSONObject entry = live.getJSONObject(i);
+
+                        String url = entry.optString("video_url", "").trim();
+                        if (url.isEmpty()
+                                || !entry.optBoolean("authorized", false)) {
+                            continue;
+                        }
+
+                        JSONObject o = new JSONObject();
+                        o.put("id", entry.optString(
+                            "id", "live_" + i
+                        ));
+                        o.put("title", entry.optString(
+                            "title", "Live Channel"
+                        ));
+                        o.put("kind", "Live");
+                        o.put("lang", entry.optString("lang", "Live"));
+                        o.put("genre", "Live TV");
+                        o.put("category", entry.optString(
+                            "category", "Live TV"
+                        ));
+                        o.put("rating", "LIVE");
+                        o.put("video_url", url);
+                        o.put("poster", entry.optString("poster", ""));
+                        o.put("backdrop", entry.optString("backdrop", ""));
+                        o.put("current_program",
+                            entry.optString("current_program", ""));
+                        o.put("next_program",
+                            entry.optString("next_program", ""));
+                        o.put("authorized", true);
+
+                        remote.add(new Item(o));
+                    }
+                }
+
+                runOnUiThread(() -> {
+                    liveChannels.clear();
+                    liveChannels.addAll(remote);
+
+                    if (returnToLiveScreen) {
+                        liveTvManager();
+                    } else {
+                        home();
+                    }
+
+                    Toast.makeText(
+                        this,
+                        remote.size() + " live channels loaded",
+                        Toast.LENGTH_SHORT
+                    ).show();
+                });
+
+            } catch (Exception e) {
+                runOnUiThread(() ->
+                    Toast.makeText(
+                        this,
+                        "Live TV server unavailable",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                );
+            } finally {
+                if (conn != null) {
+                    conn.disconnect();
+                }
+            }
+        }).start();
+    }
 
     void adminContentManager() {
 
@@ -3152,7 +3680,7 @@ continueWatching();
 
     String getVideoSource(Item x) {
 
-        // Only authorized real video source
+        // Agar custom videoUrl diya hai toh use karo
         if (
             x.videoUrl != null &&
             !x.videoUrl.trim().isEmpty()
@@ -3160,8 +3688,22 @@ continueWatching();
             return x.videoUrl.trim();
         }
 
-        // No demo fallback
-        return null;
+        // Warna vidsrc embed URL banao
+        if (x.tmdbId <= 0) {
+            return null;
+        }
+
+        if (
+            "Series".equals(x.kind) ||
+            "TV".equals(x.kind) ||
+            "Web Series".equals(x.kind)
+        ) {
+            return "https://vidsrc.to/embed/tv/"
+                + x.tmdbId + "/1/1";
+        } else {
+            return "https://vidsrc.to/embed/movie/"
+                + x.tmdbId;
+        }
     }
 
     void watchTrailer(Item x) {
@@ -3191,6 +3733,11 @@ continueWatching();
 
 
     void releaseActivePlayer() {
+        if (activeWebPlayer != null) {
+            activeWebPlayer.loadUrl("about:blank");
+            activeWebPlayer.destroy();
+            activeWebPlayer = null;
+        }
 
         if (resumeSaver != null) {
             resumeHandler.removeCallbacks(resumeSaver);
@@ -3233,7 +3780,75 @@ continueWatching();
         activeVideoKey = null;
     }
 
+
+    void watchMovieWebView(Item x) {
+        releaseActivePlayer();
+
+        String sourceUrl = getVideoSource(x);
+        if (sourceUrl == null || sourceUrl.trim().isEmpty()) {
+            Toast.makeText(this, "Video source not available for this content", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        base();
+
+        LinearLayout top = new LinearLayout(this);
+        top.setGravity(Gravity.CENTER_VERTICAL);
+        top.setPadding(12, 8, 12, 8);
+
+        Button back = btn("\u2039");
+        back.setTextSize(28);
+        back.setTextColor(WHITE);
+        back.setOnClickListener(v -> {
+            releaseActivePlayer();
+            details(x);
+        });
+        top.addView(back, new LinearLayout.LayoutParams(dp(60), dp(54)));
+
+        TextView title = tv(x.title, 18, WHITE, true);
+        title.setSingleLine(true);
+        title.setEllipsize(TextUtils.TruncateAt.END);
+        top.addView(title, new LinearLayout.LayoutParams(0, dp(54), 1));
+
+        current.addView(top, new LinearLayout.LayoutParams(-1, dp(70)));
+
+        FrameLayout playerContainer = new FrameLayout(this);
+        playerContainer.setBackgroundColor(Color.BLACK);
+
+        WebView webPlayer = new WebView(this);
+        webPlayer.setBackgroundColor(Color.BLACK);
+
+        WebSettings ws = webPlayer.getSettings();
+        ws.setJavaScriptEnabled(true);
+        ws.setDomStorageEnabled(true);
+        ws.setMediaPlaybackRequiresUserGesture(false);
+        ws.setLoadWithOverviewMode(true);
+        ws.setUseWideViewPort(true);
+
+        android.webkit.CookieManager.getInstance().setAcceptCookie(true);
+        android.webkit.CookieManager.getInstance().setAcceptThirdPartyCookies(webPlayer, true);
+
+        webPlayer.setWebViewClient(new WebViewClient());
+        webPlayer.setWebChromeClient(new WebChromeClient());
+
+        webPlayer.loadUrl(sourceUrl);
+
+        playerContainer.addView(webPlayer, new FrameLayout.LayoutParams(-1, -1));
+
+        current.addView(playerContainer, new LinearLayout.LayoutParams(-1, 0, 1));
+
+        activeWebPlayer = webPlayer;
+    }
+
     void watchMovie(Item x) {
+        boolean isLive =
+            "Live".equals(x.kind)
+            || "Live TV".equals(x.kind);
+
+        if (!isLive) {
+            watchMovieWebView(x);
+            return;
+        }
 
         String sourceUrl = getVideoSource(x);
 
@@ -3669,11 +4284,24 @@ continueWatching();
 
             playerView.setPlayer(player);
 
+            android.net.Uri mediaUri =
+                android.net.Uri.parse(sourceUrl);
+
             androidx.media3.common.MediaItem mediaItem =
                 androidx.media3.common.MediaItem
-                    .fromUri(
-                        android.net.Uri.parse(sourceUrl)
-                    );
+                    .fromUri(mediaUri);
+
+            String lowerSource = sourceUrl.toLowerCase(Locale.ROOT);
+
+            if (lowerSource.contains(".m3u8")) {
+                mediaItem =
+                    new androidx.media3.common.MediaItem.Builder()
+                        .setUri(mediaUri)
+                        .setMimeType(
+                            androidx.media3.common.MimeTypes.APPLICATION_M3U8
+                        )
+                        .build();
+            }
 
             player.setMediaItem(mediaItem);
 
@@ -4920,6 +5548,31 @@ continueWatching();
             card,
             pCard
         );
+    
+
+        Button liveManager =
+            btn("LIVE TV MANAGER");
+
+        liveManager.setOnClickListener(
+            v -> liveTvManager()
+        );
+
+        current.addView(
+            liveManager
+        );
+
+
+        Button contentManager =
+            btn("CONTENT MANAGER");
+
+        contentManager.setOnClickListener(
+            v -> adminContentManager()
+        );
+
+        current.addView(
+            contentManager
+        );
+
     }
 
     @Override
