@@ -1,6 +1,43 @@
 {
   "movies": [],
   "series": [],
-  "live": [],
+  "live": [
+    {
+      "id": "dd-news",
+      "title": "DD News",
+      "video_url": "https://playhls.media.nic.in/live/ddnews/index.m3u8",
+      "lang": "Hindi",
+      "category": "News",
+      "poster": "",
+      "backdrop": "",
+      "current_program": "DD News Live",
+      "next_program": "",
+      "authorized": true
+    },
+    {
+      "id": "dd-kisan",
+      "title": "DD Kisan",
+      "video_url": "https://playhls.media.nic.in/live/ddkisan-360p/index.m3u8",
+      "lang": "Hindi",
+      "category": "Education",
+      "poster": "",
+      "backdrop": "",
+      "current_program": "DD Kisan Live",
+      "next_program": "",
+      "authorized": true
+    },
+    {
+      "id": "dd-punjabi",
+      "title": "DD Punjabi",
+      "video_url": "https://playhls.media.nic.in/live/ddpunjabi-360p/index.m3u8",
+      "lang": "Punjabi",
+      "category": "Regional",
+      "poster": "",
+      "backdrop": "",
+      "current_program": "DD Punjabi Live",
+      "next_program": "",
+      "authorized": true
+    }
+  ],
   "content": []
 }
