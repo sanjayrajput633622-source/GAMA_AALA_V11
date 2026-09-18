@@ -1,6 +1,42 @@
 {
-  "movies": [],
-  "series": [],
+  "movies": [
+    {
+      "title": "Sample Adult Movie 1",
+      "kind": "Movie",
+      "lang": "HI",
+      "genre": "Adult,Drama",
+      "category": "18+",
+      "rating": "6.5",
+      "poster": "/sample1.jpg",
+      "backdrop": "/sample1b.jpg",
+      "year": "2024",
+      "duration": "",
+      "description": "Ye sample 18+ movie hai. Real content se replace karo.",
+      "trailer": "",
+      "video_url": "",
+      "tmdb_id": 0,
+      "authorized": true
+    }
+  ],
+  "series": [
+    {
+      "title": "Sample Adult Series 1",
+      "kind": "Series",
+      "lang": "HI",
+      "genre": "Adult,Thriller",
+      "category": "18+",
+      "rating": "7.0",
+      "poster": "/sample2.jpg",
+      "backdrop": "/sample2b.jpg",
+      "year": "2024",
+      "duration": "",
+      "description": "Ye sample 18+ series hai. Real content se replace karo.",
+      "trailer": "",
+      "video_url": "",
+      "tmdb_id": 0,
+      "authorized": true
+    }
+  ],
   "live": [
     {
       "id": "dd-news",

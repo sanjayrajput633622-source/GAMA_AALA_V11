@@ -18,6 +18,19 @@ import org.json.*;
 public class MainActivity extends Activity {
 
     androidx.media3.exoplayer.ExoPlayer activePlayer;
+
+    // Voice search
+    static final int VOICE_REQUEST = 1001;
+    EditText lastSearchBox = null;
+    LinearLayout lastSearchResults = null;
+    String pendingVoiceQuery = null;
+    boolean autoPlayFirstResult = false;
+    android.speech.tts.TextToSpeech tts = null;
+    boolean ttsReady = false;
+
+    // 18+ PIN lock
+    static final String DEFAULT_PIN = "1234";
+    boolean adultUnlocked = false;
     WebView activeWebPlayer = null;
 
     // Continue Watching / Resume system
@@ -93,20 +106,228 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
+        // Force hardware volume buttons to control media stream
+        setVolumeControlStream(
+            android.media.AudioManager.STREAM_MUSIC
+        );
+
+        // Initialize TTS for voice feedback
+        tts = new android.speech.tts.TextToSpeech(this, status -> {
+            if (status == android.speech.tts.TextToSpeech.SUCCESS) {
+                try {
+                    java.util.Locale hindi = new java.util.Locale("hi", "IN");
+                    int result = tts.setLanguage(hindi);
+                    if (result == android.speech.tts.TextToSpeech.LANG_MISSING_DATA
+                        || result == android.speech.tts.TextToSpeech.LANG_NOT_SUPPORTED) {
+                        tts.setLanguage(java.util.Locale.ENGLISH);
+                    }
+                    ttsReady = true;
+                } catch (Exception ignored) {
+                    ttsReady = false;
+                }
+            }
+        });
+
         screen = findViewById(R.id.screen);
 
         prefs = getSharedPreferences("gama_aala", MODE_PRIVATE);
 
-        load();
-        loadMyList();
+        // Don't load content until language selected
+        if (prefs.getBoolean("lang_selected", false)) {
+            load();
+            loadMyList();
+        }
 
         findViewById(R.id.navHome).setOnClickListener(v -> home());
-        findViewById(R.id.navFind).setOnClickListener(v -> find());
+        findViewById(R.id.navMovies).setOnClickListener(v -> movies());
         findViewById(R.id.navTv).setOnClickListener(v -> shows());
         findViewById(R.id.navDownload).setOnClickListener(v -> downloads());
+        findViewById(R.id.navLive).setOnClickListener(v -> liveTvManager());
         findViewById(R.id.navMe).setOnClickListener(v -> profile());
 
-        home();
+        // First launch: language selection screen
+        if (!prefs.getBoolean("lang_selected", false)) {
+            languageSelection();
+        } else {
+            home();
+        }
+    }
+
+    void languageSelection() {
+        base();
+
+        LinearLayout wrap = new LinearLayout(this);
+        wrap.setOrientation(LinearLayout.VERTICAL);
+        wrap.setPadding(dp(20), dp(40), dp(20), dp(20));
+
+        // Title
+        TextView title = tv(
+            "Choose Preferred Languages",
+            26, WHITE, true
+        );
+        title.setGravity(Gravity.CENTER);
+        wrap.addView(title);
+
+        // Subtitle
+        TextView sub = tv(
+            "Select your languages for better content suggestions",
+            13, MUTED, false
+        );
+        sub.setGravity(Gravity.CENTER);
+        sub.setPadding(0, dp(10), 0, dp(30));
+        wrap.addView(sub);
+
+        // Languages list
+        String[][] langs = {
+            {"हिन्दी", "Hindi", "hi"},
+            {"English", "English", "en"},
+            {"தமிழ்", "Tamil", "ta"},
+            {"తెలుగు", "Telugu", "te"},
+            {"മലയാളം", "Malayalam", "ml"},
+            {"ಕನ್ನಡ", "Kannada", "kn"},
+            {"বাংলা", "Bengali", "bn"},
+            {"मराठी", "Marathi", "mr"},
+            {"ਪੰਜਾਬੀ", "Punjabi", "pa"},
+            {"ગુજરાતી", "Gujarati", "gu"}
+        };
+
+        java.util.HashSet<String> selected = new java.util.HashSet<>();
+        selected.add("hi"); // Default Hindi selected
+        selected.add("en"); // Default English selected
+
+        // Grid container
+        LinearLayout grid = new LinearLayout(this);
+        grid.setOrientation(LinearLayout.VERTICAL);
+
+        java.util.List<LinearLayout> langCards = new java.util.ArrayList<>();
+        java.util.List<String> langCodes = new java.util.ArrayList<>();
+
+        // 2-column rows
+        for (int i = 0; i < langs.length; i += 2) {
+            LinearLayout row = new LinearLayout(this);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout.LayoutParams rowP =
+                new LinearLayout.LayoutParams(-1, -2);
+            rowP.setMargins(0, dp(6), 0, dp(6));
+
+            for (int j = 0; j < 2 && i + j < langs.length; j++) {
+                String native_ = langs[i + j][0];
+                String english = langs[i + j][1];
+                String code = langs[i + j][2];
+
+                LinearLayout card = new LinearLayout(this);
+                card.setOrientation(LinearLayout.VERTICAL);
+                card.setGravity(Gravity.CENTER);
+                card.setPadding(dp(12), dp(18), dp(12), dp(18));
+                card.setBackground(shape(
+                    selected.contains(code) ? 0xFFFFBE37 : 0xFF1A1C22,
+                    16
+                ));
+
+                TextView nativeTv = tv(
+                    native_,
+                    22,
+                    selected.contains(code) ? 0xFF090A0E : WHITE,
+                    true
+                );
+                nativeTv.setGravity(Gravity.CENTER);
+                card.addView(nativeTv);
+
+                TextView englishTv = tv(
+                    english.toUpperCase(),
+                    11,
+                    selected.contains(code) ? 0xFF3A3A3A : 0xFFFFBE37,
+                    true
+                );
+                englishTv.setGravity(Gravity.CENTER);
+                englishTv.setPadding(0, dp(6), 0, 0);
+                card.addView(englishTv);
+
+                card.setOnClickListener(v -> {
+                    if (selected.contains(code)) {
+                        selected.remove(code);
+                        card.setBackground(shape(0xFF1A1C22, 16));
+                        nativeTv.setTextColor(WHITE);
+                        englishTv.setTextColor(0xFFFFBE37);
+                    } else {
+                        selected.add(code);
+                        card.setBackground(shape(0xFFFFBE37, 16));
+                        nativeTv.setTextColor(0xFF090A0E);
+                        englishTv.setTextColor(0xFF3A3A3A);
+                    }
+                });
+
+                langCards.add(card);
+                langCodes.add(code);
+
+                LinearLayout.LayoutParams cp =
+                    new LinearLayout.LayoutParams(0, dp(100), 1);
+                cp.setMargins(dp(6), 0, dp(6), 0);
+                row.addView(card, cp);
+            }
+
+            grid.addView(row, rowP);
+        }
+
+        wrap.addView(grid);
+
+        // Clear All button
+        LinearLayout btnRow = new LinearLayout(this);
+        btnRow.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams btnRowP =
+            new LinearLayout.LayoutParams(-1, dp(56));
+        btnRowP.setMargins(0, dp(30), 0, 0);
+
+        Button clearBtn = btn("CLEAR ALL");
+        clearBtn.setTextColor(WHITE);
+        clearBtn.setBackground(shape(0xFF2A2C34, 30));
+        clearBtn.setOnClickListener(v -> {
+            selected.clear();
+            for (int k = 0; k < langCards.size(); k++) {
+                langCards.get(k).setBackground(shape(0xFF1A1C22, 16));
+                LinearLayout c = langCards.get(k);
+                ((TextView) c.getChildAt(0)).setTextColor(WHITE);
+                ((TextView) c.getChildAt(1)).setTextColor(0xFFFFBE37);
+            }
+        });
+
+        LinearLayout.LayoutParams halfP =
+            new LinearLayout.LayoutParams(0, dp(56), 1);
+        halfP.setMargins(0, 0, dp(6), 0);
+        btnRow.addView(clearBtn, halfP);
+
+        Button continueBtn = btn("CONTINUE");
+        continueBtn.setTextColor(0xFF090A0E);
+        continueBtn.setBackground(shape(0xFFFFBE37, 30));
+        continueBtn.setOnClickListener(v -> {
+            if (selected.isEmpty()) {
+                Toast.makeText(
+                    this,
+                    "Please select at least one language",
+                    Toast.LENGTH_SHORT
+                ).show();
+                return;
+            }
+            prefs.edit()
+                .putStringSet("selected_languages", selected)
+                .putBoolean("lang_selected", true)
+                .commit();
+            Toast.makeText(
+                this,
+                selected.size() + " languages selected",
+                Toast.LENGTH_SHORT
+            ).show();
+            home();
+        });
+
+        LinearLayout.LayoutParams halfP2 =
+            new LinearLayout.LayoutParams(0, dp(56), 1);
+        halfP2.setMargins(dp(6), 0, 0, 0);
+        btnRow.addView(continueBtn, halfP2);
+
+        wrap.addView(btnRow);
+
+        current.addView(wrap);
     }
 
     void load() {
@@ -146,7 +367,7 @@ public class MainActivity extends Activity {
 
         final String path = imagePath;
 
-        if (path.startsWith("/")) {
+        if (path.startsWith("/") || path.startsWith("http")) {
 
             new Thread(() -> {
 
@@ -155,10 +376,11 @@ public class MainActivity extends Activity {
 
                 try {
 
-                    URL url = new URL(
-                        "https://image.tmdb.org/t/p/w500"
-                        + path
-                    );
+                    String fullUrl = path.startsWith("http")
+                        ? path
+                        : "https://image.tmdb.org/t/p/w500" + path;
+
+                    URL url = new URL(fullUrl);
 
                     conn =
                         (HttpURLConnection)
@@ -432,7 +654,22 @@ public class MainActivity extends Activity {
             item.put("title", title);
             item.put("kind", kind);
             item.put("lang", language.toUpperCase());
-            item.put("genre", "");
+            // Genre IDs se genre names banao
+            String genreStr = "";
+            org.json.JSONArray gids = o.optJSONArray("genre_ids");
+            if (gids != null) {
+                StringBuilder gsb = new StringBuilder();
+                for (int gi = 0; gi < gids.length(); gi++) {
+                    int gid = gids.optInt(gi, 0);
+                    String gname = tmdbGenreName(gid, kind);
+                    if (!gname.isEmpty()) {
+                        if (gsb.length() > 0) gsb.append(",");
+                        gsb.append(gname);
+                    }
+                }
+                genreStr = gsb.toString();
+            }
+            item.put("genre", genreStr);
             item.put(
                 "rating",
                 String.format(
@@ -485,6 +722,51 @@ public class MainActivity extends Activity {
         }
     }
 
+
+    String tmdbGenreName(int id, String kind) {
+        if ("Movie".equals(kind)) {
+            switch (id) {
+                case 28: return "Action";
+                case 12: return "Adventure";
+                case 16: return "Animation";
+                case 35: return "Comedy";
+                case 80: return "Crime";
+                case 99: return "Documentary";
+                case 18: return "Drama";
+                case 10751: return "Family";
+                case 14: return "Fantasy";
+                case 36: return "History";
+                case 27: return "Horror";
+                case 10402: return "Music";
+                case 9648: return "Mystery";
+                case 10749: return "Romance";
+                case 878: return "Sci-Fi";
+                case 10770: return "TV Movie";
+                case 53: return "Thriller";
+                case 10752: return "War";
+                case 37: return "Western";
+            }
+        } else {
+            switch (id) {
+                case 10759: return "Action";
+                case 16: return "Animation";
+                case 35: return "Comedy";
+                case 80: return "Crime";
+                case 99: return "Documentary";
+                case 18: return "Drama";
+                case 10751: return "Family";
+                case 10762: return "Kids";
+                case 9648: return "Mystery";
+                case 10763: return "News";
+                case 10764: return "Reality";
+                case 10765: return "Sci-Fi";
+                case 10766: return "Soap";
+                case 10767: return "Talk";
+                case 10768: return "War";
+            }
+        }
+        return "";
+    }
 
     void loadVideoCatalog() {
 
@@ -721,37 +1003,75 @@ public class MainActivity extends Activity {
                                 ""
                             );
 
+                        String title =
+                            entry.optString(
+                                "title",
+                                ""
+                            );
+
+                        String category =
+                            entry.optString(
+                                "category",
+                                ""
+                            );
+
                         boolean authorized =
                             entry.optBoolean(
                                 "authorized",
                                 false
                             );
 
-                        if (
-                            videoUrl.trim().isEmpty() ||
-                            !authorized
-                        ) {
-                            continue;
+                        // Try to match existing TMDB item
+                        boolean matched = false;
+                        for (Item item : data) {
+                            if (item.tmdbId == tmdbId && tmdbId != 0) {
+                                if (!videoUrl.trim().isEmpty()) {
+                                    item.videoUrl = videoUrl;
+                                }
+                                matched = true;
+                                break;
+                            }
                         }
 
+                        // Agar match nahi mila, toh naya item add karo
+                        // (Ye 18+ content ke liye zaroori hai)
+                        if (!matched && !title.trim().isEmpty()) {
+                            JSONObject newItem = new JSONObject();
+                            newItem.put("title", title);
+                            newItem.put("kind",
+                                entry.optString("kind", "Movie"));
+                            newItem.put("lang",
+                                entry.optString("lang", "HI"));
+                            newItem.put("genre",
+                                entry.optString("genre", ""));
+                            newItem.put("category", category);
+                            newItem.put("rating",
+                                entry.optString("rating", "0.0"));
+                            newItem.put("poster",
+                                entry.optString("poster", ""));
+                            newItem.put("backdrop",
+                                entry.optString("backdrop", ""));
+                            newItem.put("year",
+                                entry.optString("year", ""));
+                            newItem.put("duration",
+                                entry.optString("duration", ""));
+                            newItem.put("description",
+                                entry.optString("description", ""));
+                            newItem.put("trailer",
+                                entry.optString("trailer", ""));
+                            newItem.put("video_url", videoUrl);
+                            newItem.put("tmdb_id", tmdbId);
+                            newItem.put("authorized", authorized);
 
-                        for (Item item : data) {
+                            data.add(new Item(newItem));
 
-                            if (
-                                item.tmdbId == tmdbId
-                            ) {
-
-                                item.videoUrl =
-                                    videoUrl;
-
-                                android.util.Log.d(
-                                    "GAMA_API",
-                                    "VIDEO CONNECTED: "
-                                    + item.title
-                                    + " | TMDB="
-                                    + tmdbId
-                                );
-                            }
+                            android.util.Log.d(
+                                "GAMA_API",
+                                "NEW ITEM ADDED: "
+                                + title
+                                + " | Cat="
+                                + category
+                            );
                         }
                     }
                 }
@@ -1196,15 +1516,145 @@ public class MainActivity extends Activity {
         r.addView(
             e,
             new LinearLayout.LayoutParams(
-                -1,
-                dp(54)
+                0,
+                dp(54),
+                1
             )
         );
+
+        android.widget.ImageButton micBtn =
+            new android.widget.ImageButton(this);
+        micBtn.setImageResource(
+            android.R.drawable.ic_btn_speak_now
+        );
+        micBtn.setBackgroundColor(0xFFFFBE37);
+        micBtn.setOnClickListener(v -> startVoiceSearch());
+
+        LinearLayout.LayoutParams mp =
+            new LinearLayout.LayoutParams(dp(54), dp(54));
+        mp.setMargins(dp(8), 0, 0, 0);
+        r.addView(micBtn, mp);
 
         current.addView(r);
     }
 
+    void startVoiceSearch() {
+        try {
+            android.content.Intent intent =
+                new android.content.Intent(
+                    android.speech.RecognizerIntent.ACTION_RECOGNIZE_SPEECH
+                );
+            intent.putExtra(
+                android.speech.RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                android.speech.RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+            );
+            intent.putExtra(
+                android.speech.RecognizerIntent.EXTRA_LANGUAGE,
+                "hi-IN"
+            );
+            intent.putExtra(
+                android.speech.RecognizerIntent.EXTRA_PROMPT,
+                "Bolo... (Hindi/English)"
+            );
+            intent.putExtra(
+                android.speech.RecognizerIntent.EXTRA_MAX_RESULTS,
+                1
+            );
+            startActivityForResult(intent, VOICE_REQUEST);
+        } catch (Exception ex) {
+            Toast.makeText(
+                this,
+                "Voice search not available. Install Google app.",
+                Toast.LENGTH_LONG
+            ).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(
+        int requestCode, int resultCode, android.content.Intent data
+    ) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (
+            requestCode == VOICE_REQUEST &&
+            resultCode == RESULT_OK &&
+            data != null
+        ) {
+            java.util.ArrayList<String> results =
+                data.getStringArrayListExtra(
+                    android.speech.RecognizerIntent.EXTRA_RESULTS
+                );
+
+            if (results != null && results.size() > 0) {
+                String query = results.get(0).trim();
+
+                // "Chalao" / "Play" keyword detect karo
+                String lower = query.toLowerCase();
+                boolean shouldAutoPlay =
+                    lower.contains("chalao") ||
+                    lower.contains("chala") ||
+                    lower.contains("play") ||
+                    lower.contains("dikhao") ||
+                    lower.contains("sunao") ||
+                    query.contains("चलाओ") ||
+                    query.contains("चला") ||
+                    query.contains("सुनाओ") ||
+                    query.contains("दिखाओ");
+
+                // Command words hatao query se
+                String cleanQuery = query
+                    .replace("चलाओ", "")
+                    .replace("सुनाओ", "")
+                    .replace("दिखाओ", "")
+                    .replaceAll("(?i)chalao", "")
+                    .replaceAll("(?i)play", "")
+                    .replaceAll("(?i)dikhao", "")
+                    .replaceAll("(?i)sunao", "")
+                    .replaceAll("(?i)chala", "")
+                    .trim();
+
+                if (cleanQuery.isEmpty()) {
+                    cleanQuery = query;
+                }
+
+                autoPlayFirstResult = shouldAutoPlay;
+
+                Toast.makeText(
+                    this,
+                    shouldAutoPlay
+                        ? "Playing: " + cleanQuery
+                        : "Searching: " + cleanQuery,
+                    Toast.LENGTH_SHORT
+                ).show();
+
+                // TTS feedback
+                if (ttsReady && tts != null) {
+                    try {
+                        String speakText = shouldAutoPlay
+                            ? cleanQuery + " चला रहे हैं"
+                            : cleanQuery + " सर्च कर रहे हैं";
+                        tts.speak(
+                            speakText,
+                            android.speech.tts.TextToSpeech.QUEUE_FLUSH,
+                            null,
+                            "voice_" + System.currentTimeMillis()
+                        );
+                    } catch (Exception ignored) {}
+                }
+
+                pendingVoiceQuery = cleanQuery;
+                find();
+            }
+        }
+    }
+
     void home() {
+
+        // Block home() if language not selected yet
+        if (prefs != null && !prefs.getBoolean("lang_selected", false)) {
+            return;
+        }
 
         // Save currently playing video's position before opening Home
         releaseActivePlayer();
@@ -1279,6 +1729,7 @@ continueWatching();
 
         sectionGenres();
 
+        footer();
     }
 
 
@@ -1666,152 +2117,126 @@ continueWatching();
     }
 
     void hero() {
-
         if (data.size() == 0) {
             return;
         }
-
         Item x = data.get(0);
 
-        LinearLayout h =
-            new LinearLayout(this);
+        // Container with backdrop
+        android.widget.FrameLayout heroBox =
+            new android.widget.FrameLayout(this);
 
-        h.setOrientation(
-            LinearLayout.VERTICAL
+        // Backdrop image
+        ImageView backdrop = new ImageView(this);
+        backdrop.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        backdrop.setBackgroundColor(0xFF1A1C22);
+
+        String backdropUrl = x.backdrop;
+        if (backdropUrl == null || backdropUrl.trim().isEmpty()) {
+            backdropUrl = x.poster;
+        }
+        loadPoster(backdrop, backdropUrl, x.backdrop);
+
+        heroBox.addView(
+            backdrop,
+            new android.widget.FrameLayout.LayoutParams(-1, -1)
         );
 
-        h.setPadding(
-            22,20,22,18
-        );
-
-        h.setBackground(
-            shape(
-                Color.rgb(34,35,42),
-                24
-            )
-        );
-
-        h.addView(
-            tv(
-                "FEATURED ON GAMA AALA",
-                11,
-                ACCENT,
-                true
-            )
-        );
-
-        h.addView(
-            tv(
-                x.title,
-                29,
-                WHITE,
-                true
-            )
-        );
-
-        h.addView(
-            tv(
-                x.year
-                + " • "
-                + x.lang
-                + " • ★ "
-                + x.rating,
-                13,
-                MUTED,
-                false
-            )
-        );
-
-        TextView desc =
-            tv(
-                x.description,
-                13,
-                MUTED,
-                false
+        // Gradient overlay (black from bottom)
+        android.graphics.drawable.GradientDrawable gradient =
+            new android.graphics.drawable.GradientDrawable(
+                android.graphics.drawable.GradientDrawable.Orientation.BOTTOM_TOP,
+                new int[]{
+                    0xFF090A0E,
+                    0xCC090A0E,
+                    0x66090A0E,
+                    0x00090A0E
+                }
             );
+        android.view.View overlay = new android.view.View(this);
+        overlay.setBackground(gradient);
 
-        desc.setMaxLines(2);
-
-        h.addView(desc);
-
-        LinearLayout buttons =
-            new LinearLayout(this);
-
-        buttons.setPadding(
-            0,10,0,0
+        heroBox.addView(
+            overlay,
+            new android.widget.FrameLayout.LayoutParams(-1, -1)
         );
 
-        Button watch =
-            btn(
-                "▶  DETAILS"
-            );
+        // Content overlay (text + buttons)
+        LinearLayout content = new LinearLayout(this);
+        content.setOrientation(LinearLayout.VERTICAL);
+        content.setGravity(Gravity.BOTTOM);
+        content.setPadding(dp(20), dp(20), dp(20), dp(16));
 
-        watch.setTextColor(
-            Color.BLACK
+        TextView featured = tv("FEATURED ON GAMA AALA", 11, ACCENT, true);
+        featured.setLetterSpacing(0.15f);
+        content.addView(featured);
+
+        TextView title = tv(
+            x.title == null ? "Untitled" : x.title,
+            28, WHITE, true
         );
+        title.setMaxLines(2);
+        title.setEllipsize(TextUtils.TruncateAt.END);
+        title.setPadding(0, dp(4), 0, dp(6));
+        content.addView(title);
 
-        watch.setBackground(
-            shape(
-                ACCENT,
-                40
-            )
+        String meta = "";
+        if (x.year != null && !x.year.isEmpty()) meta += x.year;
+        if (x.lang != null && !x.lang.isEmpty()) {
+            if (!meta.isEmpty()) meta += " • ";
+            meta += x.lang;
+        }
+        if (x.rating != null && !x.rating.isEmpty() && !x.rating.equals("0.0")) {
+            if (!meta.isEmpty()) meta += " • ";
+            meta += "★ " + x.rating;
+        }
+        TextView metaTv = tv(meta, 12, 0xFFB0B3BD, false);
+        content.addView(metaTv);
+
+        if (x.description != null && !x.description.isEmpty()) {
+            TextView desc = tv(x.description, 12, 0xFFB0B3BD, false);
+            desc.setMaxLines(2);
+            desc.setEllipsize(TextUtils.TruncateAt.END);
+            desc.setPadding(0, dp(6), 0, dp(12));
+            content.addView(desc);
+        }
+
+        LinearLayout buttons = new LinearLayout(this);
+        buttons.setOrientation(LinearLayout.HORIZONTAL);
+
+        Button watch = btn("▶  WATCH NOW");
+        watch.setTextColor(Color.BLACK);
+        watch.setBackground(shape(ACCENT, 30));
+        watch.setPadding(dp(20), 0, dp(20), 0);
+        watch.setOnClickListener(v -> details(x));
+
+        LinearLayout.LayoutParams wp =
+            new LinearLayout.LayoutParams(dp(180), dp(46));
+        wp.setMargins(0, 0, dp(10), 0);
+        buttons.addView(watch, wp);
+
+        Button add = btn(myList.contains(x.title) ? "♥ Saved" : "+ My List");
+        add.setTextColor(WHITE);
+        add.setBackground(shape(0xFF33353F, 30));
+        add.setOnClickListener(v -> {
+            toggleMyList(x);
+            add.setText(myList.contains(x.title) ? "♥ Saved" : "+ My List");
+        });
+        buttons.addView(add, new LinearLayout.LayoutParams(dp(140), dp(46)));
+
+        content.addView(buttons);
+
+        heroBox.addView(
+            content,
+            new android.widget.FrameLayout.LayoutParams(-1, -1)
         );
-
-        watch.setOnClickListener(
-            v -> details(x)
-        );
-
-        buttons.addView(
-            watch,
-            new LinearLayout.LayoutParams(
-                dp(150),
-                dp(48)
-            )
-        );
-
-        Button add =
-            btn(
-                myList.contains(x.title)
-                ? "♥ Saved"
-                : "＋ My List"
-            );
-
-        add.setOnClickListener(
-            v -> {
-
-                toggleMyList(x);
-
-                add.setText(
-                    myList.contains(x.title)
-                    ? "♥ Saved"
-                    : "＋ My List"
-                );
-            }
-        );
-
-        buttons.addView(
-            add,
-            new LinearLayout.LayoutParams(
-                dp(130),
-                dp(48)
-            )
-        );
-
-        h.addView(buttons);
 
         LinearLayout.LayoutParams p =
-            new LinearLayout.LayoutParams(
-                -1,
-                dp(230)
-            );
+            new LinearLayout.LayoutParams(-1, dp(360));
+        p.setMargins(dp(12), dp(8), dp(12), dp(12));
 
-        p.setMargins(
-            12,8,12,12
-        );
-
-        current.addView(h,p);
+        current.addView(heroBox, p);
     }
-
 
     void railCategory(
         String title,
@@ -1954,86 +2379,93 @@ continueWatching();
         Item x
     ) {
 
-        LinearLayout c =
-            new LinearLayout(this);
+        // ===== Card container =====
+        LinearLayout c = new LinearLayout(this);
+        c.setOrientation(LinearLayout.VERTICAL);
+        c.setBackground(shape(0xFF1A1C22, 16));
+        c.setPadding(dp(6), dp(6), dp(6), dp(10));
+        c.setElevation(dp(4));
 
-        c.setOrientation(
-            LinearLayout.VERTICAL
-        );
+        // ===== Poster container (with rating badge overlay) =====
+        android.widget.FrameLayout posterBox =
+            new android.widget.FrameLayout(this);
 
-        ImageView img =
-            new ImageView(this);
+        ImageView img = new ImageView(this);
+        loadPoster(img, x.poster, x.backdrop);
+        img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        img.setClipToOutline(true);
 
-        loadPoster(
-            img,
-            x.poster,
-            x.backdrop
-        );
+        // Rounded corners on poster
+        android.graphics.drawable.GradientDrawable posterBg =
+            new android.graphics.drawable.GradientDrawable();
+        posterBg.setColor(0xFF2A2C34);
+        posterBg.setCornerRadius(dp(12));
+        img.setBackground(posterBg);
+        img.setOutlineProvider(new android.view.ViewOutlineProvider() {
+            @Override
+            public void getOutline(android.view.View v, android.graphics.Outline o) {
+                o.setRoundRect(0, 0, v.getWidth(), v.getHeight(), dp(12));
+            }
+        });
 
-        img.setScaleType(
-            ImageView.ScaleType.CENTER_CROP
-        );
+        posterBox.addView(img, new android.widget.FrameLayout.LayoutParams(-1, -1));
+
+        // Rating badge (top-right)
+        if (x.rating != null && !x.rating.isEmpty()
+            && !x.rating.equals("0.0")) {
+            TextView ratingBadge = new TextView(this);
+            ratingBadge.setText("★ " + x.rating);
+            ratingBadge.setTextSize(11);
+            ratingBadge.setTextColor(0xFF090A0E);
+            ratingBadge.setTypeface(null, android.graphics.Typeface.BOLD);
+            ratingBadge.setBackground(shape(0xFFFFBE37, 8));
+            ratingBadge.setPadding(dp(6), dp(3), dp(6), dp(3));
+
+            android.widget.FrameLayout.LayoutParams rp =
+                new android.widget.FrameLayout.LayoutParams(-2, -2);
+            rp.gravity = Gravity.TOP | Gravity.END;
+            rp.setMargins(0, dp(6), dp(6), 0);
+            posterBox.addView(ratingBadge, rp);
+        }
 
         c.addView(
-            img,
-            new LinearLayout.LayoutParams(
-                dp(118),
-                dp(168)
-            )
+            posterBox,
+            new LinearLayout.LayoutParams(dp(140), dp(200))
         );
 
-        TextView name =
-            tv(
-                x.title,
-                14,
-                WHITE,
-                true
-            );
-
-        name.setMaxLines(1);
-
-        name.setEllipsize(
-            TextUtils.TruncateAt.END
+        // ===== Title =====
+        TextView name = tv(
+            x.title == null ? "Unknown" : x.title,
+            14, WHITE, true
         );
+        name.setMaxLines(2);
+        name.setEllipsize(TextUtils.TruncateAt.END);
+        name.setPadding(dp(6), dp(8), dp(6), 0);
 
-        c.addView(
-            name,
-            new LinearLayout.LayoutParams(
-                -1,
-                dp(28)
-            )
-        );
+        LinearLayout.LayoutParams np =
+            new LinearLayout.LayoutParams(-1, -2);
+        c.addView(name, np);
 
-        c.addView(
-            tv(
-                x.year
-                + "  •  ★ "
-                + x.rating,
-                10,
-                ACCENT,
-                false
-            ),
-            new LinearLayout.LayoutParams(
-                -1,
-                dp(24)
-            )
+        // ===== Meta (year + rating) =====
+        TextView meta = tv(
+            (x.year == null ? "" : x.year),
+            11, 0xFFB0B3BD, false
         );
+        meta.setPadding(dp(6), 0, dp(6), 0);
+        c.addView(meta);
 
-        c.setOnClickListener(
-            v -> details(x)
-        );
+        // ===== Click =====
+        c.setOnClickListener(v -> details(x));
 
         LinearLayout.LayoutParams p =
             new LinearLayout.LayoutParams(
-                dp(126),
-                dp(230)
+                -2,
+                -2
             );
 
-        p.setMargins(
-            dp(3),0,dp(6),0
-        );
+        p.setMargins(dp(4), dp(4), dp(8), dp(6));
 
-        row.addView(c,p);
+        row.addView(c, p);
     }
 
     void sectionGenres() {
@@ -2047,14 +2479,14 @@ continueWatching();
             );
 
         title.setPadding(
-            18,10,0,0
+            dp(18), dp(18), dp(18), dp(10)
         );
 
         current.addView(
             title,
             new LinearLayout.LayoutParams(
                 -1,
-                56
+                -2
             )
         );
 
@@ -2079,25 +2511,32 @@ continueWatching();
             Button b =
                 btn(g);
 
-            b.setTextSize(12);
-
+            b.setTextSize(13);
             b.setTextColor(WHITE);
+            b.setAllCaps(false);
+            b.setTypeface(null, android.graphics.Typeface.BOLD);
 
             b.setBackground(
                 shape(
-                    Color.rgb(31,33,42),
+                    Color.rgb(40,42,52),
                     32
                 )
             );
 
+            b.setPadding(
+                dp(20), 0, dp(20), 0
+            );
+            b.setMinWidth(dp(70));
+            b.setMinHeight(dp(44));
+
             LinearLayout.LayoutParams p =
                 new LinearLayout.LayoutParams(
                     -2,
-                    44
+                    dp(44)
                 );
 
             p.setMargins(
-                4,2,4,2
+                dp(6), dp(2), dp(6), dp(2)
             );
 
             r.addView(b,p);
@@ -2117,405 +2556,423 @@ continueWatching();
         current.addView(hs);
     }
 
-    void movies() {
 
+    void footer() {
+        LinearLayout f = new LinearLayout(this);
+        f.setOrientation(LinearLayout.VERTICAL);
+        f.setGravity(Gravity.CENTER);
+        f.setPadding(dp(20), dp(40), dp(20), dp(40));
+
+        android.view.View divider = new android.view.View(this);
+        divider.setBackgroundColor(0xFF2A2C34);
+        LinearLayout.LayoutParams dp1 =
+            new LinearLayout.LayoutParams(dp(80), dp(1));
+        dp1.gravity = Gravity.CENTER_HORIZONTAL;
+        dp1.setMargins(0, 0, 0, dp(20));
+        f.addView(divider, dp1);
+
+        TextView appName = tv("GAMA AALA", 22, 0xFFFFBE37, true);
+        appName.setLetterSpacing(0.15f);
+        appName.setGravity(Gravity.CENTER);
+        f.addView(appName);
+
+        TextView tagline = tv(
+            "Your Entertainment, Our Passion",
+            12, 0xFF9295A0, false
+        );
+        tagline.setGravity(Gravity.CENTER);
+        tagline.setPadding(0, dp(6), 0, dp(20));
+        f.addView(tagline);
+
+        android.view.View divider2 = new android.view.View(this);
+        divider2.setBackgroundColor(0xFF2A2C34);
+        LinearLayout.LayoutParams dp2 =
+            new LinearLayout.LayoutParams(dp(40), dp(1));
+        dp2.gravity = Gravity.CENTER_HORIZONTAL;
+        dp2.setMargins(0, 0, 0, dp(16));
+        f.addView(divider2, dp2);
+
+        TextView devLabel = tv("DEVELOPED BY", 10, 0xFF6E7280, true);
+        devLabel.setLetterSpacing(0.2f);
+        devLabel.setGravity(Gravity.CENTER);
+        f.addView(devLabel);
+
+        TextView devName = tv("Sanjay Chauhan", 16, WHITE, true);
+        devName.setGravity(Gravity.CENTER);
+        devName.setPadding(0, dp(4), 0, dp(4));
+        f.addView(devName);
+
+        TextView family = tv("& (Ms Family)", 13, 0xFFFFBE37, false);
+        family.setGravity(Gravity.CENTER);
+        family.setPadding(0, 0, 0, dp(20));
+        f.addView(family);
+
+        TextView version = tv(
+            "Version 11.0  Made in India",
+            11, 0xFF6E7280, false
+        );
+        version.setGravity(Gravity.CENTER);
+        f.addView(version);
+
+        TextView copyright = tv(
+            "Copyright 2026 GAMA AALA. All rights reserved.",
+            10, 0xFF4A4D57, false
+        );
+        copyright.setGravity(Gravity.CENTER);
+        copyright.setPadding(0, dp(10), 0, 0);
+        f.addView(copyright);
+
+        LinearLayout.LayoutParams fp =
+            new LinearLayout.LayoutParams(-1, -2);
+        fp.setMargins(0, dp(20), 0, 0);
+        current.addView(f, fp);
+    }
+
+    void movies() {
         base();
 
         brandBar();
 
-        searchBar();
+        TextView heading = tv("🎬 Movies", 26, WHITE, true);
+        heading.setPadding(dp(16), dp(16), dp(16), dp(8));
+        current.addView(heading);
 
-        current.addView(
-            tv(
-                "Movies",
-                25,
-                WHITE,
-                true
-            ),
-            new LinearLayout.LayoutParams(
-                -1,
-                58
-            )
+        TextView sub = tv(
+            "Popular movies • tap to watch",
+            14, MUTED, false
         );
+        sub.setPadding(dp(16), 0, dp(16), dp(16));
+        current.addView(sub);
 
-        for (Item x : data) {
+        EditText search = new EditText(this);
+        search.setHint("Search movies...");
+        search.setTextColor(WHITE);
+        search.setHintTextColor(MUTED);
+        search.setSingleLine(true);
+        search.setBackgroundColor(0xFF1A1C22);
+        search.setPadding(dp(20), dp(14), dp(20), dp(14));
 
-            if (
-                x.kind.equals("Movie")
-            ) {
+        LinearLayout.LayoutParams sp =
+            new LinearLayout.LayoutParams(-1, dp(54));
+        sp.setMargins(dp(16), 0, dp(16), dp(12));
+        current.addView(search, sp);
 
-                full(x);
+        final ArrayList<Item> movieItems = new ArrayList<>();
+        synchronized (data) {
+            for (Item x : data) {
+                if ("Movie".equals(x.kind)) {
+                    movieItems.add(x);
+                }
             }
         }
+
+        java.util.LinkedHashMap<String, Integer> catCounts =
+            new java.util.LinkedHashMap<>();
+        catCounts.put("ALL", movieItems.size());
+
+        for (Item x : movieItems) {
+            if (x.genre == null || x.genre.trim().isEmpty()) continue;
+            String[] gs = x.genre.split(",");
+            for (String g : gs) {
+                String gen = g.trim();
+                if (gen.isEmpty()) continue;
+                catCounts.put(gen, catCounts.getOrDefault(gen, 0) + 1);
+            }
+        }
+
+        final String[] selected = {"ALL"};
+
+        android.widget.HorizontalScrollView chipScroll =
+            new android.widget.HorizontalScrollView(this);
+        chipScroll.setHorizontalScrollBarEnabled(false);
+        chipScroll.setPadding(dp(12), 4, dp(12), 12);
+
+        LinearLayout chipRow = new LinearLayout(this);
+        chipRow.setOrientation(LinearLayout.HORIZONTAL);
+        chipScroll.addView(chipRow);
+
+        LinearLayout movieContainer = new LinearLayout(this);
+        movieContainer.setOrientation(LinearLayout.VERTICAL);
+
+        java.util.List<Button> chipButtons = new java.util.ArrayList<>();
+        for (String cat : catCounts.keySet()) {
+            String label = cat + " (" + catCounts.get(cat) + ")";
+            Button chip = new Button(this);
+            chip.setText(label);
+            chip.setTextSize(13);
+            chip.setAllCaps(false);
+            chip.setPadding(30, 12, 30, 12);
+            chip.setTextColor(cat.equals("ALL") ? 0xFF090A0E : WHITE);
+            chip.setBackgroundColor(cat.equals("ALL") ? 0xFFFFBE37 : 0xFF1E2028);
+
+            LinearLayout.LayoutParams cp =
+                new LinearLayout.LayoutParams(-2, dp(44));
+            cp.setMargins(6, 0, 6, 0);
+            chip.setLayoutParams(cp);
+
+            chip.setOnClickListener(v -> {
+                selected[0] = cat;
+                for (Button b : chipButtons) {
+                    String bTxt = b.getText().toString();
+                    boolean isSel = bTxt.startsWith(cat + " (");
+                    b.setTextColor(isSel ? 0xFF090A0E : WHITE);
+                    b.setBackgroundColor(isSel ? 0xFFFFBE37 : 0xFF1E2028);
+                }
+                renderSeriesList(movieContainer, movieItems, selected[0], "");
+            });
+
+            chipButtons.add(chip);
+            chipRow.addView(chip);
+        }
+
+        current.addView(chipScroll, new LinearLayout.LayoutParams(-1, -2));
+        current.addView(movieContainer, new LinearLayout.LayoutParams(-1, 0, 1));
+
+        search.addTextChangedListener(new android.text.TextWatcher() {
+            public void afterTextChanged(android.text.Editable s) {}
+            public void beforeTextChanged(CharSequence s, int a, int b, int c) {}
+            public void onTextChanged(CharSequence s, int a, int b, int c) {
+                renderSeriesList(movieContainer, movieItems, selected[0], s.toString());
+            }
+        });
+
+        renderSeriesList(movieContainer, movieItems, "ALL", "");
     }
 
     void shows() {
-
         base();
 
         brandBar();
 
-        TextView heading =
-            tv(
-                "🔴 LIVE TV",
-                26,
-                WHITE,
-                true
-            );
-
-        heading.setPadding(
-            dp(16),
-            dp(16),
-            dp(16),
-            dp(8)
-        );
-
+        TextView heading = tv("📺 Web Series", 26, WHITE, true);
+        heading.setPadding(dp(16), dp(16), dp(16), dp(8));
         current.addView(heading);
 
-        TextView sub =
-            tv(
-                "Watch your authorized live channels",
-                14,
-                MUTED,
-                false
-            );
-
-        sub.setPadding(
-            dp(16),
-            0,
-            dp(16),
-            dp(16)
+        TextView sub = tv(
+            "Popular web series • tap to watch",
+            14, MUTED, false
         );
-
+        sub.setPadding(dp(16), 0, dp(16), dp(16));
         current.addView(sub);
 
-        EditText search =
-            new EditText(this);
-
-        search.setHint(
-            "Search live channels..."
-        );
-
+        // Search box
+        EditText search = new EditText(this);
+        search.setHint("Search web series...");
         search.setTextColor(WHITE);
-
         search.setHintTextColor(MUTED);
-
         search.setSingleLine(true);
+        search.setBackgroundColor(0xFF1A1C22);
+        search.setPadding(dp(20), dp(14), dp(20), dp(14));
 
-        search.setPadding(
-            dp(16),
-            0,
-            dp(16),
-            0
-        );
+        LinearLayout.LayoutParams sp =
+            new LinearLayout.LayoutParams(-1, dp(54));
+        sp.setMargins(dp(16), 0, dp(16), dp(12));
+        current.addView(search, sp);
 
-        current.addView(
-            search,
-            new LinearLayout.LayoutParams(
-                -1,
-                dp(55)
-            )
-        );
-
-        LinearLayout channelContainer =
-            new LinearLayout(this);
-
-        channelContainer.setOrientation(
-            LinearLayout.VERTICAL
-        );
-
-        current.addView(
-            channelContainer,
-            new LinearLayout.LayoutParams(
-                -1,
-                -2
-            )
-        );
-
-        ArrayList<Item> liveItems =
-            new ArrayList<>();
-
+        // Series items collect karo
+        final ArrayList<Item> seriesItems = new ArrayList<>();
         synchronized (data) {
-
             for (Item x : data) {
-
-                if (
-                    "Live".equals(x.kind)
-                ) {
-
-                    liveItems.add(x);
-
+                if ("Series".equals(x.kind)) {
+                    seriesItems.add(x);
                 }
             }
         }
 
-        LinearLayout categories =
-            new LinearLayout(this);
+        // Category chips (language wise)
+        java.util.LinkedHashMap<String, Integer> catCounts =
+            new java.util.LinkedHashMap<>();
+        catCounts.put("ALL", seriesItems.size());
 
-        categories.setOrientation(
-            LinearLayout.HORIZONTAL
-        );
+        for (Item x : seriesItems) {
+            String cat = x.category == null || x.category.trim().isEmpty()
+                ? "General" : x.category.trim();
+            catCounts.put(cat, catCounts.getOrDefault(cat, 0) + 1);
+        }
 
-        categories.setPadding(
-            dp(12),
-            dp(12),
-            dp(12),
-            dp(12)
-        );
+        final String[] selected = {"ALL"};
 
-        Button allBtn =
-            btn("ALL");
+        android.widget.HorizontalScrollView chipScroll =
+            new android.widget.HorizontalScrollView(this);
+        chipScroll.setHorizontalScrollBarEnabled(false);
+        chipScroll.setPadding(dp(12), 4, dp(12), 12);
 
-        Button hindiBtn =
-            btn("HINDI");
+        LinearLayout chipRow = new LinearLayout(this);
+        chipRow.setOrientation(LinearLayout.HORIZONTAL);
+        chipScroll.addView(chipRow);
 
-        Button englishBtn =
-            btn("ENGLISH");
+        LinearLayout seriesContainer = new LinearLayout(this);
+        seriesContainer.setOrientation(LinearLayout.VERTICAL);
 
-        Button regionalBtn =
-            btn("REGIONAL");
+        java.util.List<Button> chipButtons = new java.util.ArrayList<>();
+        for (String cat : catCounts.keySet()) {
+            String label = cat + " (" + catCounts.get(cat) + ")";
+            Button chip = new Button(this);
+            chip.setText(label);
+            chip.setTextSize(13);
+            chip.setAllCaps(false);
+            chip.setPadding(30, 12, 30, 12);
+            chip.setTextColor(cat.equals("ALL") ? 0xFF090A0E : WHITE);
+            chip.setBackgroundColor(cat.equals("ALL") ? 0xFFFFBE37 : 0xFF1E2028);
 
-        categories.addView(
-            allBtn,
-            new LinearLayout.LayoutParams(
-                0,
-                dp(48),
-                1
-            )
-        );
+            LinearLayout.LayoutParams cp =
+                new LinearLayout.LayoutParams(-2, dp(44));
+            cp.setMargins(6, 0, 6, 0);
+            chip.setLayoutParams(cp);
 
-        categories.addView(
-            hindiBtn,
-            new LinearLayout.LayoutParams(
-                0,
-                dp(48),
-                1
-            )
-        );
-
-        categories.addView(
-            englishBtn,
-            new LinearLayout.LayoutParams(
-                0,
-                dp(48),
-                1
-            )
-        );
-
-        categories.addView(
-            regionalBtn,
-            new LinearLayout.LayoutParams(
-                0,
-                dp(48),
-                1
-            )
-        );
-
-        current.addView(
-            categories
-        );
-
-        final String[] selectedCategory =
-            {"ALL"};
-
-        Runnable renderChannels =
-            new Runnable() {
-
-                @Override
-                public void run() {
-
-                    channelContainer.removeAllViews();
-
-                    String query =
-                        search.getText()
-                        .toString()
-                        .trim()
-                        .toLowerCase();
-
-                    boolean found = false;
-
-                    for (Item x : liveItems) {
-
-                        String lang =
-                            x.lang == null
-                            ? ""
-                            : x.lang;
-
-                        String category =
-                            x.category == null
-                            ? ""
-                            : x.category;
-
-                        String title =
-                            x.title == null
-                            ? ""
-                            : x.title;
-
-                        boolean categoryMatch =
-                            selectedCategory[0]
-                            .equals("ALL");
-
-                        if (
-                            selectedCategory[0]
-                            .equals("HINDI")
-                        ) {
-
-                            categoryMatch =
-                                lang.toLowerCase()
-                                .contains("hindi")
-                                ||
-                                category.toLowerCase()
-                                .contains("hindi");
-
-                        }
-
-                        if (
-                            selectedCategory[0]
-                            .equals("ENGLISH")
-                        ) {
-
-                            categoryMatch =
-                                lang.toLowerCase()
-                                .contains("english")
-                                ||
-                                category.toLowerCase()
-                                .contains("english");
-
-                        }
-
-                        if (
-                            selectedCategory[0]
-                            .equals("REGIONAL")
-                        ) {
-
-                            categoryMatch =
-                                !lang.toLowerCase()
-                                .contains("hindi")
-                                &&
-                                !lang.toLowerCase()
-                                .contains("english");
-
-                        }
-
-                        boolean searchMatch =
-                            query.isEmpty()
-                            ||
-                            title.toLowerCase()
-                            .contains(query)
-                            ||
-                            lang.toLowerCase()
-                            .contains(query)
-                            ||
-                            category.toLowerCase()
-                            .contains(query);
-
-                        if (
-                            categoryMatch &&
-                            searchMatch
-                        ) {
-
-                            liveChannelCard(
-                                channelContainer,
-                                x
-                            );
-
-                            found = true;
-
-                        }
-                    }
-
-                    if (!found) {
-
-                        TextView empty =
-                            tv(
-                                "No live channels available",
-                                16,
-                                MUTED,
-                                false
-                            );
-
-                        empty.setPadding(
-                            dp(20),
-                            dp(30),
-                            dp(20),
-                            dp(30)
-                        );
-
-                        channelContainer.addView(
-                            empty
-                        );
-
-                    }
+            chip.setOnClickListener(v -> {
+                selected[0] = cat;
+                for (Button b : chipButtons) {
+                    String bTxt = b.getText().toString();
+                    boolean isSel = bTxt.startsWith(cat + " (");
+                    b.setTextColor(isSel ? 0xFF090A0E : WHITE);
+                    b.setBackgroundColor(isSel ? 0xFFFFBE37 : 0xFF1E2028);
                 }
-            };
+                renderSeriesList(seriesContainer, seriesItems, selected[0], "");
+            });
 
-        renderChannels.run();
+            chipButtons.add(chip);
+            chipRow.addView(chip);
+        }
 
-        allBtn.setOnClickListener(v -> {
+        current.addView(chipScroll, new LinearLayout.LayoutParams(-1, -2));
+        current.addView(seriesContainer, new LinearLayout.LayoutParams(-1, 0, 1));
 
-            selectedCategory[0] = "ALL";
-
-            renderChannels.run();
-
-        });
-
-        hindiBtn.setOnClickListener(v -> {
-
-            selectedCategory[0] = "HINDI";
-
-            renderChannels.run();
-
-        });
-
-        englishBtn.setOnClickListener(v -> {
-
-            selectedCategory[0] = "ENGLISH";
-
-            renderChannels.run();
-
-        });
-
-        regionalBtn.setOnClickListener(v -> {
-
-            selectedCategory[0] = "REGIONAL";
-
-            renderChannels.run();
-
-        });
-
-        search.addTextChangedListener(
-            new TextWatcher() {
-
-                @Override
-                public void beforeTextChanged(
-                    CharSequence s,
-                    int start,
-                    int count,
-                    int after
-                ) {
-                }
-
-                @Override
-                public void onTextChanged(
-                    CharSequence s,
-                    int start,
-                    int before,
-                    int count
-                ) {
-
-                    renderChannels.run();
-
-                }
-
-                @Override
-                public void afterTextChanged(
-                    Editable s
-                ) {
-                }
+        search.addTextChangedListener(new android.text.TextWatcher() {
+            public void afterTextChanged(android.text.Editable s) {}
+            public void beforeTextChanged(CharSequence s, int a, int b, int c) {}
+            public void onTextChanged(CharSequence s, int a, int b, int c) {
+                renderSeriesList(seriesContainer, seriesItems, selected[0], s.toString());
             }
-        );
+        });
+
+        renderSeriesList(seriesContainer, seriesItems, "ALL", "");
     }
 
+    void renderSeriesList(
+        LinearLayout parent,
+        ArrayList<Item> items,
+        String category,
+        String query
+    ) {
+        parent.removeAllViews();
+
+        String q = query == null ? "" : query.trim().toLowerCase();
+        int shown = 0;
+
+        for (Item x : items) {
+            if (!"ALL".equals(category)) {
+                // Category OR Genre match (comma-separated support)
+                boolean matched = false;
+
+                // 1. Check category
+                String chCat = x.category == null ? "" : x.category.trim();
+                if (chCat.equalsIgnoreCase(category)) {
+                    matched = true;
+                }
+
+                // 2. Check genre (comma-separated: "Action,Thriller")
+                if (!matched && x.genre != null && !x.genre.trim().isEmpty()) {
+                    String[] parts = x.genre.split(",");
+                    for (String p : parts) {
+                        if (p.trim().equalsIgnoreCase(category)) {
+                            matched = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!matched) continue;
+            }
+
+            if (!q.isEmpty()) {
+                String title = x.title == null ? "" : x.title.toLowerCase();
+                String lang = x.lang == null ? "" : x.lang.toLowerCase();
+                String cat = x.category == null ? "" : x.category.toLowerCase();
+                String gen = x.genre == null ? "" : x.genre.toLowerCase();
+                String year = x.year == null ? "" : x.year.toLowerCase();
+                String desc = x.description == null ? "" : x.description.toLowerCase();
+
+                if (!title.contains(q)
+                    && !lang.contains(q)
+                    && !cat.contains(q)
+                    && !gen.contains(q)
+                    && !year.contains(q)
+                    && !desc.contains(q)) {
+                    continue;
+                }
+            }
+
+            // Card
+            LinearLayout row = new LinearLayout(this);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setGravity(Gravity.CENTER_VERTICAL);
+            row.setBackgroundColor(0xFF1A1C22);
+            row.setPadding(dp(12), dp(10), dp(12), dp(10));
+
+            ImageView poster = new ImageView(this);
+            loadPoster(poster, x.poster, x.backdrop);
+            poster.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            poster.setBackgroundColor(0xFF2A2C34);
+            row.addView(poster, new LinearLayout.LayoutParams(dp(80), dp(110)));
+
+            LinearLayout info = new LinearLayout(this);
+            info.setOrientation(LinearLayout.VERTICAL);
+            info.setPadding(dp(12), 0, dp(8), 0);
+
+            TextView name = tv(
+                x.title == null ? "Unknown" : x.title,
+                16, WHITE, true
+            );
+            name.setMaxLines(2);
+            name.setEllipsize(TextUtils.TruncateAt.END);
+            info.addView(name);
+
+            String meta = "";
+            if (x.year != null && !x.year.isEmpty()) meta += x.year;
+            if (x.lang != null && !x.lang.isEmpty()) {
+                if (!meta.isEmpty()) meta += " • ";
+                meta += x.lang;
+            }
+            if (x.rating != null && !x.rating.isEmpty() && !x.rating.equals("0.0")) {
+                if (!meta.isEmpty()) meta += " • ";
+                meta += "★ " + x.rating;
+            }
+            info.addView(tv(meta, 12, MUTED, false));
+
+            if (x.description != null && !x.description.isEmpty()) {
+                TextView desc = tv(x.description, 12, MUTED, false);
+                desc.setMaxLines(2);
+                desc.setEllipsize(TextUtils.TruncateAt.END);
+                desc.setPadding(0, dp(6), 0, 0);
+                info.addView(desc);
+            }
+
+            row.addView(info, new LinearLayout.LayoutParams(0, -2, 1));
+
+            TextView playIcon = tv("▶", 22, 0xFFFFBE37, true);
+            row.addView(playIcon);
+
+            row.setOnClickListener(v -> details(x));
+
+            LinearLayout.LayoutParams rp =
+                new LinearLayout.LayoutParams(-1, dp(130));
+            rp.setMargins(dp(12), dp(4), dp(12), dp(4));
+            parent.addView(row, rp);
+
+            shown++;
+        }
+
+        if (shown == 0) {
+            TextView empty = tv(
+                "No content found.",
+                14, MUTED, false
+            );
+            empty.setGravity(Gravity.CENTER);
+            empty.setPadding(20, dp(40), 20, dp(20));
+            parent.addView(empty);
+        }
+    }
 
     void liveChannelCard(
         LinearLayout parent,
@@ -2721,9 +3178,17 @@ continueWatching();
 
         for (Item x : data) {
 
-            if (
-                x.genre.equalsIgnoreCase(g)
-            ) {
+            if (x.genre == null) continue;
+
+            String[] parts = x.genre.split(",");
+            boolean matches = false;
+            for (String p : parts) {
+                if (p.trim().equalsIgnoreCase(g)) {
+                    matches = true;
+                    break;
+                }
+            }
+            if (matches) {
 
                 full(x);
 
@@ -2887,6 +3352,7 @@ continueWatching();
     void liveTvManager() {
         base();
 
+        // ===== Header =====
         LinearLayout header = new LinearLayout(this);
         header.setOrientation(LinearLayout.HORIZONTAL);
         header.setGravity(Gravity.CENTER_VERTICAL);
@@ -2897,11 +3363,7 @@ continueWatching();
 
         Button refresh = btn("REFRESH");
         refresh.setOnClickListener(v -> {
-            Toast.makeText(
-                this,
-                "Refreshing Live TV...",
-                Toast.LENGTH_SHORT
-            ).show();
+            Toast.makeText(this, "Refreshing...", Toast.LENGTH_SHORT).show();
             loadLiveFromApi(true);
         });
         header.addView(refresh);
@@ -2909,132 +3371,199 @@ continueWatching();
         current.addView(header);
 
         TextView help = tv(
-            "Authorized Live TV channels • tap a channel to play",
-            14,
+            "Authorized Live TV channels • tap to play",
+            13,
             MUTED,
             false
         );
-        help.setPadding(20, 0, 20, 16);
+        help.setPadding(20, 0, 20, 8);
         current.addView(help);
 
-        EditText nameInput = new EditText(this);
-        nameInput.setHint("Channel Name");
-        current.addView(nameInput);
+        // ===== Search Box =====
+        EditText searchBox = new EditText(this);
+        searchBox.setHint("Search live channels...");
+        searchBox.setHintTextColor(0xFF9295A0);
+        searchBox.setTextColor(WHITE);
+        searchBox.setBackgroundColor(0xFF1A1C22);
+        searchBox.setPadding(24, 16, 24, 16);
+        searchBox.setSingleLine(true);
+        LinearLayout.LayoutParams sp = new LinearLayout.LayoutParams(-1, -2);
+        sp.setMargins(16, 8, 16, 12);
+        current.addView(searchBox, sp);
 
-        EditText urlInput = new EditText(this);
-        urlInput.setHint("Authorized Live Stream URL");
-        urlInput.setSingleLine(true);
-        current.addView(urlInput);
-
-        Button saveButton = btn("SAVE LOCAL CHANNEL");
-        saveButton.setOnClickListener(v -> {
-            String name = nameInput.getText().toString().trim();
-            String url = urlInput.getText().toString().trim();
-
-            if (name.isEmpty() || url.isEmpty()) {
-                Toast.makeText(
-                    this,
-                    "Enter channel name and stream URL",
-                    Toast.LENGTH_SHORT
-                ).show();
-                return;
-            }
-
-            addLiveChannel(name, url);
+        // ===== Category Chips (dynamic) =====
+        if (liveChannels.size() == 0) {
             loadLiveChannels();
-            nameInput.setText("");
-            urlInput.setText("");
-            Toast.makeText(
-                this,
-                "Live channel saved",
-                Toast.LENGTH_SHORT
-            ).show();
-            liveTvManager();
+        }
+
+        // Count channels per category
+        java.util.LinkedHashMap<String, Integer> catCounts = new java.util.LinkedHashMap<>();
+        catCounts.put("ALL", liveChannels.size());
+        for (Item ch : liveChannels) {
+            String cat = ch.category == null || ch.category.trim().isEmpty()
+                ? "General" : ch.category.trim();
+            catCounts.put(cat, catCounts.getOrDefault(cat, 0) + 1);
+        }
+
+        // Selected category
+        final String[] selected = {"ALL"};
+
+        // Horizontal scroll for chips
+        android.widget.HorizontalScrollView chipScroll =
+            new android.widget.HorizontalScrollView(this);
+        chipScroll.setHorizontalScrollBarEnabled(false);
+        chipScroll.setPadding(12, 4, 12, 12);
+
+        LinearLayout chipRow = new LinearLayout(this);
+        chipRow.setOrientation(LinearLayout.HORIZONTAL);
+        chipScroll.addView(chipRow);
+
+        // Container for channel list (re-rendered on chip click)
+        LinearLayout channelList = new LinearLayout(this);
+        channelList.setOrientation(LinearLayout.VERTICAL);
+
+        // Build chips
+        java.util.List<Button> chipButtons = new java.util.ArrayList<>();
+        for (String cat : catCounts.keySet()) {
+            String label = cat + " (" + catCounts.get(cat) + ")";
+            Button chip = new Button(this);
+            chip.setText(label);
+            chip.setTextSize(13);
+            chip.setAllCaps(false);
+            chip.setPadding(30, 12, 30, 12);
+            chip.setTextColor(cat.equals("ALL") ? 0xFF090A0E : WHITE);
+            chip.setBackgroundColor(cat.equals("ALL") ? 0xFFFFBE37 : 0xFF1E2028);
+
+            LinearLayout.LayoutParams cp =
+                new LinearLayout.LayoutParams(-2, dp(44));
+            cp.setMargins(6, 0, 6, 0);
+            chip.setLayoutParams(cp);
+
+            chip.setOnClickListener(v -> {
+                selected[0] = cat;
+                // Update chip styles
+                for (Button b : chipButtons) {
+                    String bTxt = b.getText().toString();
+                    boolean isSel = bTxt.startsWith(cat + " (");
+                    b.setTextColor(isSel ? 0xFF090A0E : WHITE);
+                    b.setBackgroundColor(isSel ? 0xFFFFBE37 : 0xFF1E2028);
+                }
+                // Re-render channel list
+                renderChannelList(channelList, selected[0], "");
+            });
+
+            chipButtons.add(chip);
+            chipRow.addView(chip);
+        }
+
+        current.addView(chipScroll, new LinearLayout.LayoutParams(-1, -2));
+        current.addView(channelList, new LinearLayout.LayoutParams(-1, 0, 1));
+
+        // Search listener
+        searchBox.addTextChangedListener(new android.text.TextWatcher() {
+            public void afterTextChanged(android.text.Editable s) {}
+            public void beforeTextChanged(CharSequence s, int a, int b, int c) {}
+            public void onTextChanged(CharSequence s, int a, int b, int c) {
+                renderChannelList(channelList, selected[0], s.toString());
+            }
         });
 
-        current.addView(saveButton);
+        // Initial render
+        renderChannelList(channelList, "ALL", "");
 
-        TextView savedTitle = tv(
-            "AVAILABLE LIVE CHANNELS",
-            18,
-            WHITE,
-            true
-        );
-        savedTitle.setPadding(20, 28, 20, 12);
-        current.addView(savedTitle);
-
-        if (liveChannels.size() == 0) {
-            loadLiveChannels();
-        }
-
-        if (liveChannels.size() == 0) {
-            TextView empty = tv(
-                "No authorized Live TV channels available. Tap REFRESH.",
-                14,
-                MUTED,
-                false
-            );
-            empty.setPadding(20, 10, 20, 20);
-            current.addView(empty);
-        } else {
-            for (Item x : liveChannels) {
-                LinearLayout row = new LinearLayout(this);
-                row.setOrientation(LinearLayout.HORIZONTAL);
-                row.setGravity(Gravity.CENTER_VERTICAL);
-                row.setPadding(16, 10, 16, 10);
-                row.setBackgroundColor(PANEL);
-
-                ImageView logo = new ImageView(this);
-                loadPoster(logo, x.poster, x.backdrop);
-                logo.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                row.addView(
-                    logo,
-                    new LinearLayout.LayoutParams(dp(76), dp(54))
-                );
-
-                LinearLayout info = new LinearLayout(this);
-                info.setOrientation(LinearLayout.VERTICAL);
-                info.setPadding(12, 0, 8, 0);
-
-                TextView channelName = tv(
-                    "🔴 " + x.title,
-                    16,
-                    WHITE,
-                    true
-                );
-                info.addView(channelName);
-
-                String metaText =
-                    (x.lang == null || x.lang.isEmpty() ? "LIVE" : x.lang)
-                    + " • "
-                    + (x.category == null || x.category.isEmpty()
-                        ? "Live TV" : x.category);
-
-                info.addView(
-                    tv(metaText, 12, MUTED, false)
-                );
-
-                row.addView(
-                    info,
-                    new LinearLayout.LayoutParams(0, -2, 1)
-                );
-
-                Button play = btn("PLAY");
-                play.setOnClickListener(v -> watchMovie(x));
-                row.addView(play);
-
-                row.setOnClickListener(v -> watchMovie(x));
-
-                LinearLayout.LayoutParams rp =
-                    new LinearLayout.LayoutParams(-1, dp(76));
-                rp.setMargins(10, 4, 10, 4);
-                current.addView(row, rp);
-            }
-        }
-
-        // If there are no local channels, fetch the server catalog automatically.
+        // If empty, fetch from server
         if (liveChannels.size() == 0) {
             loadLiveFromApi(true);
+        }
+    }
+
+    void renderChannelList(LinearLayout parent, String category, String query) {
+        parent.removeAllViews();
+
+        String q = query == null ? "" : query.trim().toLowerCase();
+        int shown = 0;
+
+        for (Item x : liveChannels) {
+            // Category filter
+            if (!"ALL".equals(category)) {
+                String chCat = x.category == null ? "General" : x.category.trim();
+                if (!chCat.equalsIgnoreCase(category)) continue;
+            }
+
+            // Search filter
+            if (!q.isEmpty()) {
+                String title = x.title == null ? "" : x.title.toLowerCase();
+                String lang = x.lang == null ? "" : x.lang.toLowerCase();
+                String cat = x.category == null ? "" : x.category.toLowerCase();
+                if (!title.contains(q) && !lang.contains(q) && !cat.contains(q))
+                    continue;
+            }
+
+            // ===== Channel Row =====
+            LinearLayout row = new LinearLayout(this);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setGravity(Gravity.CENTER_VERTICAL);
+            row.setBackgroundColor(0xFF1A1C22);
+            row.setPadding(dp(12), dp(10), dp(12), dp(10));
+
+            ImageView logo = new ImageView(this);
+            loadPoster(logo, x.poster, x.backdrop);
+            logo.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            logo.setBackgroundColor(0xFF2A2C34);
+            row.addView(logo, new LinearLayout.LayoutParams(dp(90), dp(60)));
+
+            LinearLayout info = new LinearLayout(this);
+            info.setOrientation(LinearLayout.VERTICAL);
+            info.setPadding(dp(12), 0, dp(8), 0);
+
+            LinearLayout topLine = new LinearLayout(this);
+            topLine.setOrientation(LinearLayout.HORIZONTAL);
+            topLine.setGravity(Gravity.CENTER_VERTICAL);
+
+            TextView liveBadge = tv("● LIVE", 10, 0xFFFF3B30, true);
+            liveBadge.setPadding(0, 0, dp(8), 0);
+            topLine.addView(liveBadge);
+
+            TextView name = tv(
+                x.title == null ? "Unknown" : x.title,
+                15, WHITE, true
+            );
+            name.setSingleLine(true);
+            name.setEllipsize(TextUtils.TruncateAt.END);
+            topLine.addView(name, new LinearLayout.LayoutParams(0, -2, 1));
+
+            info.addView(topLine);
+
+            String meta =
+                (x.lang == null || x.lang.isEmpty() ? "Live" : x.lang)
+                + " • "
+                + (x.category == null || x.category.isEmpty()
+                    ? "Live TV" : x.category);
+            info.addView(tv(meta, 12, MUTED, false));
+
+            row.addView(info, new LinearLayout.LayoutParams(0, -2, 1));
+
+            TextView playIcon = tv("▶", 22, 0xFFFFBE37, true);
+            row.addView(playIcon);
+
+            row.setOnClickListener(v -> watchMovie(x));
+
+            LinearLayout.LayoutParams rp =
+                new LinearLayout.LayoutParams(-1, dp(84));
+            rp.setMargins(dp(12), dp(4), dp(12), dp(4));
+            parent.addView(row, rp);
+
+            shown++;
+        }
+
+        if (shown == 0) {
+            TextView empty = tv(
+                "No channels found for this filter.",
+                14, MUTED, false
+            );
+            empty.setGravity(Gravity.CENTER);
+            empty.setPadding(20, dp(40), 20, dp(20));
+            parent.addView(empty);
         }
     }
 
@@ -3872,22 +4401,282 @@ continueWatching();
         WebView webPlayer = new WebView(this);
         webPlayer.setBackgroundColor(Color.BLACK);
 
+        // Enable hardware acceleration for better audio/video
+        webPlayer.setLayerType(
+            android.view.View.LAYER_TYPE_HARDWARE, null
+        );
+
+        webPlayer.setInitialScale(180);
+
+        // Audio focus for louder movie sound
+        try {
+            android.media.AudioManager am =
+                (android.media.AudioManager) getSystemService(AUDIO_SERVICE);
+            if (am != null && android.os.Build.VERSION.SDK_INT >= 26) {
+                android.media.AudioAttributes attrs =
+                    new android.media.AudioAttributes.Builder()
+                        .setUsage(android.media.AudioAttributes.USAGE_MEDIA)
+                        .setContentType(android.media.AudioAttributes.CONTENT_TYPE_MOVIE)
+                        .build();
+                android.media.AudioFocusRequest focusReq =
+                    new android.media.AudioFocusRequest.Builder(
+                        android.media.AudioManager.AUDIOFOCUS_GAIN
+                    )
+                        .setAudioAttributes(attrs)
+                        .build();
+                am.requestAudioFocus(focusReq);
+            } else if (am != null) {
+                am.requestAudioFocus(
+                    null,
+                    android.media.AudioManager.STREAM_MUSIC,
+                    android.media.AudioManager.AUDIOFOCUS_GAIN
+                );
+            }
+        } catch (Exception ignored) {}
+
         WebSettings ws = webPlayer.getSettings();
         ws.setJavaScriptEnabled(true);
         ws.setDomStorageEnabled(true);
         ws.setMediaPlaybackRequiresUserGesture(false);
-        ws.setLoadWithOverviewMode(true);
-        ws.setUseWideViewPort(true);
+        // Zoom-friendly settings (fix for bigger play button)
+        ws.setLoadWithOverviewMode(false);
+        ws.setUseWideViewPort(false);
+        ws.setBuiltInZoomControls(false);
+        ws.setDisplayZoomControls(false);
+        ws.setSupportZoom(true);
+        // Block pop-ups and new windows
+        ws.setJavaScriptCanOpenWindowsAutomatically(false);
+        ws.setSupportMultipleWindows(false);
+        // Block ads
+        ws.setBlockNetworkImage(false);
 
         android.webkit.CookieManager.getInstance().setAcceptCookie(true);
         android.webkit.CookieManager.getInstance().setAcceptThirdPartyCookies(webPlayer, true);
 
-        webPlayer.setWebViewClient(new WebViewClient());
-        webPlayer.setWebChromeClient(new WebChromeClient());
+        // WebViewClient is set below (with loading indicator)
+
+        final android.app.Dialog[] fsDialog = {null};
+        final WebChromeClient.CustomViewCallback[] fsCallback = {null};
+
+        webPlayer.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onCreateWindow(
+                WebView view, boolean isDialog,
+                boolean isUserGesture, android.os.Message resultMsg
+            ) {
+                return true;
+            }
+
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+            }
+
+            @Override
+            public void onShowCustomView(
+                android.view.View view,
+                WebChromeClient.CustomViewCallback callback
+            ) {
+                if (fsDialog[0] != null) {
+                    callback.onCustomViewHidden();
+                    return;
+                }
+
+                fsDialog[0] = new android.app.Dialog(
+                    MainActivity.this,
+                    android.R.style.Theme_Black_NoTitleBar_Fullscreen
+                );
+
+                android.widget.FrameLayout container =
+                    new android.widget.FrameLayout(MainActivity.this);
+                container.setBackgroundColor(Color.BLACK);
+                container.addView(
+                    view,
+                    new android.widget.FrameLayout.LayoutParams(-1, -1)
+                );
+
+                fsDialog[0].setContentView(container);
+                fsDialog[0].setOnDismissListener(d -> {
+                    if (fsCallback[0] != null) {
+                        fsCallback[0].onCustomViewHidden();
+                        fsCallback[0] = null;
+                    }
+                    fsDialog[0] = null;
+                    setRequestedOrientation(
+                        android.content.pm.ActivityInfo
+                            .SCREEN_ORIENTATION_PORTRAIT
+                    );
+                });
+                fsDialog[0].show();
+                fsCallback[0] = callback;
+
+                setRequestedOrientation(
+                    android.content.pm.ActivityInfo
+                        .SCREEN_ORIENTATION_LANDSCAPE
+                );
+            }
+
+            @Override
+            public void onHideCustomView() {
+                if (fsDialog[0] != null) {
+                    fsDialog[0].dismiss();
+                }
+            }
+        });
 
         webPlayer.loadUrl(sourceUrl);
 
         playerContainer.addView(webPlayer, new FrameLayout.LayoutParams(-1, -1));
+
+        // Loading spinner overlay
+        LinearLayout loadingOverlay = new LinearLayout(this);
+        loadingOverlay.setOrientation(LinearLayout.VERTICAL);
+        loadingOverlay.setGravity(Gravity.CENTER);
+        loadingOverlay.setBackgroundColor(0xCC090A0E);
+
+        android.widget.ProgressBar spinner =
+            new android.widget.ProgressBar(this);
+        spinner.setIndeterminate(true);
+        loadingOverlay.addView(spinner);
+
+        TextView loadingText = tv(
+            "Loading player...",
+            14, WHITE, false
+        );
+        loadingText.setPadding(0, dp(16), 0, 0);
+        loadingOverlay.addView(loadingText);
+
+        TextView loadingHint = tv(
+            "This may take 10-20 seconds",
+            11, MUTED, false
+        );
+        loadingHint.setPadding(0, dp(6), 0, 0);
+        loadingOverlay.addView(loadingHint);
+
+        playerContainer.addView(
+            loadingOverlay,
+            new FrameLayout.LayoutParams(-1, -1)
+        );
+
+        // BIG custom play button overlay
+        LinearLayout playOverlay = new LinearLayout(this);
+        playOverlay.setOrientation(LinearLayout.VERTICAL);
+        playOverlay.setGravity(Gravity.CENTER);
+        playOverlay.setBackgroundColor(0x66090A0E);
+
+        // Big circular play button
+        TextView bigPlay = new TextView(this);
+        bigPlay.setText("\u25B6");
+        bigPlay.setTextSize(52);
+        bigPlay.setTextColor(0xFF090A0E);
+        bigPlay.setGravity(Gravity.CENTER);
+        bigPlay.setBackground(shape(0xFFFFBE37, 80));
+
+        LinearLayout.LayoutParams playP =
+            new LinearLayout.LayoutParams(dp(120), dp(120));
+        playOverlay.addView(bigPlay, playP);
+
+        TextView playHint = tv(
+            "Tap to play",
+            14, WHITE, true
+        );
+        playHint.setPadding(0, dp(20), 0, 0);
+        playOverlay.addView(playHint);
+
+        playerContainer.addView(
+            playOverlay,
+            new FrameLayout.LayoutParams(-1, -1)
+        );
+
+        bigPlay.setOnClickListener(v -> {
+            playOverlay.setVisibility(android.view.View.GONE);
+
+            // Simulate touch at center of WebView to hit vidsrc play button
+            try {
+                webPlayer.postDelayed(() -> {
+                    int cx = webPlayer.getWidth() / 2;
+                    int cy = webPlayer.getHeight() / 2;
+                    long t = android.os.SystemClock.uptimeMillis();
+                    android.view.MotionEvent down = android.view.MotionEvent.obtain(
+                        t, t,
+                        android.view.MotionEvent.ACTION_DOWN,
+                        cx, cy, 0
+                    );
+                    android.view.MotionEvent up = android.view.MotionEvent.obtain(
+                        t, t + 50,
+                        android.view.MotionEvent.ACTION_UP,
+                        cx, cy, 0
+                    );
+                    webPlayer.dispatchTouchEvent(down);
+                    webPlayer.dispatchTouchEvent(up);
+                }, 500);
+            } catch (Exception ignored) {}
+
+            // JS: play + max volume
+            try {
+                webPlayer.evaluateJavascript(
+                    "(function(){" +
+                    "  var vids=document.querySelectorAll('video');" +
+                    "  for(var i=0;i<vids.length;i++){" +
+                    "    var v=vids[i];" +
+                    "    v.volume=1.0;" +
+                    "    v.muted=false;" +
+                    "    try{v.play();}catch(e){}" +
+                    "  }" +
+                    "  // Also try inside iframe" +
+                    "  try{" +
+                    "    var iframes=document.querySelectorAll('iframe');" +
+                    "    for(var j=0;j<iframes.length;j++){" +
+                    "      try{" +
+                    "        var idoc=iframes[j].contentDocument;" +
+                    "        var iv=idoc.querySelectorAll('video');" +
+                    "        for(var k=0;k<iv.length;k++){" +
+                    "          iv[k].volume=1.0;iv[k].muted=false;iv[k].play();" +
+                    "        }" +
+                    "      }catch(e){}" +
+                    "    }" +
+                    "  }catch(e){}" +
+                    "})()",
+                    null
+                );
+            } catch (Exception ignored) {}
+        });
+
+        // Hide overlay when page finishes loading
+        webPlayer.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(
+                WebView view, android.webkit.WebResourceRequest request
+            ) {
+                String url = request.getUrl().toString();
+                if (url.contains("vidsrc") || url.contains("embed")
+                    || url.contains("youtube") || url.contains(".m3u8")
+                    || url.contains("about:blank")) {
+                    return false;
+                }
+                return true;
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                runOnUiThread(() -> {
+                    loadingOverlay.setVisibility(android.view.View.GONE);
+                });
+            }
+
+            @Override
+            public void onReceivedError(
+                WebView view, android.webkit.WebResourceRequest request,
+                android.webkit.WebResourceError error
+            ) {
+                super.onReceivedError(view, request, error);
+                runOnUiThread(() -> {
+                    loadingText.setText("Player unavailable");
+                    loadingHint.setText("Try another content");
+                });
+            }
+        });
 
         current.addView(playerContainer, new LinearLayout.LayoutParams(-1, 0, 1));
 
@@ -4417,7 +5206,13 @@ continueWatching();
             androidx.media3.datasource.DefaultHttpDataSource.Factory httpFactory =
                 new androidx.media3.datasource.DefaultHttpDataSource.Factory()
                         .setAllowCrossProtocolRedirects(true)
-                        .setUserAgent("GAMA-AALA/1.0");
+                        .setUserAgent("VLC/3.0.20 LibVLC/3.0.20")
+                        .setDefaultRequestProperties(
+                            java.util.Map.of(
+                                "Referer", "https://www.google.com/",
+                                "Origin", "https://www.google.com"
+                            )
+                        );
         androidx.media3.exoplayer.hls.HlsMediaSource hlsSource = new androidx.media3.exoplayer.hls.HlsMediaSource.Factory(httpFactory)
                 .setAllowChunklessPreparation(false)
                 .createMediaSource(androidx.media3.common.MediaItem.fromUri(sourceUrl));
@@ -4782,6 +5577,9 @@ continueWatching();
             LinearLayout.VERTICAL
         );
 
+        // Save for voice search
+        lastSearchResults = results;
+
         current.addView(results);
 
 
@@ -4896,8 +5694,93 @@ continueWatching();
 
 
         e.requestFocus();
+
+        // Voice search pending query apply karo
+        if (pendingVoiceQuery != null) {
+            final String vq = pendingVoiceQuery;
+            pendingVoiceQuery = null;
+            e.setText(vq);
+            e.setSelection(vq.length());
+        }
     }
 
+
+    String hindiToEnglish(String query) {
+        if (query == null) return "";
+        String q = query.trim().toLowerCase();
+
+        // Common Hindi → English mapping (devotional + popular)
+        java.util.HashMap<String, String> map = new java.util.HashMap<>();
+        map.put("रामायण", "Ramayan");
+        map.put("रामायणम्", "Ramayan");
+        map.put("महाभारत", "Mahabharat");
+        map.put("महाभारतम्", "Mahabharat");
+        map.put("भजन", "Bhajan");
+        map.put("राम भजन", "Ram Bhajan");
+        map.put("कृष्ण", "Krishna");
+        map.put("शिव", "Shiv");
+        map.put("शिव भजन", "Shiv Bhajan");
+        map.put("दुर्गा", "Durga");
+        map.put("दुर्गा भजन", "Durga Bhajan");
+        map.put("गणेश", "Ganesh");
+        map.put("हनुमान", "Hanuman");
+        map.put("हनुमान चालीसा", "Hanuman Chalisa");
+        map.put("भगवद गीता", "Bhagavad Gita");
+        map.put("गीता", "Gita");
+        map.put("राम", "Ram");
+        map.put("सीता", "Sita");
+        map.put("लक्ष्मण", "Lakshman");
+        map.put("रावण", "Ravan");
+        map.put("देवी", "Devi");
+        map.put("भक्ति", "Bhakti");
+        map.put("कथा", "Katha");
+        map.put("प्रवचन", "Pravachan");
+        map.put("सत्संग", "Satsang");
+        map.put("मंदिर", "Mandir");
+        map.put("पूजा", "Puja");
+        map.put("आरती", "Aarti");
+        map.put("चालीसा", "Chalisa");
+        map.put("कॉमेडी", "Comedy");
+        map.put("एक्शन", "Action");
+        map.put("ड्रामा", "Drama");
+        map.put("थ्रिलर", "Thriller");
+        map.put("हॉरर", "Horror");
+        map.put("रोमांस", "Romance");
+        map.put("फिल्म", "Movie");
+        map.put("मूवी", "Movie");
+        map.put("सीरीज", "Series");
+        map.put("गाना", "Song");
+        map.put("म्यूजिक", "Music");
+        map.put("न्यूज़", "News");
+        map.put("खबर", "News");
+        map.put("बॉलीवुड", "Bollywood");
+        map.put("हिंदी", "Hindi");
+
+        // Exact match
+        if (map.containsKey(q)) {
+            return map.get(q);
+        }
+
+        // Partial match - replace Hindi words with English
+        String result = q;
+        for (java.util.Map.Entry<String, String> e : map.entrySet()) {
+            if (result.contains(e.getKey())) {
+                result = result.replace(e.getKey(), e.getValue());
+            }
+        }
+
+        return result;
+    }
+
+    boolean isHindi(String text) {
+        if (text == null) return false;
+        for (char c : text.toCharArray()) {
+            if (c >= 0x0900 && c <= 0x097F) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     void searchTmdb(
         String query,
@@ -4905,6 +5788,16 @@ continueWatching();
         int requestId,
         TextWatcher watcher
     ) {
+
+        // Hindi detect + translate
+        String finalQuery = query;
+        if (isHindi(query)) {
+            String translated = hindiToEnglish(query);
+            if (!translated.isEmpty() && !translated.equals(query)) {
+                finalQuery = translated;
+            }
+        }
+        final String searchQ = finalQuery;
 
         new Thread(() -> {
 
@@ -4936,7 +5829,7 @@ continueWatching();
                     "&query="
                     +
                     URLEncoder.encode(
-                        query,
+                        searchQ,
                         "UTF-8"
                     );
 
@@ -5225,7 +6118,42 @@ continueWatching();
                             empty
                         );
 
+                        // TTS: No results
+                        if (ttsReady && tts != null && autoPlayFirstResult) {
+                            try {
+                                tts.speak(
+                                    "कोई रिजल्ट नहीं मिला",
+                                    android.speech.tts.TextToSpeech.QUEUE_FLUSH,
+                                    null,
+                                    "nores_" + System.currentTimeMillis()
+                                );
+                            } catch (Exception ignored) {}
+                        }
+                        autoPlayFirstResult = false;
+
                         return;
+                    }
+
+                    // Auto-play first result
+                    if (autoPlayFirstResult && online.size() > 0) {
+                        final Item first = online.get(0);
+                        autoPlayFirstResult = false;
+
+                        new android.os.Handler(
+                            android.os.Looper.getMainLooper()
+                        ).postDelayed(() -> {
+                            if (ttsReady && tts != null) {
+                                try {
+                                    tts.speak(
+                                        first.title + " चला रहे हैं",
+                                        android.speech.tts.TextToSpeech.QUEUE_FLUSH,
+                                        null,
+                                        "play_" + System.currentTimeMillis()
+                                    );
+                                } catch (Exception ignored) {}
+                            }
+                            watchMovie(first);
+                        }, 800);
                     }
 
 
@@ -5398,6 +6326,233 @@ continueWatching();
         current.addView(message);
     }
 
+    void adultGate() {
+        if (adultUnlocked) {
+            adultSection();
+            return;
+        }
+
+        android.app.AlertDialog.Builder builder =
+            new android.app.AlertDialog.Builder(this);
+        builder.setTitle("🔒 18+ Content Locked");
+        builder.setMessage("Enter PIN to access adult content");
+
+        final EditText pinInput = new EditText(this);
+        pinInput.setHint("Enter 4-digit PIN");
+        pinInput.setInputType(
+            android.text.InputType.TYPE_CLASS_NUMBER
+            | android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
+        );
+        pinInput.setGravity(Gravity.CENTER);
+        pinInput.setTextSize(24);
+        pinInput.setPadding(30, 30, 30, 30);
+        builder.setView(pinInput);
+
+        builder.setPositiveButton("UNLOCK", (d, w) -> {
+            String entered = pinInput.getText().toString().trim();
+            String savedPin = prefs.getString("adult_pin", DEFAULT_PIN);
+            if (entered.equals(savedPin)) {
+                adultUnlocked = true;
+                Toast.makeText(this, "Unlocked!", Toast.LENGTH_SHORT).show();
+                adultSection();
+            } else {
+                Toast.makeText(this, "Wrong PIN", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setNegativeButton("CANCEL", null);
+        builder.create().show();
+    }
+
+    void adultSection() {
+        base();
+        brandBar();
+
+        TextView heading = tv("🔞 18+ Content", 26, 0xFFFF3B30, true);
+        heading.setPadding(dp(16), dp(16), dp(16), dp(8));
+        current.addView(heading);
+
+        TextView sub = tv(
+            "Adult movies and web series • 18+ only",
+            14, MUTED, false
+        );
+        sub.setPadding(dp(16), 0, dp(16), dp(16));
+        current.addView(sub);
+
+        EditText search = new EditText(this);
+        search.setHint("Search adult content...");
+        search.setTextColor(WHITE);
+        search.setHintTextColor(MUTED);
+        search.setSingleLine(true);
+        search.setBackgroundColor(0xFF1A1C22);
+        search.setPadding(dp(20), dp(14), dp(20), dp(14));
+
+        LinearLayout.LayoutParams sp =
+            new LinearLayout.LayoutParams(-1, dp(54));
+        sp.setMargins(dp(16), 0, dp(16), dp(12));
+        current.addView(search, sp);
+
+        final ArrayList<Item> adultItems = new ArrayList<>();
+        synchronized (data) {
+            for (Item x : data) {
+                if (x.category != null &&
+                    (x.category.equalsIgnoreCase("18+")
+                    || x.category.equalsIgnoreCase("Adult"))) {
+                    adultItems.add(x);
+                }
+            }
+        }
+
+        if (adultItems.isEmpty()) {
+            TextView empty = tv(
+                "No adult content available yet.\n\nAdd content with category 18+ in your catalog.",
+                14, MUTED, false
+            );
+            empty.setGravity(Gravity.CENTER);
+            empty.setPadding(dp(30), dp(60), dp(30), dp(30));
+            current.addView(empty);
+
+            Button back = btn("← GO BACK");
+            back.setTextColor(WHITE);
+            back.setBackground(shape(0xFF2A2C34, 30));
+            back.setOnClickListener(v -> profile());
+            LinearLayout.LayoutParams bp =
+                new LinearLayout.LayoutParams(-1, dp(54));
+            bp.setMargins(dp(20), dp(20), dp(20), dp(20));
+            current.addView(back, bp);
+            return;
+        }
+
+        java.util.LinkedHashMap<String, Integer> catCounts =
+            new java.util.LinkedHashMap<>();
+        catCounts.put("ALL", adultItems.size());
+
+        for (Item x : adultItems) {
+            String cat = x.category == null || x.category.trim().isEmpty()
+                ? "General" : x.category.trim();
+            catCounts.put(cat, catCounts.getOrDefault(cat, 0) + 1);
+        }
+
+        final String[] selected = {"ALL"};
+
+        android.widget.HorizontalScrollView chipScroll =
+            new android.widget.HorizontalScrollView(this);
+        chipScroll.setHorizontalScrollBarEnabled(false);
+        chipScroll.setPadding(dp(12), 4, dp(12), 12);
+
+        LinearLayout chipRow = new LinearLayout(this);
+        chipRow.setOrientation(LinearLayout.HORIZONTAL);
+        chipScroll.addView(chipRow);
+
+        LinearLayout adultContainer = new LinearLayout(this);
+        adultContainer.setOrientation(LinearLayout.VERTICAL);
+
+        java.util.List<Button> chipButtons = new java.util.ArrayList<>();
+        for (String cat : catCounts.keySet()) {
+            String label = cat + " (" + catCounts.get(cat) + ")";
+            Button chip = new Button(this);
+            chip.setText(label);
+            chip.setTextSize(13);
+            chip.setAllCaps(false);
+            chip.setPadding(30, 12, 30, 12);
+            chip.setTextColor(cat.equals("ALL") ? 0xFF090A0E : WHITE);
+            chip.setBackgroundColor(cat.equals("ALL") ? 0xFFFF3B30 : 0xFF1E2028);
+
+            LinearLayout.LayoutParams cp =
+                new LinearLayout.LayoutParams(-2, dp(44));
+            cp.setMargins(6, 0, 6, 0);
+            chip.setLayoutParams(cp);
+
+            chip.setOnClickListener(v -> {
+                selected[0] = cat;
+                for (Button b : chipButtons) {
+                    String bTxt = b.getText().toString();
+                    boolean isSel = bTxt.startsWith(cat + " (");
+                    b.setTextColor(isSel ? 0xFF090A0E : WHITE);
+                    b.setBackgroundColor(isSel ? 0xFFFF3B30 : 0xFF1E2028);
+                }
+                renderSeriesList(adultContainer, adultItems, selected[0], "");
+            });
+
+            chipButtons.add(chip);
+            chipRow.addView(chip);
+        }
+
+        current.addView(chipScroll, new LinearLayout.LayoutParams(-1, -2));
+        current.addView(adultContainer, new LinearLayout.LayoutParams(-1, 0, 1));
+
+        search.addTextChangedListener(new android.text.TextWatcher() {
+            public void afterTextChanged(android.text.Editable s) {}
+            public void beforeTextChanged(CharSequence s, int a, int b, int c) {}
+            public void onTextChanged(CharSequence s, int a, int b, int c) {
+                renderSeriesList(adultContainer, adultItems, selected[0], s.toString());
+            }
+        });
+
+        renderSeriesList(adultContainer, adultItems, "ALL", "");
+    }
+
+    void changePinDialog() {
+        android.app.AlertDialog.Builder builder =
+            new android.app.AlertDialog.Builder(this);
+        builder.setTitle("Change 18+ PIN");
+
+        LinearLayout container = new LinearLayout(this);
+        container.setOrientation(LinearLayout.VERTICAL);
+        container.setPadding(40, 30, 40, 30);
+
+        final EditText oldPin = new EditText(this);
+        oldPin.setHint("Current PIN");
+        oldPin.setInputType(
+            android.text.InputType.TYPE_CLASS_NUMBER
+            | android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
+        );
+        container.addView(oldPin);
+
+        final EditText newPin = new EditText(this);
+        newPin.setHint("New 4-digit PIN");
+        newPin.setInputType(
+            android.text.InputType.TYPE_CLASS_NUMBER
+            | android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
+        );
+        container.addView(newPin);
+
+        final EditText confirmPin = new EditText(this);
+        confirmPin.setHint("Confirm new PIN");
+        confirmPin.setInputType(
+            android.text.InputType.TYPE_CLASS_NUMBER
+            | android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
+        );
+        container.addView(confirmPin);
+
+        builder.setView(container);
+
+        builder.setPositiveButton("SAVE", (d, w) -> {
+            String cur = oldPin.getText().toString().trim();
+            String nw = newPin.getText().toString().trim();
+            String cf = confirmPin.getText().toString().trim();
+            String saved = prefs.getString("adult_pin", DEFAULT_PIN);
+
+            if (!cur.equals(saved)) {
+                Toast.makeText(this, "Current PIN wrong", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (nw.length() != 4) {
+                Toast.makeText(this, "PIN must be 4 digits", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (!nw.equals(cf)) {
+                Toast.makeText(this, "PINs do not match", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            prefs.edit().putString("adult_pin", nw).commit();
+            Toast.makeText(this, "PIN changed", Toast.LENGTH_SHORT).show();
+        });
+
+        builder.setNegativeButton("CANCEL", null);
+        builder.create().show();
+    }
+
     void profile() {
 
         base();
@@ -5563,17 +6718,27 @@ continueWatching();
         );
     
 
-        Button liveManager =
-            btn("LIVE TV MANAGER");
+        // 18+ Section button
+        Button adultBtn = btn("🔞  18+ SECTION");
+        adultBtn.setTextColor(0xFFFF3B30);
+        adultBtn.setTextSize(15);
+        adultBtn.setBackground(shape(0xFF2A1A1A, 12));
+        adultBtn.setOnClickListener(v -> adultGate());
+        LinearLayout.LayoutParams adultP =
+            new LinearLayout.LayoutParams(-1, dp(54));
+        adultP.setMargins(dp(16), dp(8), dp(16), dp(8));
+        current.addView(adultBtn, adultP);
 
-        liveManager.setOnClickListener(
-            v -> liveTvManager()
-        );
-
-        current.addView(
-            liveManager
-        );
-
+        // Change PIN button
+        Button changePinBtn = btn("🔑  CHANGE 18+ PIN");
+        changePinBtn.setTextColor(WHITE);
+        changePinBtn.setTextSize(15);
+        changePinBtn.setBackground(shape(0xFF2A2C34, 12));
+        changePinBtn.setOnClickListener(v -> changePinDialog());
+        LinearLayout.LayoutParams pinP =
+            new LinearLayout.LayoutParams(-1, dp(54));
+        pinP.setMargins(dp(16), dp(0), dp(16), dp(8));
+        current.addView(changePinBtn, pinP);
 
         Button contentManager =
             btn("CONTENT MANAGER");
