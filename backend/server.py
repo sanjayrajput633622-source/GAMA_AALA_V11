@@ -470,6 +470,101 @@ class Handler(BaseHTTPRequestHandler):
             return
 
 
+        if path == "/api/admin/genkey":
+
+            admin_pass = query.get("pass", [""])[0]
+            if admin_pass != "GAMA2026ADMIN":
+                self.send_json({"error": "Unauthorized"})
+                return
+
+            key_type = query.get("type", ["weekly"])[0]
+            count = int(query.get("count", ["1"])[0])
+
+            keys_data = load_keys()
+            pricing = keys_data.get("settings", {}).get("pricing", {})
+
+            if key_type not in pricing:
+                self.send_json({"error": "Invalid type"})
+                return
+
+            config = pricing[key_type]
+            days = config["days"]
+
+            prefix_map = {
+                "weekly": "7D",
+                "monthly": "30D",
+                "halfyearly": "180D",
+                "yearly": "365D"
+            }
+            prefix = prefix_map.get(key_type, key_type.upper())
+
+            import random as _random
+            import string as _string
+            from datetime import datetime as _dt, timedelta as _td
+
+            new_keys = []
+            for _ in range(count):
+                suffix = "".join(_random.choices(
+                    _string.ascii_uppercase + _string.digits, k=8
+                ))
+                key = f"GAMA-{prefix}-{suffix}"
+
+                now = _dt.now()
+                expires = now + _td(days=days)
+
+                key_data = {
+                    "key": key,
+                    "type": key_type,
+                    "label": config["label"],
+                    "price": config["price"],
+                    "created_at": now.isoformat(),
+                    "expires_at": expires.isoformat(),
+                    "days": days,
+                    "max_devices": 2,
+                    "used_devices": [],
+                    "active": True
+                }
+
+                keys_data["keys"].append(key_data)
+                new_keys.append({
+                    "key": key,
+                    "label": config["label"],
+                    "expires_at": expires.isoformat(),
+                    "price": config["price"]
+                })
+
+            save_keys(keys_data)
+
+            self.send_json({
+                "success": True,
+                "keys": new_keys,
+                "total": len(keys_data["keys"])
+            })
+
+            return
+
+
+        if path == "/api/admin/listkeys":
+
+            admin_pass = query.get("pass", [""])[0]
+            if admin_pass != "GAMA2026ADMIN":
+                self.send_json({"error": "Unauthorized"})
+                return
+
+            keys_data = load_keys()
+            all_keys = keys_data.get("keys", [])
+
+            active = [k for k in all_keys if k.get("active", True)]
+
+            self.send_json({
+                "total": len(all_keys),
+                "active": len(active),
+                "keys": active[-20:]
+            })
+
+            return
+
+
         if path == "/api/keys/settings":
 
             keys_data = load_keys()
