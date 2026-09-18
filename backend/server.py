@@ -18,6 +18,17 @@ def empty_catalog():
     }
 
 
+def load_keys():
+    try:
+        with open("keys.json") as f:
+            return json.load(f)
+    except Exception:
+        return {"keys": [], "settings": {}}
+
+def save_keys(data):
+    with open("keys.json", "w") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
 def load_catalog():
     if not CATALOG_FILE.exists():
         return empty_catalog()
@@ -455,6 +466,79 @@ class Handler(BaseHTTPRequestHandler):
                     "live": live
                 }
             )
+
+            return
+
+
+        if path == "/api/keys/settings":
+
+            keys_data = load_keys()
+
+            self.send_json({
+                "upi_id": keys_data.get("settings", {}).get("upi_id", ""),
+                "whatsapp": keys_data.get("settings", {}).get("whatsapp", ""),
+                "pricing": keys_data.get("settings", {}).get("pricing", {})
+            })
+
+            return
+
+
+        if path == "/api/keys/validate":
+
+            key_input = query.get("key", [""])[0].strip().upper()
+            device_id = query.get("device", [""])[0].strip()
+
+            if not key_input:
+                self.send_json({"valid": False, "error": "No key provided"})
+                return
+
+            keys_data = load_keys()
+            found = None
+
+            for k in keys_data.get("keys", []):
+                if k.get("key", "").upper() == key_input:
+                    found = k
+                    break
+
+            if not found:
+                self.send_json({"valid": False, "error": "Invalid key"})
+                return
+
+            if not found.get("active", True):
+                self.send_json({"valid": False, "error": "Key disabled"})
+                return
+
+            from datetime import datetime
+            try:
+                expires = datetime.fromisoformat(found.get("expires_at", ""))
+                if datetime.now() > expires:
+                    self.send_json({"valid": False, "error": "Key expired"})
+                    return
+            except Exception:
+                pass
+
+            # Device tracking
+            if device_id:
+                used = found.get("used_devices", [])
+                if device_id not in used:
+                    max_dev = found.get("max_devices", 2)
+                    if len(used) >= max_dev:
+                        self.send_json({
+                            "valid": False,
+                            "error": "Max devices reached"
+                        })
+                        return
+                    used.append(device_id)
+                    found["used_devices"] = used
+                    save_keys(keys_data)
+
+            self.send_json({
+                "valid": True,
+                "key": found.get("key"),
+                "type": found.get("type"),
+                "label": found.get("label"),
+                "expires_at": found.get("expires_at")
+            })
 
             return
 
