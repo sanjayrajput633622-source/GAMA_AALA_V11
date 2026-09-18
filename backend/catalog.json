@@ -47,7 +47,7 @@
     {
       "id": "aaj-tak-hd",
       "title": "Aaj Tak HD",
-      "video_url": "",
+      "video_url": "https://feeds.intoday.in/aajtak/api/aajtakhd/master.m3u8",
       "lang": "Hindi",
       "category": "News",
       "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Aaj_Tak_logo.svg/200px-Aaj_Tak_logo.svg.png",
@@ -55,13 +55,13 @@
       "current_program": "Aaj Tak Live",
       "next_program": "",
       "authorized": true,
-      "source_type": "official_page",
-      "source_url": "https://www.aajtak.in/livetv"
+      "source_type": "hls",
+      "source_url": "https://feeds.intoday.in/aajtak/api/aajtakhd/master.m3u8"
     },
     {
       "id": "republic-bharat",
       "title": "Republic Bharat",
-      "video_url": "",
+      "video_url": "https://raw.githubusercontent.com/amazeyourself/adaptive-streams/refs/heads/main/streams/in/YuppTV/RepublicBharat.m3u8",
       "lang": "Hindi",
       "category": "News",
       "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Republic_Bharat_Logo.jpg/200px-Republic_Bharat_Logo.jpg",
@@ -69,13 +69,13 @@
       "current_program": "Republic Bharat Live",
       "next_program": "",
       "authorized": true,
-      "source_type": "official_page",
-      "source_url": "https://www.republicbharat.com/livetv"
+      "source_type": "hls",
+      "source_url": "https://raw.githubusercontent.com/amazeyourself/adaptive-streams/refs/heads/main/streams/in/YuppTV/RepublicBharat.m3u8"
     },
     {
       "id": "tv9-bharatvarsh",
       "title": "TV9 Bharatvarsh",
-      "video_url": "",
+      "video_url": "https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9hinjzgtpe/liveabr/playlist.m3u8",
       "lang": "Hindi",
       "category": "News",
       "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/TV9_Bharatvarsh_Logo.png/200px-TV9_Bharatvarsh_Logo.png",
@@ -83,13 +83,13 @@
       "current_program": "TV9 Bharatvarsh Live",
       "next_program": "",
       "authorized": true,
-      "source_type": "official_page",
-      "source_url": "https://www.tv9hindi.com/live-tv"
+      "source_type": "hls",
+      "source_url": "https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9hinjzgtpe/liveabr/playlist.m3u8"
     },
     {
       "id": "abp-news",
       "title": "ABP News",
-      "video_url": "",
+      "video_url": "https://d1rc86nwwc9fag.cloudfront.net/vglive-sk-472500/abpnews/master.m3u8",
       "lang": "Hindi",
       "category": "News",
       "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/ABP_News_logo.svg/200px-ABP_News_logo.svg.png",
@@ -97,13 +97,13 @@
       "current_program": "ABP News Live",
       "next_program": "",
       "authorized": true,
-      "source_type": "official_page",
-      "source_url": "https://www.abplive.com/live-tv"
+      "source_type": "hls",
+      "source_url": "https://d1rc86nwwc9fag.cloudfront.net/vglive-sk-472500/abpnews/master.m3u8"
     },
     {
       "id": "zee-news",
       "title": "ZEE News",
-      "video_url": "",
+      "video_url": "https://dknttpxmr0dwf.cloudfront.net/index_57.m3u8",
       "lang": "Hindi",
       "category": "News",
       "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Zee_News_logo.png/200px-Zee_News_logo.png",
@@ -111,13 +111,13 @@
       "current_program": "ZEE News Live",
       "next_program": "",
       "authorized": true,
-      "source_type": "official_page",
-      "source_url": "https://www.zee5.com/live-tv/zee-news/0-9-zeenews"
+      "source_type": "hls",
+      "source_url": "https://dknttpxmr0dwf.cloudfront.net/index_57.m3u8"
     },
     {
       "id": "ndtv-india",
       "title": "NDTV India",
-      "video_url": "",
+      "video_url": "https://ndtvindiaelemarchana.akamaized.net/hls/live/2003679/ndtvindia/master.m3u8",
       "lang": "Hindi",
       "category": "News",
       "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/NDTV_India_logo.png/200px-NDTV_India_logo.png",
@@ -125,8 +125,8 @@
       "current_program": "NDTV India Live",
       "next_program": "",
       "authorized": true,
-      "source_type": "official_page",
-      "source_url": "https://ndtv.in/livetv-ndtvindia"
+      "source_type": "hls",
+      "source_url": "https://ndtvindiaelemarchana.akamaized.net/hls/live/2003679/ndtvindia/master.m3u8"
     },
     {
       "id": "janhit",
@@ -159,7 +159,7 @@
     {
       "id": "gnt",
       "title": "Good News Today",
-      "video_url": "",
+      "video_url": "https://aajtaklive.vgcdn.net/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/3196cced-ce29-4219-9809-f07ccdaa02b9/vglive-sk-848805/master.m3u8",
       "lang": "Hindi",
       "category": "News",
       "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Good_News_Today_Logo.png/200px-Good_News_Today_Logo.png",
@@ -167,8 +167,8 @@
       "current_program": "",
       "next_program": "",
       "authorized": true,
-      "source_type": "official_page",
-      "source_url": "https://www.indiatoday.in/gnt-livetv"
+      "source_type": "hls",
+      "source_url": "https://aajtaklive.vgcdn.net/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/3196cced-ce29-4219-9809-f07ccdaa02b9/vglive-sk-848805/master.m3u8"
     },
     {
       "id": "aaj-ki-murli",
@@ -327,7 +327,7 @@
     {
       "id": "good-news-today",
       "title": "Good News Today",
-      "video_url": "",
+      "video_url": "https://aajtaklive.vgcdn.net/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/3196cced-ce29-4219-9809-f07ccdaa02b9/vglive-sk-848805/master.m3u8",
       "lang": "Hindi",
       "category": "News",
       "poster": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Good_News_Today_Logo.png/200px-Good_News_Today_Logo.png",
@@ -335,8 +335,8 @@
       "current_program": "Good News Today Live",
       "next_program": "",
       "authorized": true,
-      "source_type": "official_page",
-      "source_url": "https://www.indiatoday.in/gnt-livetv"
+      "source_type": "hls",
+      "source_url": "https://aajtaklive.vgcdn.net/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/3196cced-ce29-4219-9809-f07ccdaa02b9/vglive-sk-848805/master.m3u8"
     },
     {
       "id": "4sidestvin",
