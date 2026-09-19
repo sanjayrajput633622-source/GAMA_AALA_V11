@@ -66,7 +66,7 @@ def save_catalog(catalog):
 def all_content(catalog):
     items = []
 
-    for key in ["content", "movies", "series"]:
+    for key in ["content", "movies", "series", "shorts"]:
         for item in catalog.get(key, []):
             if isinstance(item, dict):
                 items.append(item)
